@@ -1,0 +1,7 @@
+evals/results/*
+!evals/results/.gitkeep
+!evals/results/README.md
+__pycache__/
+*.pyc
+dist/
+.DS_Store
