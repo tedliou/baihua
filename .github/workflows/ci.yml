@@ -1,0 +1,56 @@
+name: ci
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  plugin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Validate plugin and skill
+        run: |
+          npm install -g @anthropic-ai/claude-code
+          claude plugin validate --strict .
+      - name: Check SKILL.md size
+        run: |
+          lines=$(wc -l < skills/zh-tw-prose/SKILL.md)
+          echo "SKILL.md: $lines lines"
+          test "$lines" -lt 500
+
+  check-script:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python: ["3.9", "3.13"]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Unit tests
+        run: python -m unittest discover -s tests -v
+      - name: Lint the project's own prose
+        run: python skills/zh-tw-prose/scripts/check.py README.md CONTRIBUTING.md docs/design.md evals/README.md
+
+  link-scripts:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: shellcheck
+        run: shellcheck scripts/link.sh
+      - name: Link into a temporary config dir
+        run: |
+          export CLAUDE_CONFIG_DIR="$(mktemp -d)"
+          bash scripts/link.sh
+          test -f "$CLAUDE_CONFIG_DIR/skills/zh-tw-prose/SKILL.md"
+          bash scripts/link.sh | grep -q '^ok'
