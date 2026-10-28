@@ -1,67 +1,98 @@
 # Eval
 
-這裡的案例用 `claude plugin eval` 執行，確認 skill 有幫助、會在該用的時候載入，而且修改後不退化。
+這裡的題目用 `claude plugin eval` 執行，確認 skill 會在該用的時候載入、改寫的結果符合規則，而且修改後不退化。eval 會實際呼叫模型並產生費用，所以分成四層，平常只跑和改動有關的題目。
 
-## 案例
+## 題目
 
-| 標籤 | 數量 | 檢查什麼 |
+| 位置 | 數量 | 內容 |
 | --- | --- | --- |
-| `behavior` | 17 | 寫出或改出的文字是否符合規則。每個案例同時跑有 skill 與沒有 skill 兩組，比較分數差（Δ）。 |
-| `trigger` | 16 | 該用的請求會載入 skill（8 個），不該用的請求不會載入（8 個）。 |
+| `evals/`，標籤 `behavior` | 10 | 固定題。5 題檢查過度修改，1 題檢查不捏造事實，4 題涵蓋社群貼文、公告、PR 說明與 README 這些題庫沒有真實案例的語域。 |
+| `evals/`，標籤 `trigger` | 16 | 觸發題。8 題該載入 skill，8 題不該載入。每題只給 1 回合，看第一步有沒有呼叫 Skill。 |
+| `eval-bank/` | 35 | 抽考題庫。29 題取自真實改稿案例，6 題是自己寫的示範題。 |
 
-行為案例的評分分兩種：
+題庫的每一題都有標籤：
 
-- regex：檢查 AI 腔片語、假對比、對岸用語、半形標點、中英文空格、emoji，以及必須保留的事實。
-- llm：由評審模型依案例寫明的 PASS／FAIL 條件判斷，三票取多數。
+- 類別，四選一：`ai-flavor`（AI 腔）、`translationese`（翻譯腔）、`glossary`（照用詞表或專案規則改詞）、`core-rule`（核心規則，以及該保留不要改的寫法）。
+- 來源，四選一：`src-hand` 是作者親手改的文字，`src-directed` 是作者指示後改寫、經作者認可的文字，`src-self` 是依規則自查修改的文字，`src-synthetic` 是自己寫的示範題。
+- `false-positive`：原文是對的，不該改。
+- `no-spacing`：介面字串，中英文之間本來不加空格，不套用空格檢查。
+- `keep-punct`：題目要求保留原文的標點，不套用標點檢查。
 
-標了 `false-positive` 的 5 個案例專門檢查過度改寫：`keep-good-text`（自然的段落）、`keep-real-correction`（讀者真的有誤解時的更正句）、`keep-formal-terms`（服務條款的法律用語）、`keep-warning-and-passive`（寫出後果的警告與不幸的被動句）、`keep-real-list`（真正並列的清單）。另外 `condense-keep-complete` 檢查精簡時不刪掉助詞。
+評分方式：
 
-## 執行
+- regex：檢查用詞表規定的詞、不得出現的舊詞與必須保留的事實。
+- llm：由評審模型依題目寫明的 PASS／FAIL 條件判斷，三票取多數。條件寫成「原文的問題已經消失，事實都還在」，不要求和作者的後版逐字相同。`src-self` 題只檢查問題有沒有消失。
+- 題庫題執行時，會自動加上 `eval-bank/_common/` 的共用檢查：emoji、對岸用語、半形標點與中英文空格。
 
-```bash
-# 行為：有 skill 與沒有 skill 各跑兩次
-claude plugin eval . --tag behavior --runs 2 --judge-model sonnet -j 4
+## 分層
 
-# 觸發：只跑有 skill 的一組
-claude plugin eval . --tag trigger --ablation none --runs 3 -j 4
+```text
+L0  每次 push 由 CI 執行，不花額度
+    python -m unittest discover -s tests
+    檢查 P01–P25、T01–T10 的欄位、description 長度、題目格式、
+    題庫原文沒有出現在 skill 範例裡，以及抽題的分層是否正確
+
+L1  改 skill 文字時
+    python scripts/eval.py L1 --tag <標籤> 或 --case <題目>
+    只跑相關題目，只跑有 skill 的一組
+
+L2  發 release 前
+    python scripts/eval.py L2
+    固定題 10 題、從題庫抽考 8 題、觸發題 16 題，只跑有 skill 的一組
+
+L3  換模型版本時
+    python scripts/eval.py L3 --update-baseline
+    固定題與整個題庫都跑有 skill 與沒有 skill 兩組，重建 baseline.json
 ```
 
-結果寫到 `evals/results/<時間>/`，這個資料夾不進版本控制。eval 會實際呼叫模型並產生費用。2026-10-28 用上面的指令跑一次，行為測試約 4 美元，觸發測試約 3.8 美元。
+所有分層都用 Sonnet 執行，評審模型也用 Sonnet。Haiku 評審會數錯中文字數，不採用。
 
-## 修改 skill 時
+抽考時每個類別至少抽 1 題，其餘名額隨機抽。抽題用的 seed 會印出來，也寫進結果的 `summary.json`。用 `--seed` 帶入同一個數字，就會抽到同一組題目。
 
-1. 修改前先跑一次，記下各案例分數。
-2. 修改後再跑一次。任何案例的 with 分數下降，或觸發案例出現誤觸發，都要先查原因再合併。
-3. 新規則要附對應案例，至少一個「該改」與一個「不該改」。
+`--dry-run` 只列出會跑哪些題目，不花額度。
 
-## 最新結果
+## 退化的判斷
 
-2026-10-28，Claude Code 2.1.309，預設模型，評審模型 Sonnet，每組跑 3 次。「修改前」是 v0.1.0 的 skill 跑同一套案例。
+每題只跑 1 次，分數和 `evals/baseline.json` 比較。下列情況算退化，`eval.py` 會以非零狀態結束：
 
-每次執行的分數是通過的評分項目占全部項目的比例，介於 0 與 1。表中是各次執行的平均，Δ 是有 skill 減沒有 skill。
+- 任一題比基準下降 0.17 以上。
+- 有基準的題目平均下降 0.03 以上。
+- 任一觸發題判斷錯誤。
 
-| 案例 | 修改前（有 skill） | 有 skill | 沒有 skill |
+被標成退化的題目，用 `--case` 指定、加上 `--runs 3` 重跑確認，排除單次的隨機誤差。
+
+沒有 skill 的一組平常不跑。這組回答的是「skill 有沒有幫上忙」，在 L3 量過一次就夠了。改 skill 時要問的是「有沒有比上次差」，拿有 skill 的分數和基準比較就能回答。換模型版本時，舊的差距不一定成立，才需要重新量。
+
+## 私有題庫
+
+不能公開的真實案例放在 repo 之外，格式和 `eval-bank/` 相同，用 `--private <資料夾>` 合併進來。私有題的名稱前面會加上 `p-`，基準分數寫進該資料夾的 `baseline.json`。
+
+資料夾裡可以放 `forbidden.txt`，一行一個字串。執行時如果公開題目出現這些字串，`eval.py` 會停下來，提醒先把題目移到私有題庫。
+
+## 新增題目
+
+1. 在 `eval-bank/<題目名稱>/` 建立 `prompt.md` 與 `graders/`。名稱描述問題，不寫專案名稱。
+2. `prompt.md` 放任務說明、判斷需要的上下文（例如用詞表節錄）、原文，最後一行寫「只輸出成品本身，不要加任何說明、前言或改了什麼的清單。」
+3. 至少一個 llm grader。用詞表規定的詞再加 regex grader。regex 一律用 YAML 單引號，多行模式用 `flags: m`。
+4. 跑 `python -m unittest discover -s tests` 確認格式，再用 `python scripts/eval.py L1 --case <題目名稱> --with-without --update-baseline` 跑一次並寫入基準。
+
+## 結果
+
+`eval.py` 把每次執行的結果寫到 `eval-run/<時間>/`，這個資料夾不進版本控制。
+
+## 基準分數
+
+2026-10-28 建立，Claude Code 2.1.309，模型與評審都用 Sonnet，每題跑 1 次。各題分數存在 `evals/baseline.json`，下表是各組的平均。
+
+| 組別 | 題數 | 有 skill | 沒有 skill |
 | --- | --- | --- | --- |
-| compose-with-glossary | 0.94 | 1.00 | 1.00 |
-| condense-keep-complete | 1.00 | 0.96 | 0.93 |
-| fix-translationese | 1.00 | 1.00 | 1.00 |
-| keep-formal-terms | 1.00 | 1.00 | 1.00 |
-| keep-good-text | 1.00 | 1.00 | 0.50 |
-| keep-real-correction | 0.92 | 1.00 | 1.00 |
-| keep-real-list | 1.00 | 1.00 | 0.93 |
-| keep-warning-and-passive | 0.92 | 1.00 | 0.88 |
-| localize-mainland-terms | 1.00 | 1.00 | 1.00 |
-| no-fabrication | 1.00 | 1.00 | 0.96 |
-| rewrite-ai-paragraph | 0.93 | 1.00 | 0.90 |
-| write-article-intro | 0.93 | 1.00 | 0.63 |
-| write-maintenance-notice | 1.00 | 1.00 | 0.67 |
-| write-pr-description | 0.94 | 0.94 | 0.83 |
-| write-readme-intro | 0.86 | 1.00 | 0.86 |
-| write-social-post | 1.00 | 1.00 | 0.72 |
-| write-ui-errors | 1.00 | 1.00 | 1.00 |
+| 固定題 | 10 | 0.97 | 0.89 |
+| 題庫：AI 腔 | 19 | 0.88 | 0.79 |
+| 題庫：翻譯腔 | 3 | 0.87 | 0.87 |
+| 題庫：用詞表與專案規則 | 6 | 0.95 | 0.87 |
+| 題庫：核心規則 | 7 | 0.97 | 0.90 |
+| 全部 | 45 | 0.92 | 0.84 |
 
-平均 Δ 從修改前的 +0.08 升到 +0.12。同一套案例改用 Sonnet 執行，17 個案例全部通過，平均 Δ 為 +0.08。Sonnet 在 `compose-with-glossary` 與 `condense-keep-complete` 這類很短的任務上仍常常不載入 skill，這兩個案例的差距因此接近 0。觸發案例在預設模型與 Sonnet 上 48 次全部正確。Haiku 每案跑 5 次，介面文案、公告與在地化各有 1 到 2 次沒有載入 skill。
+觸發題 16 題只給 1 回合，全部判斷正確。
 
-已知問題：
-
-- Haiku 對短文案的觸發不穩定。
+真實案例比自己寫的示範題難。不少題目在有 skill 時仍保留了原文的問題，例如沒刪掉「分工很清楚」這類先下評語的開頭、「幾乎開箱即用」這類評價，以及「不要繼續亂改」這類說教。這些題目是之後改 skill 的方向。翻譯腔的 3 題有沒有 skill 分數相同，題數也少，之後要補題。

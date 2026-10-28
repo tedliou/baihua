@@ -31,7 +31,7 @@ Claude API: upload the `skills/zh-tw-prose` folder through the Skills API.
 
 ## Evals
 
-33 cases run with `claude plugin eval`: 17 behaviour cases (5 of them check that good text is left alone) compare with-skill and without-skill scores, and 16 trigger cases check that the skill loads when it should and stays out otherwise. See [evals/README.md](evals/README.md).
+Tests run with `claude plugin eval` in four tiers, so day-to-day changes only run the cases they touch. There are 10 fixed behaviour cases (5 of them check that good text is left alone), 16 trigger cases, and a bank of 35 cases, mostly taken from real edits, from which 8 are sampled before each release. See [evals/README.md](evals/README.md).
 
 ## Limits
 
