@@ -1,6 +1,6 @@
 ---
 description: "照用詞表把「生命值」「生命回復」統一成「血量」「血量回復」，數字與括號說明不動"
-tags: [bank, glossary, src-directed, no-spacing]
+tags: [bank, glossary, src-directed, no-spacing, keep-punct]
 max_turns: 8
 allowed_tools: [Read, Glob, Grep, Skill]
 ---

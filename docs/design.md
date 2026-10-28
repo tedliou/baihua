@@ -9,7 +9,7 @@ skill 只決定句子怎麼寫：句法、語氣、用詞、標點與段落組�
 ## 三層結構
 
 ```
-SKILL.md            核心規則，觸發時載入（約 3,000 字）
+SKILL.md            核心規則、語域要點、檢查清單，觸發時載入
 references/         依需要讀取
   registers/*.md    六種語域的寫法
   patterns.md       AI 腔模式 P01–P25
@@ -24,7 +24,14 @@ scripts/check.py    機械檢查
 
 上面是 `skills/zh-tw-prose/` 的內容，也就是上傳到 claude.ai 的部分。repo 根目錄另有審稿子代理 `agents/`、常駐片段 `snippets/` 與測試案例 `evals/`，它們不在 skill 資料夾裡。
 
-SKILL.md 保持精簡，因為 Claude Code 在對話壓縮後只保留每個 skill 的前 5,000 token（token 是模型計算文字長度的單位，見 [Claude Code skills 文件](https://code.claude.com/docs/en/skills)）。細節放在 references，只在需要時讀。
+SKILL.md 控制在 5,000 token 以內，因為 Claude Code 在對話壓縮後只保留每個 skill 的前 5,000 token（token 是模型計算文字長度的單位，見 [Claude Code skills 文件](https://code.claude.com/docs/en/skills)）。
+
+哪些內容放 SKILL.md，依「作答當下會不會用到」決定。2026-10-28 的 eval 檢查了 20 次潤稿與改寫：每次都有載入 skill，但沒有一次讀過 references，模型載入 skill 後就直接作答。所以改稿時每一句都要對照的東西放在 SKILL.md：
+
+- 檢查清單：每一類問題的常見寫法、處理方式與保留條件，各一行。
+- 語域表：每種語域最重要的兩三條規則。
+
+references 放完整說明、前後例與長文才需要的細節，例如文章的開頭與結構、介面文字的各種元件。SKILL.md 寫明寫整篇文章或整份文件時才讀這些檔案。
 
 SKILL.md 直接連到每一個 references 檔，Claude 從 SKILL.md 一步就能找到需要的檔案。references 之間也有幾處互相指引，例如 patterns.md 指向 translationese.md，但被指到的檔案都能從 SKILL.md 直接找到，不依賴這些連結。
 
@@ -38,7 +45,9 @@ SKILL.md 直接連到每一個 references 檔，Claude 從 SKILL.md 一步就能
 4. 前後例：自己寫的例句，多數模式有。
 5. 保留：什麼時候這個寫法是對的。
 
-保留條件最重要。只列禁止事項的規則會讓模型過度改寫，把讀者真的有誤解時才用的「不是 A 而是 B」也改掉。所以每個模式都寫了保留條件，SKILL.md 的改稿規則也要求先對照保留條件再改。evals 裡標了 `false-positive` 的案例專門檢查這件事。
+保留條件很重要。只列禁止事項的規則會讓模型過度改寫，把讀者真的有誤解時才用的「不是 A 而是 B」也改掉。所以每個模式都寫了保留條件，SKILL.md 的檢查清單也有「保留」欄。evals 裡標了 `false-positive` 的案例專門檢查這件事。
+
+但漏改和過度改寫一樣常見。用真實改稿案例測試時，模型被要求「潤稿」，常常只修標點與用字，留下先下評語的開頭、沒有依據的評價與說教句。所以 SKILL.md 的改稿步驟是先逐句對照清單、找出要處理的句子，再用保留條件排除對的寫法，而不是先假設文字沒問題。清單的例句刻意不用 eval 題庫裡的原句，讓題庫能檢查規則有沒有類推到沒看過的寫法。
 
 ## 優先順序
 
