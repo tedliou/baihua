@@ -1,0 +1,11 @@
+baihua
+Copyright (c) 2026 Ted Liou
+Licensed under the MIT License (see LICENSE).
+
+skills/zh-tw-prose/references/taiwan-usage.md is partly based on the Taiwan
+phrase list (TWPhrases) of OpenCC, Copyright (c) Carbo Kuo and contributors,
+licensed under the Apache License 2.0: https://github.com/BYVoid/OpenCC
+
+The writing rules summarise ideas from the sources listed in docs/sources.md.
+No text from those sources is reproduced; every example sentence was written
+for this project.

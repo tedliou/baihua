@@ -1,0 +1,31 @@
+name: 新的寫作模式
+description: 提出一個讀者會認出的 AI 腔、翻譯腔或其他寫作問題
+labels: [pattern]
+body:
+  - type: textarea
+    id: pattern
+    attributes:
+      label: 模式
+      description: 用一句話描述這個寫法，例如「段尾用一句格言收束」。
+    validations:
+      required: true
+  - type: textarea
+    id: before
+    attributes:
+      label: 原文例句
+      description: 自己寫的例句，或註明來源。不要貼他人的長篇文字。
+    validations:
+      required: true
+  - type: textarea
+    id: after
+    attributes:
+      label: 改寫後
+    validations:
+      required: true
+  - type: textarea
+    id: keep
+    attributes:
+      label: 什麼時候應該保留
+      description: 這個寫法在哪些情況下是正確的。沒有這一欄，規則容易誤傷好文字。
+    validations:
+      required: true

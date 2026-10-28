@@ -1,0 +1,23 @@
+name: 誤判或過度改寫
+description: skill 或 check.py 把沒有問題的文字當成問題
+labels: [false-positive]
+body:
+  - type: textarea
+    id: text
+    attributes:
+      label: 原文
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: skill 或 check.py 的輸出
+      description: check.py 請貼完整輸出行，skill 請貼改寫結果。
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: 為什麼原文是對的
+    validations:
+      required: true

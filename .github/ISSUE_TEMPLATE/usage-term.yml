@@ -1,0 +1,28 @@
+name: 用語對照
+description: 新增、修改或移除 taiwan-usage.md 的一列
+labels: [usage]
+body:
+  - type: input
+    id: avoid
+    attributes:
+      label: 不要用
+    validations:
+      required: true
+  - type: input
+    id: use
+    attributes:
+      label: 改用
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 依據
+      description: 例如教育部辭典、國家教育研究院雙語詞彙、主要軟體的台灣在地化介面。
+    validations:
+      required: true
+  - type: textarea
+    id: exception
+    attributes:
+      label: 例外
+      description: 哪些詞包含這個字串但不該被標出，例如「演算法」包含「算法」。

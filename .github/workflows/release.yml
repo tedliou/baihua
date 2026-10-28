@@ -1,0 +1,25 @@
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  zip:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the skill zip for claude.ai upload
+        run: |
+          mkdir -p dist
+          cd skills
+          zip -r ../dist/zh-tw-prose.zip zh-tw-prose -x '*/__pycache__/*'
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" dist/zh-tw-prose.zip \
+            --title "$GITHUB_REF_NAME" --notes "見 CHANGELOG.md。claude.ai 使用者下載 zh-tw-prose.zip，在「設定 → 功能 → Skills」上傳。"
