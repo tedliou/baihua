@@ -12,7 +12,7 @@ body:
     id: result
     attributes:
       label: skill 或 check.py 的輸出
-      description: check.py 請貼完整輸出行，skill 請貼改寫結果。
+      description: check.py 請貼完整輸出行，skill 請貼改寫結果。知道是哪個模式（例如 P07、T03）或 check.py 規則時請一併寫出。
     validations:
       required: true
   - type: textarea

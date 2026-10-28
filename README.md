@@ -2,33 +2,39 @@
 
 [English](README.en.md)
 
-讓 Claude 寫出台灣讀者讀得順的正體中文。`zh-tw-prose` skill 在寫文章、文件、介面文案、公告與 PR 時載入，避開 AI 腔、翻譯腔與對岸用語，句子完整、先給答案。
+讓 Claude 寫出台灣讀者讀得順的正體中文。`zh-tw-prose` 是一個 skill，也就是 Claude 在需要時才載入的一組指示。Claude 寫文章、文件、介面文案、公告與 PR 時會載入它，避開 AI 腔、翻譯腔與對岸用語，把句子寫完整、先給答案。
 
 ## 改寫前後
 
-AI 腔：
+AI 腔，改寫前：
 
 > 在當今快速發展的數位時代，持續整合扮演著至關重要的角色。我們導入了全新的建置快取機制，這不僅大幅提升了開發效率，更標誌著工程文化的全新里程碑。
 
+改寫後：
+
 > 我們在 CI 加上建置快取，建置時間從 90 秒降到 20 秒。
 
-翻譯腔：
+翻譯腔，改寫前：
 
 > 在對設定檔進行修改之後，系統將會針對所有服務作出重新啟動的動作。
 
+改寫後：
+
 > 改完設定檔，系統會重新啟動所有服務。
 
-電報式短句：
+電報式短句，改寫前：
 
 > 設定完成。重啟生效。失敗查 log。
 
+改寫後：
+
 > 設定完成後要重新啟動才會生效。如果啟動失敗，先查看 log 裡的錯誤訊息。
 
-## 它做什麼
+## 功能
 
 - 10 條核心規則，每條附理由，讓 Claude 在規則沒寫到的情況下也能判斷。
 - 6 種語域：技術文章、參考文件、介面文字、工作報告、社群貼文、正式文件。
-- 25 個 AI 腔模式與 10 個翻譯腔模式，每個都附前後例與「什麼時候該保留」，避免把好文字改壞。
+- 25 個 AI 腔模式與 10 個翻譯腔模式，每個都寫明理由與改法，多數附前後例。容易誤傷好文字的模式另外寫明什麼情況要保留。
 - 台灣用語對照表，以及只用 Python 標準函式庫的檢查腳本 `check.py`。
 - 審稿子代理 `zh-tw-reviewer`，以沒看過寫作過程的角度讀全文。
 
@@ -43,11 +49,11 @@ AI 腔：
 /plugin install baihua@baihua
 ```
 
-安裝後 skill 與審稿子代理都會啟用。
+安裝後 skill 與審稿子代理都會啟用。plugin 是 Claude Code 的擴充套件格式，可以同時裝好 skill 與子代理。
 
 ### claude.ai
 
-從 [Releases](https://github.com/tedliou/baihua/releases) 下載 `zh-tw-prose.zip`，在「設定 → 功能 → Skills」上傳。claude.ai 的程式碼執行功能要開啟，`check.py` 才能執行。
+從 [Releases](https://github.com/tedliou/baihua/releases) 下載 `zh-tw-prose.zip`，在 claude.ai 的設定頁上傳。claude.ai 要先開啟程式碼執行功能才能使用 skill。
 
 ### Claude API
 
@@ -61,15 +67,15 @@ cd baihua
 bash scripts/link.sh
 ```
 
-Windows 用 `pwsh scripts/link.ps1`。腳本把 skill 連結到 `~/.claude/skills`，改 repo 裡的檔案會立刻生效。
+Windows 用 `pwsh scripts/link.ps1`。腳本把 skill 連結到 `~/.claude/skills`，改 repo 裡的 skill 會立刻生效。審稿子代理在 macOS 與 Linux 是連結，在 Windows 是複製，所以 Windows 上改了 `agents/` 要重跑一次腳本。
 
 ## 使用
 
 不需要特別指令。請 Claude 寫或改中文文章、README、錯誤訊息、公告時，skill 會自動載入。也可以用 `/zh-tw-prose` 直接呼叫。
 
-一般問答、簡體中文、英文寫作與寫程式時不會載入。想讓平常的對話回覆也照同樣原則寫，把 [snippets/claude-md.md](snippets/claude-md.md) 的片段貼進 `CLAUDE.md`。
+一般問答、簡體中文、英文寫作與寫程式時不會載入。想讓平常的對話回覆也照同樣原則寫，把 [snippets/claude-md.md](snippets/claude-md.md) 的片段貼進 `CLAUDE.md`。這段不含空白約 380 字，每個 session 都會載入。
 
-檢查腳本也可以單獨用：
+檢查腳本也可以單獨用，需要 Python 3.9 以上，不必安裝其他套件：
 
 ```bash
 python skills/zh-tw-prose/scripts/check.py docs/*.md
@@ -83,8 +89,9 @@ python skills/zh-tw-prose/scripts/check.py README.md --glossary GLOSSARY.md
 | `--no-spacing` | 不檢查中英文之間的空格 |
 | `--no-hints` | 不顯示 AI 腔片語提示 |
 | `--strict` | 提示也視為錯誤 |
+| `--markdown` | 從標準輸入讀取時，當成 Markdown 處理 |
 
-## 和專案設定搭配
+## 專案設定
 
 規則衝突時依這個順序：你這次的指示、專案的文風檔與用詞表、其他 skill 的領域規定、本 skill 的語域、本 skill 的核心規則。
 
