@@ -36,30 +36,33 @@ claude plugin eval . --tag trigger --ablation none --runs 3 -j 4
 
 ## 最新結果
 
-2026-10-28，Claude Code 2.1.309，評審模型 Sonnet。行為案例每組跑 2 次，觸發案例跑 3 次。
+2026-10-28，Claude Code 2.1.309，預設模型，評審模型 Sonnet，每組跑 3 次。「修改前」是 v0.1.0 的 skill 跑同一套案例。
 
-每次執行的分數是通過的評分項目占全部項目的比例，介於 0 與 1。表中是同一組各次執行的平均，Δ 是有 skill 減沒有 skill。
+每次執行的分數是通過的評分項目占全部項目的比例，介於 0 與 1。表中是各次執行的平均，Δ 是有 skill 減沒有 skill。
 
-| 案例 | 有 skill | 沒有 skill | Δ |
+| 案例 | 修改前（有 skill） | 有 skill | 沒有 skill |
 | --- | --- | --- | --- |
-| write-article-intro | 1.00 | 0.67 | +0.33 |
-| write-maintenance-notice | 1.00 | 0.67 | +0.33 |
-| keep-good-text | 0.83 | 0.50 | +0.33 |
-| write-pr-description | 1.00 | 0.83 | +0.17 |
-| write-social-post | 1.00 | 0.83 | +0.17 |
-| no-fabrication | 1.00 | 1.00 | 0.00 |
-| localize-mainland-terms | 1.00 | 1.00 | 0.00 |
-| write-ui-errors | 1.00 | 1.00 | 0.00 |
-| condense-keep-complete | 1.00 | 1.00 | 0.00 |
-| write-readme-intro | 0.93 | 0.93 | 0.00 |
-| rewrite-ai-paragraph | 0.90 | 0.90 | 0.00 |
-| compose-with-glossary | 0.92 | 1.00 | -0.08 |
+| compose-with-glossary | 0.94 | 1.00 | 1.00 |
+| condense-keep-complete | 1.00 | 0.96 | 0.93 |
+| fix-translationese | 1.00 | 1.00 | 1.00 |
+| keep-formal-terms | 1.00 | 1.00 | 1.00 |
+| keep-good-text | 1.00 | 1.00 | 0.50 |
+| keep-real-correction | 0.92 | 1.00 | 1.00 |
+| keep-real-list | 1.00 | 1.00 | 0.93 |
+| keep-warning-and-passive | 0.92 | 1.00 | 0.88 |
+| localize-mainland-terms | 1.00 | 1.00 | 1.00 |
+| no-fabrication | 1.00 | 1.00 | 0.96 |
+| rewrite-ai-paragraph | 0.93 | 1.00 | 0.90 |
+| write-article-intro | 0.93 | 1.00 | 0.63 |
+| write-maintenance-notice | 1.00 | 1.00 | 0.67 |
+| write-pr-description | 0.94 | 0.94 | 0.83 |
+| write-readme-intro | 0.86 | 1.00 | 0.86 |
+| write-social-post | 1.00 | 1.00 | 0.72 |
+| write-ui-errors | 1.00 | 1.00 | 1.00 |
 
-觸發案例 16 個全部通過：8 個該用的請求每次都載入 skill，8 個不該用的請求一次都沒有載入。
-
-Δ 為 0 的案例，兩組分數相同，skill 在這些案例沒有造成差異，留著當回歸測試。
+平均 Δ 從修改前的 +0.08 升到 +0.12。觸發案例在預設模型與 Sonnet 上 48 次全部正確。Haiku 每案跑 5 次，介面文案、公告與在地化各有 1 到 2 次沒有載入 skill。
 
 已知問題：
 
-- `compose-with-glossary`：有 skill 的一次執行中，`ui-quality` 評分項目的三位評審 1 票通過、2 票不通過，這次得 0.83，平均成 0.92。下次修改後如果同一項目再次不通過，就要查原因。
-- `keep-good-text`：有 skill 的兩次執行中，有一次把原文的「八成」改成「多半」，是目前已知的過度改寫。
+- Sonnet 的行為測試這次沒有跑完整，結果待補。
+- Haiku 對短文案的觸發不穩定。
