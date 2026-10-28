@@ -1,4 +1,4 @@
 ---
 type: regex
-pattern: '被盜用|遭盜用|被盜'
+pattern: '被盜|遭(到)?盜用'
 ---

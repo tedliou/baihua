@@ -25,17 +25,19 @@ python skills/zh-tw-prose/scripts/check.py README.md
 claude plugin validate --strict .
 ```
 
-改動 SKILL.md 或 references 時跑行為 eval，改動 description 時跑觸發 eval，並在 PR 說明附上結果摘要。eval 需要 Claude Code，會實際呼叫模型並產生費用，細節見 [evals/README.md](evals/README.md)。
+改動 SKILL.md 或 references 時，用 `scripts/eval.py` 跑 eval，並在 PR 說明附上結果摘要。eval 需要 Claude Code，會實際呼叫模型並產生費用，分層方式見 [evals/README.md](evals/README.md)。
 
 ```bash
-# 行為
-claude plugin eval . --tag behavior --runs 2 --judge-model sonnet
+# 只跑和改動有關的題目，例如改了保留條件
+python scripts/eval.py L1 --tag false-positive
 ```
 
 ```bash
-# 觸發
-claude plugin eval . --tag trigger --ablation none --runs 3
+# 發 release 前：固定題、抽考 8 題與觸發題
+python scripts/eval.py L2
 ```
+
+新增 eval 題目時，真實改稿案例放進 `eval-bank/`，格式見 [evals/README.md](evals/README.md)。
 
 ## 分支
 

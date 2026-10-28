@@ -30,7 +30,7 @@ ROOT = Path(__file__).resolve().parents[1]
 FIXED_DIR = ROOT / "evals"
 BANK_DIR = ROOT / "eval-bank"
 COMMON_GRADERS = BANK_DIR / "_common" / "graders"
-RUN_DIR = ROOT / ".eval-run"
+RUN_DIR = ROOT / "eval-run"
 BASELINE = FIXED_DIR / "baseline.json"
 
 MODEL = "sonnet"
@@ -111,6 +111,8 @@ def assemble(target, cases):
             continue
         for g in COMMON_GRADERS.glob("*.md"):
             if g.stem == "cjk-latin-spacing" and "no-spacing" in case.tags:
+                continue
+            if g.stem == "fullwidth-punctuation" and "keep-punct" in case.tags:
                 continue
             shutil.copy(g, dest / "graders" / f"common-{g.name}")
 
@@ -214,6 +216,7 @@ def main():
     parser.add_argument("--seed", type=int, help="抽題用的 seed，預設用目前時間")
     parser.add_argument("--runs", type=int, default=1)
     parser.add_argument("-j", "--jobs", type=int, default=4)
+    parser.add_argument("--with-without", action="store_true", help="L1：也跑沒有 skill 的一組，用來補基準")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--update-baseline", action="store_true")
     args = parser.parse_args()
@@ -239,8 +242,9 @@ def main():
     if args.tier == "L1":
         if not args.tag and not args.case:
             parser.error("L1 需要 --tag 或 --case")
+        ablation = "with-without" if args.with_without else "none"
         groups = [
-            ("behavior", [c for c in behavior + bank if matches(c, args.tag, args.case)], "none"),
+            ("behavior", [c for c in behavior + bank if matches(c, args.tag, args.case)], ablation),
             ("trigger", [c for c in trigger if matches(c, args.tag, args.case)], "none"),
         ]
     elif args.tier == "L2":
@@ -261,6 +265,8 @@ def main():
     results, cost, version = {}, 0.0, ""
     for group, cases, ablation in groups:
         path = run_group(stamp, group, cases, ablation, args)
+        if cases and not path:
+            sys.exit(f"{group} 沒有產生結果，請看上面 claude plugin eval 的輸出。")
         if path:
             r, c = scores(path)
             results.update(r)

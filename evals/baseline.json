@@ -1,0 +1,187 @@
+{
+  "model": "sonnet",
+  "claudeVersion": "2.1.309",
+  "updated": "2026-10-28",
+  "cases": {
+    "adjective-instead-of-number": {
+      "with": 0.8,
+      "without": 0.8
+    },
+    "aphorism-closing": {
+      "with": 0.8,
+      "without": 0.8
+    },
+    "audience-sentence-in-summary": {
+      "with": 0.8,
+      "without": 0.6
+    },
+    "closing-advice-after-measure": {
+      "with": 0.8,
+      "without": 0.8
+    },
+    "comma-chopped-lede": {
+      "with": 1,
+      "without": 0.8
+    },
+    "compose-with-glossary": {
+      "with": 0.875,
+      "without": 0.875
+    },
+    "condense-keep-complete": {
+      "with": 0.889,
+      "without": 0.889
+    },
+    "cute-tilde-transition": {
+      "with": 0.833,
+      "without": 0.5
+    },
+    "denial-before-doc-quote": {
+      "with": 0.8,
+      "without": 0.6
+    },
+    "fix-translationese": {
+      "with": 1,
+      "without": 1
+    },
+    "flattering-aside": {
+      "with": 0.833,
+      "without": 0.833
+    },
+    "keep-clarifying-not-mean": {
+      "with": 1,
+      "without": 1
+    },
+    "keep-formal-terms": {
+      "with": 1,
+      "without": 1
+    },
+    "keep-good-text": {
+      "with": 1,
+      "without": 1
+    },
+    "keep-real-correction": {
+      "with": 1,
+      "without": 1
+    },
+    "keep-real-list": {
+      "with": 1,
+      "without": 1
+    },
+    "keep-warning-and-passive": {
+      "with": 1,
+      "without": 1
+    },
+    "lecture-lead-in": {
+      "with": 0.8,
+      "without": 0.6
+    },
+    "lecturing-warning-dns": {
+      "with": 0.8,
+      "without": 0.8
+    },
+    "no-fabrication": {
+      "with": 1,
+      "without": 1
+    },
+    "nominal-subject-summary": {
+      "with": 0.8,
+      "without": 0.8
+    },
+    "overpromising-title": {
+      "with": 1,
+      "without": 1
+    },
+    "rewrite-ai-paragraph": {
+      "with": 1,
+      "without": 1
+    },
+    "self-guide-and-unsupported-claim": {
+      "with": 0.8,
+      "without": 0.8
+    },
+    "term-http-client": {
+      "with": 1,
+      "without": 1
+    },
+    "translationese-sensitive-to": {
+      "with": 0.8,
+      "without": 0.8
+    },
+    "ui-colon-label-item-descriptions": {
+      "with": 1,
+      "without": 0.714
+    },
+    "ui-error-messages-missing-please": {
+      "with": 1,
+      "without": 1
+    },
+    "ui-glossary-attack-speed": {
+      "with": 1,
+      "without": 1
+    },
+    "ui-glossary-endurance-term": {
+      "with": 1,
+      "without": 1
+    },
+    "ui-glossary-health-term": {
+      "with": 0.833,
+      "without": 0.333
+    },
+    "ui-honorific-project-you": {
+      "with": 1,
+      "without": 1
+    },
+    "ui-item-desc-no-operation": {
+      "with": 1,
+      "without": 0.714
+    },
+    "ui-status-chip-terse-comparison": {
+      "with": 0.833,
+      "without": 1
+    },
+    "vague-prediction-summary": {
+      "with": 0.8,
+      "without": 0.6
+    },
+    "wiki-bullet-aphorism-tail": {
+      "with": 1,
+      "without": 1
+    },
+    "wiki-claim-left-to-discover": {
+      "with": 1,
+      "without": 1
+    },
+    "wiki-intro-promise-lead-in": {
+      "with": 0.857,
+      "without": 0.857
+    },
+    "wiki-link-note-points-elsewhere": {
+      "with": 1,
+      "without": 0.857
+    },
+    "write-article-intro": {
+      "with": 1,
+      "without": 0.667
+    },
+    "write-maintenance-notice": {
+      "with": 0.833,
+      "without": 0.667
+    },
+    "write-pr-description": {
+      "with": 1,
+      "without": 0.833
+    },
+    "write-readme-intro": {
+      "with": 0.857,
+      "without": 0.857
+    },
+    "write-social-post": {
+      "with": 1,
+      "without": 0.5
+    },
+    "write-ui-errors": {
+      "with": 1,
+      "without": 1
+    }
+  }
+}

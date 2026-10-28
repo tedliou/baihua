@@ -1,6 +1,6 @@
 ---
 description: "照用詞表把「出手間隔」改成「攻速」，數字要換算成越大越快的倍率"
-tags: [bank, glossary, src-directed]
+tags: [bank, glossary, src-directed, keep-punct]
 max_turns: 8
 allowed_tools: [Read, Glob, Grep, Skill]
 ---

@@ -99,7 +99,7 @@ python skills/zh-tw-prose/scripts/check.py README.md --glossary GLOSSARY.md
 
 ## 測試
 
-每次修改都用 `claude plugin eval` 跑 33 個案例：17 個行為案例比較有 skill 與沒有 skill 的分數，16 個觸發案例確認該載入時載入、不該載入時不載入。行為案例中有 5 個專門檢查過度改寫，例如讀者真的有誤解時的更正句、服務條款的法律用語、真正並列的清單。做法與最新結果見 [evals/README.md](evals/README.md)。
+用 `claude plugin eval` 測試，分成四層，平常只跑和改動有關的題目。固定題 10 題，其中 5 題專門檢查過度改寫，例如讀者真的有誤解時的更正句、服務條款的法律用語、真正並列的清單。另有 16 題觸發題，確認該載入時載入、不該載入時不載入。發 release 前再從 35 題的題庫抽考 8 題，題庫大多取自真實的改稿案例。做法與結果見 [evals/README.md](evals/README.md)。
 
 ## 限制
 
