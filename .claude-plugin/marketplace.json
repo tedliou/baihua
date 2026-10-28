@@ -1,0 +1,16 @@
+{
+  "name": "baihua",
+  "owner": {
+    "name": "Ted Liou",
+    "url": "https://github.com/tedliou"
+  },
+  "description": "baihua: a Traditional Chinese (Taiwan) writing skill for Claude.",
+  "plugins": [
+    {
+      "name": "baihua",
+      "source": "./",
+      "description": "Writes natural Traditional Chinese (Taiwan) prose for human readers and composes with domain skills.",
+      "category": "productivity"
+    }
+  ]
+}

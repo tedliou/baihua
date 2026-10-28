@@ -1,0 +1,13 @@
+{
+  "name": "baihua",
+  "version": "0.1.0",
+  "description": "Writes natural Traditional Chinese (Taiwan) prose: complete sentences, answer first, no AI-isms, translationese or mainland terms. Composes with domain skills such as UI or docs.",
+  "author": {
+    "name": "Ted Liou",
+    "url": "https://github.com/tedliou"
+  },
+  "homepage": "https://github.com/tedliou/baihua",
+  "repository": "https://github.com/tedliou/baihua",
+  "license": "MIT",
+  "keywords": ["zh-TW", "traditional-chinese", "taiwan", "writing", "style", "localization", "ai-writing"]
+}
