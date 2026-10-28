@@ -33,3 +33,26 @@ claude plugin eval . --tag trigger --ablation none --runs 3 -j 4
 1. 修改前先跑一次，記下各案例分數。
 2. 修改後再跑一次。任何案例的 with 分數下降，或觸發案例出現誤觸發，都要先查原因再合併。
 3. 新規則要附對應案例，至少一個「該改」與一個「不該改」。
+
+## 最新結果
+
+2026-10-28，Claude Code 2.1.309，評審模型 Sonnet。行為案例每組跑 2 次，觸發案例跑 3 次。
+
+| 案例 | 有 skill | 沒有 skill | Δ |
+| --- | --- | --- | --- |
+| write-article-intro | 1.00 | 0.67 | +0.33 |
+| write-maintenance-notice | 1.00 | 0.67 | +0.33 |
+| keep-good-text | 0.83 | 0.50 | +0.33 |
+| write-pr-description | 1.00 | 0.83 | +0.17 |
+| write-social-post | 1.00 | 0.83 | +0.17 |
+| no-fabrication | 1.00 | 1.00 | 0.00 |
+| localize-mainland-terms | 1.00 | 1.00 | 0.00 |
+| write-ui-errors | 1.00 | 1.00 | 0.00 |
+| condense-keep-complete | 1.00 | 1.00 | 0.00 |
+| write-readme-intro | 0.93 | 0.93 | 0.00 |
+| rewrite-ai-paragraph | 0.90 | 0.90 | 0.00 |
+| compose-with-glossary | 0.92 | 1.00 | -0.08 |
+
+觸發案例 16 個全部通過：8 個該用的請求每次都載入 skill，8 個不該用的請求一次都沒有載入。
+
+Δ 為 0 的案例代表模型本身已經做得到，這些案例留著當回歸測試。`compose-with-glossary` 的 -0.08 來自一次評審意見分歧（1 票通過、2 票不通過），持續觀察。`keep-good-text` 仍有一次把「八成」改成「多半」，是目前已知的過度改寫。

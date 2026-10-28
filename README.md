@@ -67,7 +67,7 @@ Windows 用 `pwsh scripts/link.ps1`。腳本把 skill 連結到 `~/.claude/skill
 
 不需要特別指令。請 Claude 寫或改中文文章、README、錯誤訊息、公告時，skill 會自動載入。也可以用 `/zh-tw-prose` 直接呼叫。
 
-一般問答、簡體中文、英文寫作與程式碼本身不會載入。想讓平常的對話回覆也照同樣原則寫，把 [snippets/claude-md.md](snippets/claude-md.md) 的片段貼進 `CLAUDE.md`。
+一般問答、簡體中文、英文寫作與寫程式時不會載入。想讓平常的對話回覆也照同樣原則寫，把 [snippets/claude-md.md](snippets/claude-md.md) 的片段貼進 `CLAUDE.md`。
 
 檢查腳本也可以單獨用：
 
