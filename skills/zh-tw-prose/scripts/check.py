@@ -188,7 +188,7 @@ def check_text(text: str, path: str, terms: list[Term], *, markdown: bool,
                 break
 
         if not allow_semicolon and re.search(f"；|(?<=[{HAN}]);|;(?=[{HAN}])", line):
-            add(line_no, "error", "semicolon", "不用分號，改成句號或逗號並確認前後銜接")
+            add(line_no, "warning", "semicolon", "段落裡的分號改成句號或逗號，介面字串與數值欄位可以保留")
 
         half = re.search(f"(?<=[{HAN}])[,:!?]|[,:!?](?=[{HAN}])|(?<=[{HAN}])\\.(?=\\s|$|[{HAN}])", line)
         if half:

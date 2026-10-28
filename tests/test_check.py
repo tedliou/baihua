@@ -43,8 +43,8 @@ class UsageTableTest(unittest.TestCase):
 
 class PunctuationTest(unittest.TestCase):
     def test_semicolon(self):
-        self.assertIn(("error", "semicolon"), rules("先安裝套件；再執行指令。"))
-        self.assertNotIn(("error", "semicolon"), rules("先安裝套件；再執行指令。", allow_semicolon=True))
+        self.assertIn(("warning", "semicolon"), rules("先安裝套件；再執行指令。"))
+        self.assertNotIn(("warning", "semicolon"), rules("先安裝套件；再執行指令。", allow_semicolon=True))
 
     def test_halfwidth_punctuation(self):
         self.assertIn(("error", "fullwidth"), rules("先安裝套件,再執行指令。"))

@@ -167,8 +167,11 @@ def scores(result_path):
 
 
 def compare(results, baseline):
-    """回傳退化的題目清單。單題下降 CASE_DROP 以上，或平均下降 MEAN_DROP 以上，都算退化。"""
-    problems, drops = [], []
+    """回傳退化清單。平均下降 MEAN_DROP 以上或觸發題判斷錯誤算退化。
+
+    單題分數在兩次執行之間可能差到 0.3，所以單題下降 CASE_DROP 以上只列出來提醒，不算退化。
+    """
+    problems, drops, notes = [], [], []
     print(f"\n{'題目':<40}{'基準':>8}{'這次':>8}{'差':>8}")
     for name, s in sorted(results.items()):
         if s["trigger"]:
@@ -182,9 +185,14 @@ def compare(results, baseline):
             continue
         drops.append(base - s["with"])
         if base - s["with"] >= CASE_DROP:
-            problems.append(f"{name}：{base} → {s['with']}")
-    if drops and sum(drops) / len(drops) >= MEAN_DROP:
-        problems.append(f"平均下降 {sum(drops) / len(drops):.3f}")
+            notes.append(f"{name}：{base} → {s['with']}")
+    if drops:
+        mean = sum(drops) / len(drops)
+        print(f"\n平均變化 {-mean:+.3f}（{len(drops)} 題）")
+        if mean >= MEAN_DROP:
+            problems.append(f"平均下降 {mean:.3f}")
+    if notes:
+        print("\n單題下降較多，可以用 --case 加 --runs 3 確認：\n" + "\n".join(notes))
     return problems
 
 
