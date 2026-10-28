@@ -242,7 +242,8 @@ button { font:inherit; padding:6px 16px; border-radius:6px; border:1px solid var
 <p class="muted">每題的 A、B 是同一個任務的兩份輸出，順序隨機。選擇會自動存在這個瀏覽器，全部選完後按下方按鈕下載 feedback.json。</p>
 __ITEMS__
 </main>
-<div class="bar"><span id="progress"></span><button id="dl">下載 feedback.json</button></div>
+<div class="bar"><span id="progress"></span><button id="copy">複製結果</button><button id="dl">下載 feedback.json</button></div>
+<main><textarea id="out" readonly hidden style="min-height:160px"></textarea></main>
 <script>
 const KEY = "blind-__CREATED__";
 let state = {};
@@ -265,6 +266,13 @@ document.querySelectorAll("section[data-id]").forEach(sec => {
 document.getElementById("dl").addEventListener("click", () => {
   const blob = new Blob([JSON.stringify({round: "__CREATED__", answers: state}, null, 1)], {type: "application/json"});
   const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "feedback.json"; a.click();
+});
+document.getElementById("copy").addEventListener("click", async () => {
+  const text = JSON.stringify({round: "__CREATED__", answers: state});
+  const out = document.getElementById("out");
+  out.hidden = false; out.value = text; out.select();
+  try { await navigator.clipboard.writeText(text); } catch (e) { try { document.execCommand("copy"); } catch (e2) {} }
+  out.scrollIntoView();
 });
 update();
 </script></body></html>
