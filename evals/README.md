@@ -60,9 +60,8 @@ claude plugin eval . --tag trigger --ablation none --runs 3 -j 4
 | write-social-post | 1.00 | 1.00 | 0.72 |
 | write-ui-errors | 1.00 | 1.00 | 1.00 |
 
-平均 Δ 從修改前的 +0.08 升到 +0.12。觸發案例在預設模型與 Sonnet 上 48 次全部正確。Haiku 每案跑 5 次，介面文案、公告與在地化各有 1 到 2 次沒有載入 skill。
+平均 Δ 從修改前的 +0.08 升到 +0.12。同一套案例改用 Sonnet 執行，17 個案例全部通過，平均 Δ 為 +0.08。Sonnet 在 `compose-with-glossary` 與 `condense-keep-complete` 這類很短的任務上仍常常不載入 skill，這兩個案例的差距因此接近 0。觸發案例在預設模型與 Sonnet 上 48 次全部正確。Haiku 每案跑 5 次，介面文案、公告與在地化各有 1 到 2 次沒有載入 skill。
 
 已知問題：
 
-- Sonnet 的行為測試這次沒有跑完整，結果待補。
 - Haiku 對短文案的觸發不穩定。
