@@ -4,14 +4,16 @@
 
 ## 提 issue
 
-- 新模式：附上原文例句、改寫後，以及什麼時候應該保留這個寫法。沒有「保留」條件的模式不會收錄，因為它會讓模型過度改寫。
-- 誤判：附上原文、skill 或 check.py 的輸出，以及原文為什麼是對的。
-- 用語對照：附上依據，例如教育部辭典、樂詞網或主要軟體的台灣在地化介面。
+開 issue 時選對應的範本：
+
+- 「新的寫作模式」：附上原文例句、改寫後，以及什麼時候應該保留這個寫法。沒有保留條件的模式不會收錄，因為它會讓模型過度改寫。
+- 「誤判或過度改寫」：附上原文、skill 或 check.py 的輸出，以及原文為什麼是對的。
+- 「用語對照」：附上依據，例如教育部《重編國語辭典修訂本》、國家教育研究院雙語詞彙，或主要軟體的台灣在地化介面。
 
 ## 修改規則
 
-1. 例句自己寫，不貼他人文章或書籍的段落。
-2. 新增或修改 `taiwan-usage.md` 的列時，確認「例外」欄涵蓋所有剛好包含該字串的正確詞，避免誤判。
+1. 例句請自己寫，不貼他人文章或書籍的段落。
+2. 新增或修改 `taiwan-usage.md` 的列時，確認「例外」欄列出所有包含該字串、但本身是正確用法的詞，避免誤判。
 3. SKILL.md 維持 500 行以內。新內容優先放進 references。
 4. 修改 check.py 時，在 `tests/test_check.py` 加上對應測試。
 
@@ -23,10 +25,15 @@ python skills/zh-tw-prose/scripts/check.py README.md
 claude plugin validate --strict .
 ```
 
-改動 SKILL.md、references 或 description 時，請跑 eval，並在 PR 說明附上結果摘要。eval 會實際呼叫模型並產生費用，執行方式見 [evals/README.md](evals/README.md)。
+改動 SKILL.md 或 references 時跑行為 eval，改動 description 時跑觸發 eval，並在 PR 說明附上結果摘要。eval 需要 Claude Code，會實際呼叫模型並產生費用，細節見 [evals/README.md](evals/README.md)。
 
 ```bash
+# 行為
 claude plugin eval . --tag behavior --runs 2 --judge-model sonnet
+```
+
+```bash
+# 觸發
 claude plugin eval . --tag trigger --ablation none --runs 3
 ```
 

@@ -13,13 +13,14 @@ body:
     id: before
     attributes:
       label: 原文例句
-      description: 自己寫的例句，或註明來源。不要貼他人的長篇文字。
+      description: 請自己寫例句，不貼他人文章或書籍的段落。
     validations:
       required: true
   - type: textarea
     id: after
     attributes:
       label: 改寫後
+      description: 保留原意與事實，只改掉這個模式。
     validations:
       required: true
   - type: textarea

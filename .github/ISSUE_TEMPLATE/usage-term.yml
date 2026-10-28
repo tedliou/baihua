@@ -18,11 +18,21 @@ body:
     id: evidence
     attributes:
       label: 依據
-      description: 例如教育部辭典、國家教育研究院雙語詞彙、主要軟體的台灣在地化介面。
+      description: 例如教育部《重編國語辭典修訂本》、國家教育研究院雙語詞彙、主要軟體的台灣在地化介面。
+    validations:
+      required: true
+  - type: dropdown
+    id: check
+    attributes:
+      label: 檢查
+      description: 選「是」時 check.py 會把這個詞報成錯誤。這個詞在台灣另有正當意思時選「否」。
+      options:
+        - 是
+        - 否
     validations:
       required: true
   - type: textarea
     id: exception
     attributes:
       label: 例外
-      description: 哪些詞包含這個字串但不該被標出，例如「演算法」包含「算法」。
+      description: 哪些詞包含這個字串，但本身是正確用法，不該被標出。

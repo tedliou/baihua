@@ -1,6 +1,6 @@
 ---
 name: zh-tw-prose
-description: 用台灣正體中文寫出或修改要給人讀的文字，包括文章、技術文件、README、介面文案、公告、社群貼文、PR 與報告。依讀者與語域選寫法，避開 AI 腔、翻譯腔與對岸用語，句子完整、結論先行。Use when writing, editing or proofreading Traditional Chinese (zh-TW) prose for human readers. 不用於：一般問答、簡體中文或給中國大陸讀者的文字、英文寫作與英譯、寫程式（含程式碼註解）、版面設計。
+description: 用台灣正體中文寫出、改寫或潤稿給人讀的文字，包括文章、技術文件、README、介面文案、公告、社群貼文、PR 與報告，避開 AI 腔、翻譯腔與對岸用語，句子完整、結論先行。Use when writing or editing zh-TW prose. 不用於一般問答、簡體中文、英文寫作與英譯、寫程式與程式碼註解、版面設計。
 license: MIT
 metadata:
   version: "0.1.0"
