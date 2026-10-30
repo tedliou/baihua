@@ -1,0 +1,26 @@
+[
+ {
+  "task": "r9-t-refund",
+  "s": 2,
+  "answer": "tie",
+  "winner": "tie"
+ },
+ {
+  "task": "r9-t-price",
+  "s": 2,
+  "answer": "tie-auto",
+  "winner": "tie"
+ },
+ {
+  "task": "r9-w-delay",
+  "s": 2,
+  "answer": "tie",
+  "winner": "tie"
+ },
+ {
+  "task": "r9-w-welcome",
+  "s": 2,
+  "answer": "tie",
+  "winner": "tie"
+ }
+]

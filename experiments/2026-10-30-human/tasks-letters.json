@@ -1,0 +1,10 @@
+[
+{"id":"r9-t-refund","kind":"translate","facts":["5 到 7 個工作天"],
+"prompt":"把這封客服信翻成台灣正體中文：\n\nWe're sorry your order arrived damaged. We've issued a full refund to your original payment method, which should appear within 5 to 7 business days. There's no need to return the item. If the refund hasn't arrived by then, please let us know and we'll look into it right away.\n\n只輸出成品本身，不要加任何說明、前言或改了什麼的清單。"},
+{"id":"r9-t-price","kind":"translate","facts":["3 月 1 日","新台幣 150 元"],
+"prompt":"把這封通知信翻成台灣正體中文：\n\nWe're writing to let you know that starting March 1, the monthly price of your plan will increase to NT$150. This change helps us keep improving the service and cover rising server costs. Your current billing cycle will not be affected, and you can cancel at any time before then from your account page.\n\n只輸出成品本身，不要加任何說明、前言或改了什麼的清單。"},
+{"id":"r9-w-delay","kind":"write","facts":["兩週","樣品"],
+"prompt":"幫我寫一封簡短的 email 給合作廠商，說明我們這邊的設計稿要晚兩週交。原因是客戶上週臨時改了品牌主色，所有圖都要重做。樣品寄送的日期不受影響。\n\n只輸出成品本身，不要加任何說明、前言或改了什麼的清單。"},
+{"id":"r9-w-welcome","kind":"write","facts":["每週二","Discord"],
+"prompt":"幫我寫一封給新加入會員的歡迎信，短短的就好。素材：這是一個線上讀書會，每週二晚上九點在 Discord 語音頻道討論；第一次參加可以先旁聽；書單放在 Discord 的 #書單 頻道。\n\n只輸出成品本身，不要加任何說明、前言或改了什麼的清單。"}
+]

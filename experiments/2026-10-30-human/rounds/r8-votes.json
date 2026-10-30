@@ -1,0 +1,26 @@
+[
+ {
+  "task": "r8-t-onboard",
+  "s": 1,
+  "answer": "B",
+  "winner": "none"
+ },
+ {
+  "task": "r8-t-essay",
+  "s": 1,
+  "answer": "tie",
+  "winner": "tie"
+ },
+ {
+  "task": "r8-w-intro",
+  "s": 1,
+  "answer": "B",
+  "winner": "cur3"
+ },
+ {
+  "task": "r8-w-email",
+  "s": 1,
+  "answer": "A",
+  "winner": "none"
+ }
+]
