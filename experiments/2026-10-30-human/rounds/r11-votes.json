@@ -1,0 +1,26 @@
+[
+ {
+  "task": "r11-empty",
+  "s": 1,
+  "answer": "A",
+  "winner": "none"
+ },
+ {
+  "task": "r11-toast",
+  "s": 1,
+  "answer": "B",
+  "winner": "cur4"
+ },
+ {
+  "task": "r11-setting",
+  "s": 1,
+  "answer": "B",
+  "winner": "cur4"
+ },
+ {
+  "task": "r11-permission",
+  "s": 1,
+  "answer": "A",
+  "winner": "none"
+ }
+]

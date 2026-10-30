@@ -1,0 +1,26 @@
+[
+ {
+  "task": "r13-location",
+  "s": 1,
+  "answer": "tie-auto",
+  "winner": "tie"
+ },
+ {
+  "task": "r13-notify",
+  "s": 1,
+  "answer": "B",
+  "winner": "cand5"
+ },
+ {
+  "task": "r13-leave",
+  "s": 1,
+  "answer": "tie",
+  "winner": "tie"
+ },
+ {
+  "task": "r13-update",
+  "s": 1,
+  "answer": "tie-auto",
+  "winner": "tie"
+ }
+]

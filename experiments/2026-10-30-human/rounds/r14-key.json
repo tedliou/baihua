@@ -1,0 +1,46 @@
+{
+ "1": {
+  "task": "r13-location",
+  "s": 2,
+  "A": "cand5",
+  "B": "cur4",
+  "facts_ok": [
+   true,
+   true
+  ],
+  "ratio": 0.87
+ },
+ "2": {
+  "task": "r13-notify",
+  "s": 2,
+  "A": "cur4",
+  "B": "cand5",
+  "facts_ok": [
+   true,
+   true
+  ],
+  "ratio": 0.59
+ },
+ "3": {
+  "task": "r13-leave",
+  "s": 2,
+  "A": "cur4",
+  "B": "cand5",
+  "facts_ok": [
+   true,
+   true
+  ],
+  "ratio": 0.96
+ },
+ "4": {
+  "task": "r13-update",
+  "s": 2,
+  "A": "cur4",
+  "B": "cand5",
+  "facts_ok": [
+   true,
+   true
+  ],
+  "ratio": 1.0
+ }
+}

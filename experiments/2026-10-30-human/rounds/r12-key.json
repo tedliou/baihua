@@ -1,0 +1,46 @@
+{
+ "1": {
+  "task": "r11-empty",
+  "s": 2,
+  "A": "none",
+  "B": "cur4",
+  "facts_ok": [
+   true,
+   false
+  ],
+  "ratio": 0.75
+ },
+ "2": {
+  "task": "r11-toast",
+  "s": 2,
+  "A": "cur4",
+  "B": "none",
+  "facts_ok": [
+   true,
+   true
+  ],
+  "ratio": 0.75
+ },
+ "3": {
+  "task": "r11-setting",
+  "s": 2,
+  "A": "none",
+  "B": "cur4",
+  "facts_ok": [
+   true,
+   true
+  ],
+  "ratio": 0.62
+ },
+ "4": {
+  "task": "r11-permission",
+  "s": 2,
+  "A": "cur4",
+  "B": "none",
+  "facts_ok": [
+   true,
+   true
+  ],
+  "ratio": 0.86
+ }
+}
