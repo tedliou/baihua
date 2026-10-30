@@ -1,6 +1,6 @@
 {
   "name": "baihua",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Writes natural Traditional Chinese (Taiwan) prose: complete sentences, answer first, no AI-isms, translationese or mainland terms. Composes with domain skills such as UI or docs.",
   "author": {
     "name": "Ted Liou",

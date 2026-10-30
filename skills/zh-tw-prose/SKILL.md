@@ -3,7 +3,7 @@ name: zh-tw-prose
 description: 用台灣正體中文寫出、改寫或潤稿給人讀的文字，不論長短：文章、技術文件、README、介面文案與錯誤訊息、公告、Threads 與 Facebook 等社群貼文、PR 與報告。避開 AI 腔、翻譯腔與對岸用語。Use for any zh-TW prose, even one line. 不用於一般問答、簡體中文、英文寫作與英譯、寫程式與程式碼註解、版面設計。
 license: MIT
 metadata:
-  version: "0.2.0"
+  version: "0.3.0"
   repository: "https://github.com/tedliou/baihua"
 ---
 
