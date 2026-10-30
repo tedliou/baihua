@@ -1,0 +1,34 @@
+{
+ "1": {
+  "task": "r1-update",
+  "s": 1,
+  "A": "cand",
+  "B": "cur",
+  "facts_ok": true,
+  "ratio": 0.68
+ },
+ "2": {
+  "task": "r1-book",
+  "s": 1,
+  "A": "cand",
+  "B": "cur",
+  "facts_ok": true,
+  "ratio": 0.88
+ },
+ "3": {
+  "task": "r1-course",
+  "s": 2,
+  "A": "cand",
+  "B": "cur",
+  "facts_ok": true,
+  "ratio": 0.79
+ },
+ "4": {
+  "task": "r1-tool",
+  "s": 2,
+  "A": "cand",
+  "B": "cur",
+  "facts_ok": true,
+  "ratio": 0.69
+ }
+}

@@ -1,0 +1,26 @@
+[
+ {
+  "task": "r4-movie",
+  "s": 2,
+  "answer": "A",
+  "winner": "cand2"
+ },
+ {
+  "task": "r4-ramen",
+  "s": 2,
+  "answer": "A",
+  "winner": "cand2"
+ },
+ {
+  "task": "r4-hike",
+  "s": 2,
+  "answer": "B",
+  "winner": "cur"
+ },
+ {
+  "task": "r4-job",
+  "s": 2,
+  "answer": "tie",
+  "winner": "tie"
+ }
+]

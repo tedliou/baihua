@@ -1,0 +1,46 @@
+{
+ "1": {
+  "task": "r1-cafe",
+  "s": 1,
+  "A": "none",
+  "B": "cur",
+  "facts_ok": [
+   true,
+   true
+  ],
+  "ratio": 0.67
+ },
+ "2": {
+  "task": "r1-trip",
+  "s": 1,
+  "A": "none",
+  "B": "cur",
+  "facts_ok": [
+   true,
+   true
+  ],
+  "ratio": 0.57
+ },
+ "3": {
+  "task": "r1-update",
+  "s": 2,
+  "A": "cur",
+  "B": "none",
+  "facts_ok": [
+   true,
+   true
+  ],
+  "ratio": 0.62
+ },
+ "4": {
+  "task": "r1-book",
+  "s": 2,
+  "A": "none",
+  "B": "cur",
+  "facts_ok": [
+   true,
+   true
+  ],
+  "ratio": 0.73
+ }
+}
