@@ -1,0 +1,22 @@
+[
+{"id":"h-translate-long","kind":"translate","facts":["2021","SQLite","10 GB"],
+"prompt":"把這段部落格文章翻成台灣正體中文：\n\nWhen we started the project in 2021, we chose SQLite because it was simple and required no separate server. For the first year, this decision worked well. However, as the number of users grew, we began to notice that write operations were becoming a bottleneck. SQLite allows only one writer at a time, which means that when several users tried to save their changes simultaneously, some of them had to wait. At the same time, the database file had grown to more than 10 GB, and backing it up took longer each week. After several discussions, we decided to migrate to PostgreSQL. The migration itself took two months, mainly because we had to rewrite a number of queries that relied on SQLite-specific behavior. Looking back, we do not regret starting with SQLite, but we wish we had planned the migration earlier.\n\n只輸出成品本身，不要加任何說明、前言或改了什麼的清單。"},
+{"id":"h-translate-guide","kind":"translate","facts":["SSH","ed25519","~/.ssh"],
+"prompt":"把這段教學翻成台灣正體中文：\n\nBefore you can push code to the server, you need to set up an SSH key. If you already have one, you can skip this step. To generate a new key, open a terminal and run ssh-keygen -t ed25519. The command will ask you where to save the key; pressing Enter accepts the default location in ~/.ssh. You will then be prompted for a passphrase. Although a passphrase is optional, it is strongly recommended, because it protects your key in case your computer is lost or stolen. Once the key has been created, copy the contents of the public key file and paste it into the SSH Keys section of your account settings.\n\n只輸出成品本身，不要加任何說明、前言或改了什麼的清單。"},
+{"id":"h-rewrite-long","kind":"rewrite","facts":["Kubernetes","3 個","30 秒"],
+"prompt":"把這段改寫成自然的台灣正體中文，事實不要變：\n\n在現代的軟體開發中，Kubernetes 已經成為了一個不可或缺的容器編排平台。它能夠幫助開發團隊實現應用程式的自動化部署、擴展以及管理。在我們的環境中，我們將服務部署在 3 個節點上，並且通過設定健康檢查的方式，使得系統能夠在服務發生異常的時候自動地進行重啟。此外，我們也對滾動更新的策略進行了調整，從而確保了在更新的過程中，服務的中斷時間能夠被控制在 30 秒以內。總的來說，Kubernetes 為我們的運維工作帶來了極大的便利。\n\n只輸出成品本身，不要加任何說明、前言或改了什麼的清單。"},
+{"id":"h-rewrite-review","kind":"rewrite","facts":["四季","兩千元"],
+"prompt":"幫我把這段餐廳心得去掉 AI 腔，改寫成自然的台灣正體中文，事實不要變：\n\n這家位於巷弄之中的小餐館，以其獨特的料理風格和溫馨的用餐氛圍，為每一位顧客帶來了難忘的味覺饗宴。菜單會隨著四季的變化而更換，充分展現了主廚對於在地食材的用心。值得一提的是，兩人份的套餐大約兩千元，在同等級的餐廳中可以說是相當具有競爭力的價格。無論是約會還是家庭聚餐，這裡都是一個絕佳的選擇。\n\n只輸出成品本身，不要加任何說明、前言或改了什麼的清單。"},
+{"id":"h-write-article","kind":"write","facts":["pnpm","node_modules","硬連結"],
+"prompt":"幫我寫一篇短的技術文章（三到四段），主題是我為什麼把團隊專案從 npm 換成 pnpm。素材：monorepo 有 12 個套件，npm install 每次要 4 分鐘，換 pnpm 後大約 1 分鐘；pnpm 把套件放在全域儲存區，再用硬連結放進 node_modules，所以硬碟用量從 6 GB 降到 2 GB；換的時候遇到一個問題，有個套件偷用了沒寫在 package.json 裡的相依套件，pnpm 的嚴格結構讓它找不到，補上相依宣告就解決了。\n\n只輸出成品本身，不要加任何說明、前言或改了什麼的清單。"},
+{"id":"h-write-report","kind":"write","facts":["12 月 3 日","23:10","47 分鐘"],
+"prompt":"幫我寫一份事故報告的摘要段落，給公司內部看。素材：12 月 3 日 23:10 開始，付款服務回應逾時，持續 47 分鐘；原因是憑證到期，自動續期的排程在上個月改設定時被誤關；處理方式是手動換憑證並重開排程；之後會加上憑證到期前 14 天的告警。\n\n只輸出成品本身，不要加任何說明、前言或改了什麼的清單。"},
+{"id":"h-write-ui","kind":"write","facts":["30 天"],
+"prompt":"幫我寫刪除帳號確認對話框的文字：標題一行、內文兩句、兩個按鈕。素材：刪除後 30 天內可以登入取消刪除；30 天後所有資料永久刪除，無法復原；訂閱會在刪除時立即停止，不退費。\n\n只輸出成品本身，不要加任何說明、前言或改了什麼的清單。"},
+{"id":"h-write-social","kind":"write","facts":["半年","鍵盤"],
+"prompt":"幫我寫一則 Facebook 貼文，分享我自己組客製化鍵盤半年的心得。素材：一開始買了便宜的套件，焊錯兩次；後來發現軸體比鍵帽更影響手感；現在每天用的是第三把；想問大家推薦哪種靜音軸。\n\n只輸出成品本身，不要加任何說明、前言或改了什麼的清單。"},
+{"id":"h-polish-good","kind":"polish","facts":["git stash","pop"],
+"prompt":"幫我潤稿這段：\n\n切換分支前如果手上的修改還沒準備好提交，可以先用 git stash 收起來。切回來之後執行 git stash pop，修改就會回到工作目錄。要注意的是，pop 遇到衝突時不會自動刪掉那筆 stash，解完衝突要自己 drop。\n\n只輸出成品本身，不要加任何說明、前言或改了什麼的清單。"},
+{"id":"h-polish-mixed","kind":"polish","facts":["週三","會議室 B"],
+"prompt":"幫我潤稿這封給同事的信：\n\n大家好，關於下週的讀書會，我們將會進行一個時間上的調整，從原本的週二改到週三的下午三點，地點仍然是在會議室 B。這次我們會針對上次大家提出的問題進行一個深入的討論，所以請大家在參加之前，先把第五章看完。如果有任何的問題，歡迎隨時跟我聯繫。\n\n只輸出成品本身，不要加任何說明、前言或改了什麼的清單。"}
+]

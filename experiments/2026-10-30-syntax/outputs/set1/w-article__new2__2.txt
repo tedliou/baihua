@@ -1,0 +1,3 @@
+在 WSL 2 裡執行 `apt update` 一直卡在連線，通常是 VPN 改了 DNS，而 WSL 自動產生的 `/etc/resolv.conf` 還指向舊的位址。我碰到的情況就是這樣：公司 VPN 換了 DNS 之後，WSL 沒有跟著更新，所有網域解析都送到已經不能用的舊伺服器，`apt` 只能一直等到逾時。
+
+解法是讓 WSL 不再自動覆寫 `resolv.conf`，改成自己指定公司的 DNS。先在 `/etc/wsl.conf` 加上 `[network]` 區段，寫入 `generateResolvConf = false`，再手動建立 `/etc/resolv.conf`，讓 `nameserver` 指向公司 DNS。接著在 PowerShell 執行 `wsl --shutdown`，重新開啟 WSL 後設定才會生效。我照這個流程做完，`apt update` 就恢復正常了。

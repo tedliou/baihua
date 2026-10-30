@@ -71,6 +71,40 @@ AI_PHRASES: list[tuple[str, str, str]] = [
 ]
 
 
+# 文體輪廓用的計數項。依據見 docs/theory.md：翻譯中文與模型中文的連接詞、主語代名詞、
+# 限定詞、「的」字修飾與「被」字句都比母語中文多，句長也比較平均。
+PROFILE_ITEMS: list[tuple[str, str, str]] = [
+    ("connectives", "連接詞", r"因此|所以|但是|然而|而且|並且|此外|同時|另外|因為|由於|如果|雖然|不過|因而|從而|進而|以及|甚至|換句話說|也就是說|總之|首先|其次"),
+    ("pronouns", "代名詞", r"它們|它|他們|她們|我們|你們|你|您"),
+    ("determiners", "限定詞", r"一個|這個|這些|(?<!應)該(?=[^死不會要怎])"),
+    ("bei", "被字句", r"被(?![子單褥])"),
+    ("light_verbs", "虛動詞", r"進行|作出|做出|加以|予以"),
+]
+DE_PARTICLE = r"的(?!確|話|士|是)(?<!目的)(?<!標的)"
+CLAUSE_SPLIT = r"[，。！？；：,.!?;:\n「」『』（）()]"
+
+
+def profile_text(text: str, markdown: bool = True) -> dict[str, float]:
+    """計算文體輪廓：每千字的各項次數、「的」的密度、句長的平均與變異係數。
+
+    這些數字沒有對錯的門檻，用途是和同一語域的人寫文字比較，或比較改稿前後。
+    """
+    body = "\n".join(line for _, line in prose_lines(text, markdown))
+    han = len(re.findall(f"[{HAN}]", body)) or 1
+    result: dict[str, float] = {"han_chars": han}
+    for key, _, pattern in PROFILE_ITEMS:
+        result[key] = round(len(re.findall(pattern, body)) * 1000 / han, 2)
+    result["de"] = round(len(re.findall(DE_PARTICLE, body)) * 100 / han, 2)
+    sentences = [len(re.findall(f"[{HAN}]", s)) for s in re.split(r"[。！？\n]", body)]
+    sentences = [n for n in sentences if n >= 2]
+    if sentences:
+        mean = sum(sentences) / len(sentences)
+        var = sum((n - mean) ** 2 for n in sentences) / len(sentences)
+        result["sent_mean"] = round(mean, 1)
+        result["sent_cv"] = round((var ** 0.5) / mean, 2) if mean else 0.0
+    return result
+
+
 def read_text(path: str) -> str:
     if path == "-":
         return sys.stdin.read()
@@ -208,6 +242,11 @@ def check_text(text: str, path: str, terms: list[Term], *, markdown: bool,
         if re.search("(?<!—)—(?!—)", line) or re.search(f"(?<=[{HAN}])\\s?--\\s?(?=[{HAN}])", line):
             add(line_no, "warning", "dash", "破折號寫成「——」並少用，補充說明多半可以改成另一句")
 
+        for clause in re.split(CLAUSE_SPLIT, line):
+            if len(re.findall(DE_PARTICLE, clause)) >= 3:
+                add(line_no, "warning", "ai-T05", f"「{clause.strip()[:24]}」一個分句裡有三個以上的「的」，把修飾語拆成另一句")
+                break
+
         if re.search("[！？]{2,}", line):
             add(line_no, "warning", "exclamation", "不連用驚嘆號或問號")
 
@@ -239,6 +278,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--no-hints", action="store_true", help="不列出 AI 腔片語的提示")
     parser.add_argument("--strict", action="store_true", help="warning 也讓結束碼為 1")
     parser.add_argument("--markdown", action="store_true", help="把標準輸入當成 Markdown 處理")
+    parser.add_argument("--profile", action="store_true", help="另外印出文體輪廓：每千字的連接詞、代名詞、限定詞、被字句、虛動詞，「的」的密度與句長變化")
     args = parser.parse_args(argv)
 
     terms = load_usage_terms(USAGE_TABLE)
@@ -263,6 +303,14 @@ def main(argv: list[str] | None = None) -> int:
             check_space=not args.no_spacing,
             hints=not args.no_hints,
         ))
+        if args.profile:
+            p = profile_text(text, markdown)
+            labels = {key: label for key, label, _ in PROFILE_ITEMS}
+            parts = [f"{labels[k]} {p[k]}" for k in labels]
+            parts.append(f"「的」每百字 {p['de']}")
+            if "sent_mean" in p:
+                parts.append(f"句長平均 {p['sent_mean']} 字、變異係數 {p['sent_cv']}")
+            print(f"{path}: profile 每千字：" + "，".join(parts))
 
     for issue in all_issues:
         print(issue.format())
