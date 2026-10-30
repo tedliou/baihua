@@ -1,0 +1,46 @@
+{
+ "1": {
+  "task": "r6-bnb",
+  "s": 1,
+  "A": "cand3",
+  "B": "cur2",
+  "facts_ok": [
+   true,
+   true
+  ],
+  "ratio": 0.89
+ },
+ "2": {
+  "task": "r6-concert",
+  "s": 1,
+  "A": "cand3",
+  "B": "cur2",
+  "facts_ok": [
+   true,
+   true
+  ],
+  "ratio": 0.8
+ },
+ "3": {
+  "task": "r6-market",
+  "s": 1,
+  "A": "cur2",
+  "B": "cand3",
+  "facts_ok": [
+   true,
+   true
+  ],
+  "ratio": 0.69
+ },
+ "4": {
+  "task": "r6-exhibit",
+  "s": 1,
+  "A": "cand3",
+  "B": "cur2",
+  "facts_ok": [
+   true,
+   false
+  ],
+  "ratio": 0.71
+ }
+}
