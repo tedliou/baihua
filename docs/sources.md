@@ -29,6 +29,17 @@
 - 思果《翻譯研究》。
 - 中文 AI 腔整理：https://sspai.com/post/98169 、https://yage.ai/share/ai-chinese-translationese-20260418.html
 
+## 句法與語言學（SKILL.md「中文句子的組法」、check.py --profile）
+
+完整說明與文獻見 [theory.md](theory.md)。
+
+- Xiao (2010), How different is translated Chinese from native Chinese?：https://www.lancaster.ac.uk/fass/projects/corpus/ZJU/xpapers/Xiao_IJCL_TransChinese.pdf
+- Hu, Li & Kübler (2018), Detecting syntactic features of translated Chinese：https://arxiv.org/abs/1804.08756
+- Guo et al. (2023), How close is ChatGPT to human experts?（HC3）：https://arxiv.org/abs/2301.07597
+- Reinhart et al. (2025), Do LLMs write like humans?：https://arxiv.org/abs/2410.16107
+- Futrell, Mahowald & Gibson (2015), Dependency length minimization in 37 languages：https://pmc.ncbi.nlm.nih.gov/articles/PMC4547262
+- Tai (1985), Temporal sequence and Chinese word order；Li & Thompson (1976), Subject and topic；王力《中國現代語法》〈歐化的語法〉。
+
 ## Skill 設計
 
 - Agent Skills 規格：https://agentskills.io/specification

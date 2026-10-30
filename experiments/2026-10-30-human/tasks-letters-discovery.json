@@ -1,0 +1,10 @@
+[
+{"id":"r8-t-onboard","kind":"translate","facts":["14 天"],
+"prompt":"把這段 App 歡迎信翻成台灣正體中文：\n\nThanks for signing up! Your free trial lasts 14 days, and you won't be charged until it ends. To get the most out of it, we recommend connecting your calendar first, so that the app can suggest focus time based on your actual schedule. If you have any questions along the way, just reply to this email.\n\n只輸出成品本身，不要加任何說明、前言或改了什麼的清單。"},
+{"id":"r8-t-essay","kind":"translate","facts":["十年"],
+"prompt":"把這段散文翻成台灣正體中文：\n\nFor ten years, I walked past the same bakery on my way to work without ever going in. It was only after it announced it was closing that I finally stepped inside. The owner, an old man with flour on his sleeves, handed me a loaf and refused to let me pay. I still think about how many mornings I had wasted, assuming there would always be another one.\n\n只輸出成品本身，不要加任何說明、前言或改了什麼的清單。"},
+{"id":"r8-w-intro","kind":"write","facts":["Raspberry Pi","溫濕度"],
+"prompt":"幫我寫一段部落格文章的開頭，一段就好。素材：我用 Raspberry Pi 加一顆溫濕度感測器，做了一個監測臥室環境的小裝置，資料每 5 分鐘存一次，發現晚上開除濕機後濕度從 75% 降到 55%，但溫度會上升 1 度左右。\n\n只輸出成品本身，不要加任何說明、前言或改了什麼的清單。"},
+{"id":"r8-w-email","kind":"write","facts":["週五","延到"],
+"prompt":"幫我寫一封簡短的 email 給客戶，說明網站改版的上線時間要從這週五延到下週三。原因是付款流程測試時發現信用卡分期的金額計算有錯，需要修正並重新測試。其他功能都已經完成。\n\n只輸出成品本身，不要加任何說明、前言或改了什麼的清單。"}
+]

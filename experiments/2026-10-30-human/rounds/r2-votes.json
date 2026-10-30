@@ -1,0 +1,26 @@
+[
+ {
+  "task": "r1-update",
+  "s": 1,
+  "answer": "A",
+  "winner": "cand"
+ },
+ {
+  "task": "r1-book",
+  "s": 1,
+  "answer": "B",
+  "winner": "cur"
+ },
+ {
+  "task": "r1-course",
+  "s": 2,
+  "answer": "B",
+  "winner": "cur"
+ },
+ {
+  "task": "r1-tool",
+  "s": 2,
+  "answer": "B",
+  "winner": "cur"
+ }
+]

@@ -1,0 +1,42 @@
+[
+ {
+  "task": "r1-cafe",
+  "answer": "A",
+  "winner": "cand",
+  "key": {
+   "A": "cand",
+   "B": "cur",
+   "ratio": 0.89
+  }
+ },
+ {
+  "task": "r1-course",
+  "answer": "B",
+  "winner": "cur",
+  "key": {
+   "A": "cand",
+   "B": "cur",
+   "ratio": 0.8
+  }
+ },
+ {
+  "task": "r1-tool",
+  "answer": "A",
+  "winner": "cur",
+  "key": {
+   "A": "cur",
+   "B": "cand",
+   "ratio": 0.85
+  }
+ },
+ {
+  "task": "r1-trip",
+  "answer": "B",
+  "winner": "cand",
+  "key": {
+   "A": "cur",
+   "B": "cand",
+   "ratio": 0.71
+  }
+ }
+]

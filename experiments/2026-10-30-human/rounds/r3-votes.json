@@ -1,0 +1,26 @@
+[
+ {
+  "task": "r1-cafe",
+  "s": 1,
+  "answer": "B",
+  "winner": "cur"
+ },
+ {
+  "task": "r1-trip",
+  "s": 1,
+  "answer": "A",
+  "winner": "none"
+ },
+ {
+  "task": "r1-update",
+  "s": 2,
+  "answer": "A",
+  "winner": "cur"
+ },
+ {
+  "task": "r1-book",
+  "s": 2,
+  "answer": "A",
+  "winner": "none"
+ }
+]

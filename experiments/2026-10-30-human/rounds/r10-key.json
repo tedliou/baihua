@@ -1,0 +1,46 @@
+{
+ "1": {
+  "task": "r9-t-refund",
+  "s": 2,
+  "A": "cand4",
+  "B": "cur3",
+  "facts_ok": [
+   true,
+   true
+  ],
+  "ratio": 0.87
+ },
+ "2": {
+  "task": "r9-t-price",
+  "s": 2,
+  "A": "cand4",
+  "B": "cur3",
+  "facts_ok": [
+   false,
+   false
+  ],
+  "ratio": 0.9
+ },
+ "3": {
+  "task": "r9-w-delay",
+  "s": 2,
+  "A": "cand4",
+  "B": "cur3",
+  "facts_ok": [
+   true,
+   true
+  ],
+  "ratio": 0.68
+ },
+ "4": {
+  "task": "r9-w-welcome",
+  "s": 2,
+  "A": "cur3",
+  "B": "cand4",
+  "facts_ok": [
+   true,
+   true
+  ],
+  "ratio": 0.88
+ }
+}

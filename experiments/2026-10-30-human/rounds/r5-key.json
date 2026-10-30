@@ -1,0 +1,46 @@
+{
+ "1": {
+  "task": "r4-movie",
+  "s": 2,
+  "A": "cand2",
+  "B": "cur",
+  "facts_ok": [
+   true,
+   true
+  ],
+  "ratio": 0.84
+ },
+ "2": {
+  "task": "r4-ramen",
+  "s": 2,
+  "A": "cand2",
+  "B": "cur",
+  "facts_ok": [
+   true,
+   true
+  ],
+  "ratio": 0.73
+ },
+ "3": {
+  "task": "r4-hike",
+  "s": 2,
+  "A": "cand2",
+  "B": "cur",
+  "facts_ok": [
+   true,
+   true
+  ],
+  "ratio": 0.73
+ },
+ "4": {
+  "task": "r4-job",
+  "s": 2,
+  "A": "cand2",
+  "B": "cur",
+  "facts_ok": [
+   true,
+   true
+  ],
+  "ratio": 0.56
+ }
+}

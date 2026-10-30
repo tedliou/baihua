@@ -24,7 +24,7 @@ scripts/check.py    機械檢查
 
 上面是 `skills/zh-tw-prose/` 的內容，也就是上傳到 claude.ai 的部分。repo 根目錄另有審稿子代理 `agents/`、常駐片段 `snippets/` 與測試案例 `evals/`，它們不在 skill 資料夾裡。
 
-SKILL.md 控制在 5,000 token 以內，因為 Claude Code 在對話壓縮後只保留每個 skill 的前 5,000 token（token 是模型計算文字長度的單位，見 [Claude Code skills 文件](https://code.claude.com/docs/en/skills)）。
+SKILL.md 控制在 5,000 token 以內（2026-10-30 約 4,800），因為 Claude Code 在對話壓縮後只保留每個 skill 的前 5,000 token（token 是模型計算文字長度的單位，見 [Claude Code skills 文件](https://code.claude.com/docs/en/skills)）。量法：用 `claude -p --output-format json` 分別在附加與不附加 SKILL.md 的情況下送同一句話，兩次 input token 的差就是 SKILL.md 的長度。
 
 哪些內容放 SKILL.md，依「作答當下會不會用到」決定。2026-10-28 的 eval 檢查了 20 次潤稿與改寫：每次都有載入 skill，但沒有一次讀過 references，模型載入 skill 後就直接作答。所以改稿時每一句都要對照的東西放在 SKILL.md：
 
@@ -34,6 +34,10 @@ SKILL.md 控制在 5,000 token 以內，因為 Claude Code 在對話壓縮後只
 references 放完整說明、前後例與長文才需要的細節，例如文章的開頭與結構、介面文字的各種元件。SKILL.md 寫明寫整篇文章或整份文件時才讀這些檔案。
 
 SKILL.md 直接連到每一個 references 檔，Claude 從 SKILL.md 一步就能找到需要的檔案。references 之間也有幾處互相指引，例如 patterns.md 指向 translationese.md，但被指到的檔案都能從 SKILL.md 直接找到，不依賴這些連結。
+
+## 句子的組法
+
+核心規則與檢查清單處理用詞與語氣，「中文句子的組法」處理句子的骨架：主詞何時省略、分句的順序、連接詞與名詞前修飾的長度。研究顯示模型的中文和英譯中的文字一樣，代名詞、連接詞與「名詞＋的」修飾都比母語中文多，這些是句法層次的偏差，換詞改不掉。這一節用正面的「怎麼寫」表述，不列禁止的說法，理由與文獻見 [theory.md](theory.md)，實驗見 `experiments/2026-10-30-syntax/`。
 
 ## 規則的寫法
 

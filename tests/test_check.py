@@ -136,3 +136,32 @@ class CliTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class SyntaxProfileTest(unittest.TestCase):
+    def test_three_de_in_one_clause_warns(self):
+        self.assertIn(("warning", "ai-T05"), rules("這是一套由社群維護的、支援多種資料庫的開源的工具。"))
+
+    def test_two_de_or_lexical_de_is_fine(self):
+        self.assertNotIn(("warning", "ai-T05"), rules("未儲存的表單內容會在關閉頁面後消失。"))
+        self.assertNotIn(("warning", "ai-T05"), rules("目的是確認的確有效，真的話就留著。"))
+
+    def test_profile_counts_per_thousand(self):
+        p = check.profile_text("它會讀取設定檔，因此它會檢查格式。", markdown=False)
+        self.assertGreater(p["pronouns"], 0)
+        self.assertGreater(p["connectives"], 0)
+        self.assertEqual(p["bei"], 0)
+        self.assertIn("sent_cv", p)
+
+    def test_profile_ignores_code_blocks(self):
+        p = check.profile_text("說明文字。\n\n```\n它它它它\n```\n", markdown=True)
+        self.assertEqual(p["pronouns"], 0)
+
+    def test_profile_flag_prints_line(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "a.md"
+            path.write_text("這個指令會讀取設定檔、檢查格式，再把結果寫進日誌。\n", encoding="utf-8")
+            buf = io.StringIO()
+            with redirect_stdout(buf):
+                check.main([str(path), "--profile"])
+            self.assertIn("profile", buf.getvalue())

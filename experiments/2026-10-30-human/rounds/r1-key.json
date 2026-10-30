@@ -1,0 +1,35 @@
+{
+ "key": {
+  "r1-cafe": {
+   "A": "cand",
+   "B": "cur",
+   "ratio": 0.89
+  },
+  "r1-course": {
+   "A": "cand",
+   "B": "cur",
+   "ratio": 0.8
+  },
+  "r1-tool": {
+   "A": "cur",
+   "B": "cand",
+   "ratio": 0.85
+  },
+  "r1-trip": {
+   "A": "cur",
+   "B": "cand",
+   "ratio": 0.71
+  },
+  "r1-update": {
+   "A": "cand",
+   "B": "cur",
+   "ratio": 0.68
+  },
+  "r1-book": {
+   "A": "cand",
+   "B": "cur",
+   "ratio": 0.88
+  }
+ },
+ "auto": []
+}
