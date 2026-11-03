@@ -43,6 +43,10 @@
       "with": 0.8,
       "without": 0.6
     },
+    "filename-in-title-summary": {
+      "with": 0.833,
+      "without": null
+    },
     "fix-translationese": {
       "with": 1,
       "without": 1
@@ -82,6 +86,10 @@
     "lecturing-warning-dns": {
       "with": 0.8,
       "without": 0.8
+    },
+    "mechanism-first-paragraph": {
+      "with": 0.667,
+      "without": null
     },
     "no-fabrication": {
       "with": 1,
@@ -142,6 +150,10 @@
     "ui-status-chip-terse-comparison": {
       "with": 0.833,
       "without": 1
+    },
+    "untested-scenario-disclaimer": {
+      "with": 1,
+      "without": null
     },
     "vague-prediction-summary": {
       "with": 0.8,
