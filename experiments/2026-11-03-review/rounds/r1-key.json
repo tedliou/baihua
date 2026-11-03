@@ -1,0 +1,68 @@
+{
+ "seed": 20261104,
+ "note": "cur 只從有載入 skill 的 7 題抽 5 題；h-rewrite-review、h-translate-guide、wiki-claim-left-to-discover 的 cur 執行沒有呼叫 Skill",
+ "key": [
+  {
+   "item": "r1-01",
+   "task_id": "r11-permission",
+   "cond": "cur"
+  },
+  {
+   "item": "r1-02",
+   "task_id": "h-rewrite-review",
+   "cond": "none"
+  },
+  {
+   "item": "r1-03",
+   "task_id": "h-translate-guide",
+   "cond": "none"
+  },
+  {
+   "item": "r1-04",
+   "task_id": "r8-w-email",
+   "cond": "none"
+  },
+  {
+   "item": "r1-05",
+   "task_id": "h-write-report",
+   "cond": "cur"
+  },
+  {
+   "item": "r1-06",
+   "task_id": "mechanism-first-paragraph",
+   "cond": "cur"
+  },
+  {
+   "item": "r1-07",
+   "task_id": "wiki-claim-left-to-discover",
+   "cond": "none"
+  },
+  {
+   "item": "r1-08",
+   "task_id": "h-polish-mixed",
+   "cond": "cur"
+  },
+  {
+   "item": "r1-09",
+   "task_id": "h-write-article",
+   "cond": "none"
+  },
+  {
+   "item": "r1-10",
+   "task_id": "r4-hike",
+   "cond": "cur"
+  },
+  {
+   "item": "r1-11",
+   "task_id": "r11-permission",
+   "cond": "cur",
+   "anchor_of": "r1-01"
+  },
+  {
+   "item": "r1-12",
+   "task_id": "h-rewrite-review",
+   "cond": "none",
+   "anchor_of": "r1-02"
+  }
+ ]
+}

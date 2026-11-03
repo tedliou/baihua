@@ -1,0 +1,3 @@
+割紋技能到 Lv {combat.tech.fasterLv} 時，招式的冷卻縮短 {combat.tech.fasterCut}%。到 Lv {combat.tech.masterLv} 時，冷卻縮短 {combat.tech.masterCut}%，效果再增加 {combat.tech.masterUp}%。沒有冷卻的招式改為增加同樣比例的傷害。
+
+每種招式與割紋的實際效果，都列在上方的表格和資料庫的條目頁。玩家第一次用出某個招式時，圖鑑會跳出發現卡並記錄該招式。隊上有人第一次拿到割紋時，圖鑑的烘焙篇會記錄該割紋。

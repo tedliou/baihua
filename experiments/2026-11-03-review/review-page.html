@@ -1,0 +1,259 @@
+<title>白話審稿台</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&display=swap">
+<style>
+/* 版面：單欄校樣。上方是題目卡，中間是像稿紙的輸出，下方是審稿動作列 */
+:root {
+  --bg: #eef1f4;
+  --paper: #fbfcfd;
+  --ink: #1b2430;
+  --ink-2: #4c5866;
+  --ink-3: #7a8593;
+  --rule: rgba(27, 36, 48, .12);
+  --accent: #2f5d8a;
+  --accent-soft: rgba(47, 93, 138, .10);
+  --pass: #2e7d4f;
+  --pass-soft: rgba(46, 125, 79, .12);
+  --fail: #b23b3b;
+  --fail-soft: rgba(178, 59, 59, .10);
+  --font-prose: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+  --font-ui: system-ui, -apple-system, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12171d; --paper: #1a2129; --ink: #e4e9ef; --ink-2: #aab4bf; --ink-3: #7f8a96;
+    --rule: rgba(228, 233, 239, .12); --accent: #7fa9d4; --accent-soft: rgba(127, 169, 212, .14);
+    --pass: #6cc28f; --pass-soft: rgba(108, 194, 143, .14); --fail: #e48080; --fail-soft: rgba(228, 128, 128, .13);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12171d; --paper: #1a2129; --ink: #e4e9ef; --ink-2: #aab4bf; --ink-3: #7f8a96;
+  --rule: rgba(228, 233, 239, .12); --accent: #7fa9d4; --accent-soft: rgba(127, 169, 212, .14);
+  --pass: #6cc28f; --pass-soft: rgba(108, 194, 143, .14); --fail: #e48080; --fail-soft: rgba(228, 128, 128, .13);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--font-ui); font-size: 15px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 48px;
+}
+.wrap { max-width: 760px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; }
+h1 { font-family: var(--font-prose); font-weight: 600; font-size: 22px; margin: 0; letter-spacing: .04em; text-wrap: balance; }
+.meta { color: var(--ink-2); font-size: 13px; font-variant-numeric: tabular-nums; }
+.strip { display: flex; flex-wrap: wrap; gap: 6px; }
+.dot {
+  min-width: 34px; height: 30px; padding: 0 6px; border-radius: 6px; border: 1px solid var(--rule);
+  background: var(--paper); color: var(--ink-2); font: 600 12px var(--font-ui); font-variant-numeric: tabular-nums; cursor: pointer;
+}
+.dot[data-v="pass"] { background: var(--pass-soft); color: var(--pass); border-color: transparent; }
+.dot[data-v="fail"] { background: var(--fail-soft); color: var(--fail); border-color: transparent; }
+.dot[aria-current="true"] { outline: 2px solid var(--accent); outline-offset: 1px; }
+.dot:focus-visible, button:focus-visible, textarea:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.task { border: 1px solid var(--rule); border-radius: 10px; background: var(--paper); }
+.task summary { cursor: pointer; padding: 12px 14px; color: var(--ink-2); font-size: 13px; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+.task summary::-webkit-details-marker { display: none; }
+.task summary .hint { color: var(--accent); white-space: nowrap; }
+.task[open] summary .hint::after { content: "收起"; }
+.task:not([open]) summary .hint::after { content: "展開"; }
+.task .body { padding: 0 14px 14px; white-space: pre-wrap; overflow-wrap: anywhere; font-size: 14px; color: var(--ink-2); border-top: 1px solid var(--rule); padding-top: 12px; }
+.label { font-size: 12px; letter-spacing: .08em; color: var(--ink-3); margin: 0 0 6px; }
+.sheet {
+  background: var(--paper); border-radius: 4px; padding: 22px 22px 26px;
+  box-shadow: 0 1px 0 var(--rule), 0 8px 24px -16px rgba(0, 0, 0, .35);
+  font-family: var(--font-prose); font-size: 17px; line-height: 1.95; white-space: pre-wrap; overflow-wrap: anywhere; min-width: 0;
+}
+.panel { display: flex; flex-direction: column; gap: 12px; }
+.verdict { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.vbtn {
+  height: 48px; border-radius: 8px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink);
+  font: 600 16px var(--font-ui); cursor: pointer;
+}
+.vbtn[data-k="pass"][aria-pressed="true"] { background: var(--pass); color: var(--paper); border-color: var(--pass); }
+.vbtn[data-k="fail"][aria-pressed="true"] { background: var(--fail); color: var(--paper); border-color: var(--fail); }
+textarea {
+  width: 100%; min-height: 96px; resize: vertical; border-radius: 8px; border: 1px solid var(--rule);
+  background: var(--paper); color: var(--ink); padding: 10px 12px; font: 15px/1.7 var(--font-ui);
+}
+#edited { font-family: var(--font-prose); font-size: 16px; min-height: 200px; }
+.edit-toggle { align-self: flex-start; background: none; border: 0; color: var(--accent); font: 14px var(--font-ui); cursor: pointer; padding: 4px 0; }
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
+.nav { display: flex; gap: 8px; }
+.btn { height: 40px; padding: 0 16px; border-radius: 8px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); font: 14px var(--font-ui); cursor: pointer; }
+.btn.primary { background: var(--accent); color: var(--paper); border-color: var(--accent); font-weight: 600; }
+.btn:disabled { opacity: .45; cursor: default; }
+.status { font-size: 13px; color: var(--ink-3); min-height: 1.4em; }
+.status.err { color: var(--fail); }
+.empty { background: var(--paper); border: 1px dashed var(--rule); border-radius: 10px; padding: 28px 20px; color: var(--ink-2); text-align: center; }
+.done { background: var(--accent-soft); border-radius: 10px; padding: 14px 16px; color: var(--ink); font-size: 14px; }
+@media (max-width: 480px) { .sheet { padding: 18px 16px 22px; font-size: 16px; } h1 { font-size: 20px; } }
+@media (prefers-reduced-motion: no-preference) { .vbtn, .dot { transition: background-color .15s, color .15s; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>白話審稿台</h1>
+    <div class="meta" id="meta">讀取題目中</div>
+  </header>
+
+  <nav class="strip" id="strip" aria-label="題目"></nav>
+
+  <div id="empty" class="empty">題目還沒載入。這一輪的題目由 Claude 寫進資料庫，載入後會出現在這裡。</div>
+
+  <main id="card" hidden>
+    <div class="panel">
+      <details class="task" id="task">
+        <summary><span id="taskHead"></span><span class="hint"></span></summary>
+        <div class="body" id="taskBody"></div>
+      </details>
+
+      <div>
+        <p class="label">輸出</p>
+        <div class="sheet" id="output"></div>
+      </div>
+
+      <div class="verdict" role="group" aria-label="判斷">
+        <button class="vbtn" data-k="pass" id="vPass" aria-pressed="false">通過</button>
+        <button class="vbtn" data-k="fail" id="vFail" aria-pressed="false">不通過</button>
+      </div>
+
+      <div>
+        <p class="label">意見（不通過時寫哪裡不對、為什麼；通過也可以留話）</p>
+        <textarea id="comment" placeholder="例如：第二句像在推銷，讀者要的是怎麼設定"></textarea>
+      </div>
+
+      <button class="edit-toggle" id="editToggle" aria-expanded="false">直接改字</button>
+      <div id="editWrap" hidden>
+        <p class="label">改成你要的樣子，存檔後我會比對差異</p>
+        <textarea id="edited"></textarea>
+      </div>
+
+      <div class="row">
+        <div class="status" id="status" role="status"></div>
+        <div class="nav">
+          <button class="btn" id="prev">上一題</button>
+          <button class="btn primary" id="save">儲存並下一題</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="finished" class="done" hidden>這一輪都審完了。回到 Claude Code 說一聲，我會讀取結果開始診斷。</div>
+</div>
+
+<script>
+(function () {
+  const ROUND = "r1";
+  const $ = (id) => document.getElementById(id);
+  let db = null, items = [], reviews = {}, idx = 0, verdict = null, editing = false;
+
+  function stripTail(p) {
+    return String(p || "").replace(/\n*只輸出成品本身[^\n]*$/, "").trim();
+  }
+  function firstLine(p) {
+    const s = stripTail(p).split("\n").find((l) => l.trim()) || "";
+    return s.length > 60 ? s.slice(0, 60) + "…" : s;
+  }
+  function setStatus(msg, err) { const s = $("status"); s.textContent = msg || ""; s.classList.toggle("err", !!err); }
+
+  function renderStrip() {
+    const strip = $("strip"); strip.textContent = "";
+    items.forEach((it, i) => {
+      const b = document.createElement("button");
+      b.className = "dot"; b.textContent = String(i + 1);
+      const r = reviews[it.id]; if (r && r.verdict) b.dataset.v = r.verdict;
+      b.setAttribute("aria-current", i === idx ? "true" : "false");
+      b.setAttribute("aria-label", "第 " + (i + 1) + " 題" + (r && r.verdict ? (r.verdict === "pass" ? "，已通過" : "，不通過") : ""));
+      b.addEventListener("click", () => { idx = i; renderCard(); });
+      strip.appendChild(b);
+    });
+    const done = items.filter((it) => reviews[it.id] && reviews[it.id].verdict).length;
+    $("meta").textContent = items.length ? "第一輪 · 已審 " + done + " / " + items.length + " 題" : "第一輪";
+    $("finished").hidden = !(items.length && done === items.length);
+  }
+
+  function setVerdict(v) {
+    verdict = v;
+    $("vPass").setAttribute("aria-pressed", v === "pass" ? "true" : "false");
+    $("vFail").setAttribute("aria-pressed", v === "fail" ? "true" : "false");
+  }
+  function setEditing(on) {
+    editing = on; $("editWrap").hidden = !on;
+    $("editToggle").setAttribute("aria-expanded", on ? "true" : "false");
+    $("editToggle").textContent = on ? "收起改字區" : "直接改字";
+  }
+
+  function renderCard() {
+    if (!items.length) { $("card").hidden = true; $("empty").hidden = false; renderStrip(); return; }
+    $("empty").hidden = true; $("card").hidden = false;
+    const it = items[idx], r = reviews[it.id] || {};
+    $("taskHead").textContent = "題目 " + (idx + 1) + "：" + firstLine(it.task);
+    $("taskBody").textContent = stripTail(it.task);
+    $("output").textContent = it.output || "";
+    setVerdict(r.verdict || null);
+    $("comment").value = r.comment || "";
+    $("edited").value = r.edited || it.output || "";
+    setEditing(!!r.edited);
+    $("prev").disabled = idx === 0;
+    $("save").textContent = idx === items.length - 1 ? "儲存" : "儲存並下一題";
+    setStatus(r.verdict ? "已儲存過，可以修改後再存一次" : "");
+    renderStrip();
+    window.scrollTo({ top: 0 });
+  }
+
+  async function save() {
+    const it = items[idx];
+    if (!verdict) { setStatus("先選「通過」或「不通過」", true); return; }
+    const comment = $("comment").value.trim();
+    if (verdict === "fail" && !comment && !(editing && $("edited").value.trim() !== (it.output || "").trim())) {
+      setStatus("不通過時寫一句意見，或直接改字", true); return;
+    }
+    let edited = editing ? $("edited").value.trim() : "";
+    if (edited === (it.output || "").trim()) edited = "";
+    const body = { round: ROUND, item: it.id, verdict, comment, edited, savedAt: new Date().toISOString() };
+    if (!db) { setStatus("連不上資料庫，這次的判斷沒有存到", true); return; }
+    $("save").disabled = true; setStatus("儲存中");
+    try {
+      await db.doc("reviews/" + it.id).set(body);
+      reviews[it.id] = body;
+      setStatus("已儲存");
+      if (idx < items.length - 1) { idx += 1; renderCard(); } else { renderStrip(); }
+    } catch (e) {
+      setStatus(e && e.code === "invalid_argument" ? "你沒有寫入權限，判斷沒有存到" : "儲存失敗，稍後再按一次", true);
+    } finally { $("save").disabled = false; }
+  }
+
+  $("vPass").addEventListener("click", () => setVerdict("pass"));
+  $("vFail").addEventListener("click", () => setVerdict("fail"));
+  $("editToggle").addEventListener("click", () => setEditing(!editing));
+  $("prev").addEventListener("click", () => { if (idx > 0) { idx -= 1; renderCard(); } });
+  $("save").addEventListener("click", save);
+
+  renderCard();
+
+  (async function start() {
+    db = window.claude && window.claude.use ? await window.claude.use("db") : null;
+    if (!db) { $("meta").textContent = "第一輪"; $("empty").textContent = "這個畫面讀不到資料庫。請在 claude.ai 登入後開啟這個頁面。"; return; }
+    const timer = setTimeout(() => { if (!items.length) $("empty").textContent = "題目還讀不到，網路可能不穩，稍候會自動載入。"; }, 10000);
+    db.collection("items").where("round", "==", ROUND).onSnapshot((snap) => {
+      if (!snap.metadata.fromCache) clearTimeout(timer);
+      const cur = items[idx] && items[idx].id;
+      items = snap.docs.map((d) => Object.assign({ id: d.id }, d.data())).sort((a, b) => (a.order || 0) - (b.order || 0));
+      const keep = items.findIndex((x) => x.id === cur);
+      idx = keep >= 0 ? keep : Math.min(idx, Math.max(items.length - 1, 0));
+      renderCard();
+    }, () => { clearTimeout(timer); $("empty").textContent = "讀取題目時出錯，重新整理頁面再試一次。"; });
+    db.collection("reviews").where("round", "==", ROUND).onSnapshot((snap) => {
+      const next = {};
+      snap.docs.forEach((d) => { next[d.id] = d.data(); });
+      reviews = next; renderStrip();
+    }, () => {});
+  })();
+})();
+</script>
