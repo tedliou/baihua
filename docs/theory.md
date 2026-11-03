@@ -40,6 +40,7 @@
 
 ## 參考文獻
 
+- Ausubel, D. P. (1960). The use of advance organizers in the learning and retention of meaningful verbal material. *Journal of Educational Psychology*, 51(5), 267–272. 技術文章的摘要與第一段先給概念、版本與指令延後出現（`registers/article.md` 的「開頭」），依據是先行組織的概念：開頭先給讀者理解後文的框架。
 - Baker, M. (1993). Corpus linguistics and translation studies: Implications and applications. In *Text and Technology*. John Benjamins.
 - Futrell, R., Mahowald, K., & Gibson, E. (2015). Large-scale evidence of dependency length minimization in 37 languages. *PNAS*, 112(33). https://pmc.ncbi.nlm.nih.gov/articles/PMC4547262
 - Guo, B. et al. (2023). How close is ChatGPT to human experts? Comparison corpus, evaluation, and detection. arXiv:2301.07597. https://arxiv.org/abs/2301.07597
@@ -52,4 +53,5 @@
 - Xiao, R. (2010). How different is translated Chinese from native Chinese? A corpus-based study of translation universals. *International Journal of Corpus Linguistics*, 15(1). https://www.lancaster.ac.uk/fass/projects/corpus/ZJU/xpapers/Xiao_IJCL_TransChinese.pdf
 - 王力（1944）。《中國現代語法》第六章〈歐化的語法〉。
 - 連淑能（1993）。《英漢對比研究》。高等教育出版社。
+- Nielsen Norman Group. Inverted pyramid: Writing for comprehension. https://www.nngroup.com/articles/inverted-pyramid/ 與 Progressive disclosure. https://www.nngroup.com/articles/progressive-disclosure/ 和 Ausubel 一起支持「開頭寫概念，細節等讀者需要時再出現」。
 - ISO 24495-1:2023 Plain language, Part 1: Governing principles and guidelines. 本專案的「先給答案」「依資訊性質選格式」與標準的四個原則（relevant、findable、understandable、usable）一致。

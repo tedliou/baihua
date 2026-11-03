@@ -1,7 +1,7 @@
 {
   "model": "sonnet",
   "claudeVersion": "2.1.309",
-  "updated": "2026-10-28",
+  "updated": "2026-11-03",
   "cases": {
     "adjective-instead-of-number": {
       "with": 0.8,
@@ -26,6 +26,10 @@
     "compose-with-glossary": {
       "with": 0.875,
       "without": 0.875
+    },
+    "concept-sentence-pasted": {
+      "with": 0.857,
+      "without": null
     },
     "condense-keep-complete": {
       "with": 0.889,
