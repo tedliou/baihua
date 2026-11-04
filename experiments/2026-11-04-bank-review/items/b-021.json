@@ -1,0 +1,1 @@
+{"round": "bank1", "order": 21, "name": "comma-chopped-lede", "origin": "現有題庫", "source": "src-directed", "judge": "不明顯", "reason": "逗號切碎、冒號列舉，屬於句子節奏問題", "prompt": "幫我潤稿這篇 API 串接筆記的開頭段落。讀者是要把這個模型接進後端系統的工程師。\n\nJev 是 TypeSafe 的決策模型，後端系統串接只需要一個 HTTP POST 請求：送出要判斷的資料 `state` 與一或多個題目，回傳的是各個答案的機率，不會產生文字。模型只負責判斷，結果要自動執行還是交給人工，由程式依機率或 `confidence` 門檻決定。", "reference": ""}

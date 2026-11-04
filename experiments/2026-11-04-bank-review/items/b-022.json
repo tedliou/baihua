@@ -1,0 +1,1 @@
+{"round": "bank1", "order": 22, "name": "cute-tilde-transition", "origin": "現有題庫", "source": "src-self", "judge": "不明顯", "reason": "「剛開始先輕鬆點~」比較像人寫的口語部落格", "prompt": "幫我潤稿這個圖片生成教學的段落。這是安裝完成後的過渡段，後面接著第一個實作章節。\n\n到這邊我們已經安裝好 Stable Diffusion Web UI 了，未來想要啟動它就只要雙點擊啟動 run.bat 就會很快地開啟網頁介面，只需要偶爾執行一下 update.bat 來讓它更新主程式。\n\n接下來我們將從最簡單的彩色貼圖生成來教學，剛開始先輕鬆點~", "reference": ""}
