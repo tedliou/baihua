@@ -34,6 +34,7 @@ RUN_DIR = ROOT / "eval-run"
 BASELINE = FIXED_DIR / "baseline.json"
 
 MODEL = "sonnet"
+INVOKE = "使用 zh-tw-prose skill。"
 CATEGORIES = ["ai-flavor", "translationese", "glossary", "core-rule"]
 SAMPLE_SIZE = 8
 CASE_DROP = 0.17
@@ -102,11 +103,17 @@ def check_forbidden(private_dir, cases):
 
 
 def assemble(target, cases):
-    """把題目複製到一個暫存的 eval 目錄。題庫題會加上共用的評分項。"""
+    """把題目複製到一個暫存的 eval 目錄。
+
+    每題開頭加上 INVOKE，照實際用法由使用者或其他 skill 寫明使用本 skill。題庫題另外加上共用的評分項。
+    """
     target.mkdir(parents=True)
     for case in cases:
         dest = target / case.name
         shutil.copytree(case.path, dest)
+        prompt = dest / "prompt.md"
+        head, front, body = prompt.read_text(encoding="utf-8").split("---", 2)
+        prompt.write_text(f"{head}---{front}---\n\n{INVOKE}\n\n{body.lstrip()}", encoding="utf-8")
         if case.path.parent == FIXED_DIR:
             continue
         for g in COMMON_GRADERS.glob("*.md"):
