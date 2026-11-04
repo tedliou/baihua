@@ -1,0 +1,1 @@
+VS Code + uv 的分工很清楚：uv 管 Python 版本、`.venv` 與套件，VS Code 只需要指向專案內的 `.venv`。只要 `pyproject.toml`、`uv.lock` 與 `.python-version` 跟著專案走，環境就能在任何一台電腦重建。

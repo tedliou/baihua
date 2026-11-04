@@ -1,0 +1,13 @@
+**summary:**
+
+```
+summary: "安裝 Comfy-Org 官方的 comfy-mcp，用 `comfy install` 建好 ComfyUI，再以 `claude mcp add` 接上 Claude Code，就能用對話啟動 ComfyUI、下載模型和執行 workflow。以下步驟在 Windows 11 與 RTX 3070 上從零實測，並附上用瀏覽器或 Comfy Desktop 打開 Claude Code 改過的 workflow 的方法。"
+```
+
+**開頭兩段：**
+
+ComfyUI 是用節點串接 workflow 來產圖的工具。要讓 Claude Code 操作本機的 ComfyUI，只需要三步：用 uv 安裝 Comfy-Org 官方的 comfy-mcp，用 `comfy install` 建立 ComfyUI 工作區，再用 `claude mcp add` 把 comfy-mcp 註冊給 Claude Code。完成後，啟動 ComfyUI、下載模型、套用範本和執行 workflow 都能用對話處理。想檢視 workflow 或手動調整時，再用瀏覽器或 Comfy Desktop 打開。
+
+我在 Windows 11 與 RTX 3070 8 GB 上，用 uv 0.13.6、comfy-cli 1.24.0、comfy-mcp 0.10.0 和 ComfyUI 0.43.2 從零實測了一次，過程中不用寫設定檔，也不用設環境變數。最後 Claude Code 只靠 Prompt 產出了這張 1024 × 1024 的 logo：
+
+〔logo 圖〕
