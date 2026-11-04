@@ -2,14 +2,14 @@
 
 [正體中文](README.md)
 
-baihua (白話, "plain speech") helps Claude write Traditional Chinese that reads naturally to Taiwanese readers. The `zh-tw-prose` skill loads when Claude writes or edits articles, docs, UI copy, announcements and PR descriptions in zh-TW. It removes AI-flavoured phrasing, translationese and Mainland Chinese terms, keeps sentences complete, and puts the answer first.
+baihua (白話, "plain speech") helps Claude write Traditional Chinese that reads naturally to Taiwanese readers. The `zh-tw-prose` skill loads when Claude writes or edits technical articles, reference docs and UI text in zh-TW. It removes AI-flavoured phrasing, translationese and Mainland Chinese terms, keeps sentences complete, and puts the answer first.
 
 The skill itself is written in Chinese, because it is read by Claude while writing Chinese. This page is a short English summary.
 
 ## What is inside
 
 - 10 core rules, each with its reason, so Claude can handle cases the rules do not cover.
-- 6 registers: technical articles (including technical blogs), reference docs, UI text, work reports, notices, and letters to customers.
+- 3 registers: technical articles (including technical blogs), reference docs and UI text.
 - 25 AI-writing patterns and 10 translationese patterns. Each has a before/after example and a "keep it when" boundary, so good text is not over-edited.
 - A Taiwan usage table and `check.py`, a standard-library Python linter for terms, punctuation and CJK–Latin spacing.
 - `zh-tw-reviewer`, a read-only reviewer subagent with a clean context.
@@ -33,7 +33,7 @@ In Claude Code, run `/zh-tw-prose` and then describe the text to write or edit. 
 
 ## Evals
 
-Tests run with `claude plugin eval` in four tiers, so day-to-day changes only run the cases they touch. There are 8 fixed behaviour cases (4 of them check that good text is left alone) and a bank of 39 cases, mostly taken from real edits, from which 8 are sampled before each release. See [evals/README.md](evals/README.md).
+Tests run with `claude plugin eval` in four tiers, so day-to-day changes only run the cases they touch. There are 6 fixed behaviour cases (4 of them check that good text is left alone) and a bank of 38 cases, mostly taken from real edits, from which 8 are sampled before each release. See [evals/README.md](evals/README.md).
 
 ## Limits
 

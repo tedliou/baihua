@@ -6,15 +6,14 @@
 
 ### 修改
 
-- 範圍收斂到六種文字：技術文章（含技術部落格）、參考文件、介面文字、工作報告、公告與給客戶的信。規則只寫這六種文字怎麼寫，不列舉其他文類。依據是 `experiments/2026-11-03-review/` 的單份審閱：作者三次否決把遊記與餐廳心得改成白話的輸出，有沒有 skill 都一樣，表示問題出在規則套用的範圍太廣。
+- 範圍收斂到三種文字：技術文章（含技術部落格）、參考文件與介面文字。規則只寫這三種文字怎麼寫，不列舉其他文類。起因是 `experiments/2026-11-03-review/` 的單份審閱：作者三次否決把遊記與餐廳心得改成白話的輸出，有沒有 skill 都一樣，表示規則套用的範圍太廣。
 - description 只寫處理的文字類型，不再列不使用的情況，也不再為自動觸發另外設計。使用者用 `/zh-tw-prose` 呼叫，其他 skill 在指示裡寫明使用 zh-tw-prose。
-- 語域表的「正式文件」拆成「公告」與「信件」兩列，共用 `formal.md`。`formal.md` 刪掉規章、條款、聲明與新聞稿，補上信件一節（內容原本只在 SKILL.md 的語域表）。
-- 核心規則 4 刪掉個人心得、遊記與讀後感的例外。改稿原則 4 刪掉海景的示範。檢查清單、`patterns.md` 與 `translationese.md` 裡以社群貼文、推廣文案、服務條款為例的保留條件改寫或刪除。
+- 核心規則 4 刪掉個人心得、遊記與讀後感的例外。改稿原則 4 刪掉海景的示範。檢查清單、`patterns.md`、`translationese.md` 與 `integrity.md` 裡以社群貼文、推廣文案、公告、信件、條款與工作報告為例的保留條件改寫或刪除。
 
 ### 移除
 
-- `references/registers/social.md`。
-- 固定題 `write-social-post` 與 `keep-formal-terms`。
+- 語域檔 `references/registers/social.md`、`report.md` 與 `formal.md`，以及語域表的社群貼文、工作報告與正式文件三列。
+- 固定題 `write-social-post`、`keep-formal-terms`、`write-maintenance-notice`、`write-pr-description`，題庫題 `condense-keep-complete`。
 - 觸發題 `evals/trigger-*` 共 16 題，以及 `eval.py` 與結構測試裡的觸發題判斷。
 
 ## [0.3.2] - 2026-11-03

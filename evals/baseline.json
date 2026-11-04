@@ -31,10 +31,6 @@
       "with": 0.857,
       "without": null
     },
-    "condense-keep-complete": {
-      "with": 0.889,
-      "without": 0.889
-    },
     "cute-tilde-transition": {
       "with": 0.833,
       "without": 0.5
@@ -174,14 +170,6 @@
     "write-article-intro": {
       "with": 1,
       "without": 0.667
-    },
-    "write-maintenance-notice": {
-      "with": 0.833,
-      "without": 0.667
-    },
-    "write-pr-description": {
-      "with": 1,
-      "without": 0.833
     },
     "write-readme-intro": {
       "with": 0.857,

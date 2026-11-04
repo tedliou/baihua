@@ -6,8 +6,8 @@
 
 | 位置 | 數量 | 內容 |
 | --- | --- | --- |
-| `evals/`，標籤 `behavior` | 8 | 固定題。4 題檢查過度修改，1 題檢查不捏造事實，3 題涵蓋公告、PR 說明與 README 這些題庫沒有真實案例的語域。 |
-| `eval-bank/` | 39 | 抽考題庫。32 題取自真實改稿案例，7 題是自己寫的示範題。 |
+| `evals/`，標籤 `behavior` | 6 | 固定題。4 題檢查過度修改，1 題檢查不捏造事實，1 題檢查 README 開頭。 |
+| `eval-bank/` | 38 | 抽考題庫。32 題取自真實改稿案例，6 題是自己寫的示範題。 |
 
 題庫的每一題都有標籤：
 
@@ -37,7 +37,7 @@ L1  改 skill 文字時
 
 L2  發 release 前
     python scripts/eval.py L2
-    固定題 8 題、從題庫抽考 8 題，只跑有 skill 的一組
+    固定題 6 題、從題庫抽考 8 題，只跑有 skill 的一組
 
 L3  換模型版本時
     python scripts/eval.py L3 --update-baseline
