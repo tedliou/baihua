@@ -1,0 +1,8 @@
+{
+  "comment": "",
+  "edited": "comfy-cli 安裝的 ComfyUI 會讀 `main.py` 旁邊的 `extra_model_paths.yaml`，裡面寫共用資料夾的路徑，以及各類模型對應的子資料夾。我在兩個專案各放一份內容完全相同的設定檔。之後新增模型類型時，兩份設定檔都要改。\n\n兩個 ComfyUI 專案改讀共用資料夾後，MOSS-Image 與 Qwen-Image 在硬碟上各只存一份。",
+  "item": "b-019",
+  "round": "rw1",
+  "savedAt": "2026-11-04T12:27:02.624Z",
+  "verdict": "fail"
+}
