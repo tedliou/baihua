@@ -59,10 +59,6 @@
       "with": 1,
       "without": 1
     },
-    "keep-formal-terms": {
-      "with": 1,
-      "without": 1
-    },
     "keep-good-text": {
       "with": 1,
       "without": 1
@@ -190,10 +186,6 @@
     "write-readme-intro": {
       "with": 0.857,
       "without": 0.857
-    },
-    "write-social-post": {
-      "with": 1,
-      "without": 0.5
     },
     "write-ui-errors": {
       "with": 1,

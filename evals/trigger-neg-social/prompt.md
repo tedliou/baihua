@@ -1,6 +1,6 @@
 ---
-description: "應觸發 zh-tw-prose"
-tags: [trigger, positive]
+description: "範圍外：社群貼文不應觸發 zh-tw-prose"
+tags: [trigger, negative]
 max_turns: 1
 allowed_tools: [Read, Glob, Grep, Skill]
 ---

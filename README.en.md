@@ -9,7 +9,7 @@ The skill itself is written in Chinese, because it is read by Claude while writi
 ## What is inside
 
 - 10 core rules, each with its reason, so Claude can handle cases the rules do not cover.
-- 6 registers: technical articles, reference docs, UI text, work reports, social posts, formal notices.
+- 6 registers: technical articles (including technical blogs), reference docs, UI text, work reports, notices, and letters to customers. Social posts, marketing copy, personal essays, travel writing and literary prose are out of scope.
 - 25 AI-writing patterns and 10 translationese patterns. Each has a before/after example and a "keep it when" boundary, so good text is not over-edited.
 - A Taiwan usage table and `check.py`, a standard-library Python linter for terms, punctuation and CJK–Latin spacing.
 - `zh-tw-reviewer`, a read-only reviewer subagent with a clean context.
@@ -31,7 +31,7 @@ Claude API: upload the `skills/zh-tw-prose` folder through the Skills API.
 
 ## Evals
 
-Tests run with `claude plugin eval` in four tiers, so day-to-day changes only run the cases they touch. There are 10 fixed behaviour cases (5 of them check that good text is left alone), 16 trigger cases, and a bank of 35 cases, mostly taken from real edits, from which 8 are sampled before each release. See [evals/README.md](evals/README.md).
+Tests run with `claude plugin eval` in four tiers, so day-to-day changes only run the cases they touch. There are 8 fixed behaviour cases (4 of them check that good text is left alone), 18 trigger cases (including out-of-scope social posts, marketing copy and travel writing), and a bank of 39 cases, mostly taken from real edits, from which 8 are sampled before each release. See [evals/README.md](evals/README.md).
 
 ## Limits
 
