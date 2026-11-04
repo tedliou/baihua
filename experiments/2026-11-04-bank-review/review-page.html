@@ -1,0 +1,262 @@
+<title>白話題庫複審</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600&display=swap">
+<style>
+/* 版面：單欄審閱。上方篩選列與題號格，中間是題目卡（我的判斷、模型收到的題目、作者發佈版），下方是收錄判斷 */
+:root {
+  --bg: #eef1f4;
+  --paper: #fbfcfd;
+  --ink: #1b2430;
+  --ink-2: #4c5866;
+  --ink-3: #7a8593;
+  --rule: rgba(27, 36, 48, .12);
+  --accent: #2f5d8a;
+  --accent-soft: rgba(47, 93, 138, .10);
+  --keep: #2e7d4f;
+  --keep-soft: rgba(46, 125, 79, .12);
+  --drop: #b23b3b;
+  --drop-soft: rgba(178, 59, 59, .10);
+  --warn: #9a6a12;
+  --warn-soft: rgba(154, 106, 18, .12);
+  --font-prose: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+  --font-ui: system-ui, -apple-system, "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12171d; --paper: #1a2129; --ink: #e4e9ef; --ink-2: #aab4bf; --ink-3: #7f8a96;
+    --rule: rgba(228, 233, 239, .12); --accent: #7fa9d4; --accent-soft: rgba(127, 169, 212, .14);
+    --keep: #6cc28f; --keep-soft: rgba(108, 194, 143, .14); --drop: #e48080; --drop-soft: rgba(228, 128, 128, .13);
+    --warn: #e0b45c; --warn-soft: rgba(224, 180, 92, .14);
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12171d; --paper: #1a2129; --ink: #e4e9ef; --ink-2: #aab4bf; --ink-3: #7f8a96;
+  --rule: rgba(228, 233, 239, .12); --accent: #7fa9d4; --accent-soft: rgba(127, 169, 212, .14);
+  --keep: #6cc28f; --keep-soft: rgba(108, 194, 143, .14); --drop: #e48080; --drop-soft: rgba(228, 128, 128, .13);
+  --warn: #e0b45c; --warn-soft: rgba(224, 180, 92, .14);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--font-ui); font-size: 15px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 48px;
+}
+.wrap { max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 8px 16px; }
+h1 { font-family: var(--font-prose); font-weight: 600; font-size: 22px; margin: 0; letter-spacing: .04em; text-wrap: balance; }
+.meta { color: var(--ink-2); font-size: 13px; font-variant-numeric: tabular-nums; }
+.filters { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { height: 30px; padding: 0 12px; border-radius: 15px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink-2); font: 13px var(--font-ui); cursor: pointer; }
+.chip[aria-pressed="true"] { background: var(--accent); color: var(--paper); border-color: var(--accent); }
+.strip { display: flex; flex-wrap: wrap; gap: 6px; }
+.dot { min-width: 34px; height: 30px; padding: 0 6px; border-radius: 6px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink-2); font: 600 12px var(--font-ui); font-variant-numeric: tabular-nums; cursor: pointer; }
+.dot[data-v="keep"] { background: var(--keep-soft); color: var(--keep); border-color: transparent; }
+.dot[data-v="drop"] { background: var(--drop-soft); color: var(--drop); border-color: transparent; }
+.dot[aria-current="true"] { outline: 2px solid var(--accent); outline-offset: 1px; }
+button:focus-visible, textarea:focus-visible, summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.head { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.name { font-weight: 600; font-size: 15px; overflow-wrap: anywhere; }
+.tag { font-size: 12px; padding: 2px 8px; border-radius: 10px; background: var(--accent-soft); color: var(--accent); }
+.judge { font-size: 12px; padding: 2px 8px; border-radius: 10px; font-weight: 600; }
+.judge[data-j="明顯"] { background: var(--keep-soft); color: var(--keep); }
+.judge[data-j="部分"] { background: var(--warn-soft); color: var(--warn); }
+.judge[data-j="不明顯"] { background: var(--drop-soft); color: var(--drop); }
+.reason { margin: 0; color: var(--ink-2); font-size: 14px; }
+.label { font-size: 12px; letter-spacing: .08em; color: var(--ink-3); margin: 0 0 6px; }
+.sheet { background: var(--paper); border-radius: 4px; padding: 20px 22px 24px; box-shadow: 0 1px 0 var(--rule), 0 8px 24px -16px rgba(0, 0, 0, .35); font-family: var(--font-prose); font-size: 16px; line-height: 1.9; white-space: pre-wrap; overflow-wrap: anywhere; min-width: 0; }
+.ref { border-left: 3px solid var(--keep); }
+.panel { display: flex; flex-direction: column; gap: 14px; }
+.verdict { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.vbtn { height: 48px; border-radius: 8px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); font: 600 16px var(--font-ui); cursor: pointer; }
+.vbtn[data-k="keep"][aria-pressed="true"] { background: var(--keep); color: var(--paper); border-color: var(--keep); }
+.vbtn[data-k="drop"][aria-pressed="true"] { background: var(--drop); color: var(--paper); border-color: var(--drop); }
+textarea { width: 100%; min-height: 80px; resize: vertical; border-radius: 8px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); padding: 10px 12px; font: 15px/1.7 var(--font-ui); }
+.row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
+.nav { display: flex; gap: 8px; }
+.btn { height: 40px; padding: 0 16px; border-radius: 8px; border: 1px solid var(--rule); background: var(--paper); color: var(--ink); font: 14px var(--font-ui); cursor: pointer; }
+.btn.primary { background: var(--accent); color: var(--paper); border-color: var(--accent); font-weight: 600; }
+.btn:disabled { opacity: .45; cursor: default; }
+.status { font-size: 13px; color: var(--ink-3); min-height: 1.4em; }
+.status.err { color: var(--drop); }
+.empty { background: var(--paper); border: 1px dashed var(--rule); border-radius: 10px; padding: 28px 20px; color: var(--ink-2); text-align: center; }
+.done { background: var(--accent-soft); border-radius: 10px; padding: 14px 16px; font-size: 14px; }
+@media (max-width: 480px) { .sheet { padding: 16px 16px 20px; font-size: 15px; } h1 { font-size: 20px; } }
+@media (prefers-reduced-motion: no-preference) { .vbtn, .dot, .chip { transition: background-color .15s, color .15s; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>白話題庫複審</h1>
+    <div class="meta" id="meta">讀取候選題中</div>
+  </header>
+
+  <div class="filters" role="group" aria-label="篩選">
+    <button class="chip" data-f="all" aria-pressed="true">全部</button>
+    <button class="chip" data-f="todo" aria-pressed="false">未審</button>
+    <button class="chip" data-f="現有題庫" aria-pressed="false">現有題庫</button>
+    <button class="chip" data-f="vervecode.dev" aria-pressed="false">vervecode.dev</button>
+  </div>
+
+  <nav class="strip" id="strip" aria-label="題目"></nav>
+
+  <div id="empty" class="empty">候選題還沒載入。候選題由 Claude 寫進資料庫，載入後會出現在這裡。</div>
+
+  <main id="card" hidden>
+    <div class="panel">
+      <div class="head">
+        <span class="name" id="name"></span>
+        <span class="tag" id="origin"></span>
+        <span class="judge" id="judge"></span>
+      </div>
+      <p class="reason" id="reason"></p>
+
+      <div>
+        <p class="label">題目（模型會收到的任務與原文）</p>
+        <div class="sheet" id="prompt"></div>
+      </div>
+
+      <div id="refWrap" hidden>
+        <p class="label">你發佈的版本（參照答案）</p>
+        <div class="sheet ref" id="reference"></div>
+      </div>
+
+      <div class="verdict" role="group" aria-label="判斷">
+        <button class="vbtn" data-k="keep" id="vKeep" aria-pressed="false">收錄</button>
+        <button class="vbtn" data-k="drop" id="vDrop" aria-pressed="false">不收錄</button>
+      </div>
+
+      <div>
+        <p class="label">意見（選填：為什麼不收、或題目要怎麼調整）</p>
+        <textarea id="comment" placeholder="例如：只留第二段就好；這不算 AI 文體"></textarea>
+      </div>
+
+      <div class="row">
+        <div class="status" id="status" role="status"></div>
+        <div class="nav">
+          <button class="btn" id="prev">上一題</button>
+          <button class="btn primary" id="save">儲存並下一題</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="finished" class="done" hidden>候選題都審完了。回到 Claude Code 說一聲，我會讀取結果定案題庫。</div>
+</div>
+
+<script>
+(function () {
+  const ROUND = "bank1";
+  const $ = (id) => document.getElementById(id);
+  let db = null, all = [], view = [], reviews = {}, idx = 0, verdict = null, filter = "all";
+
+  function setStatus(msg, err) { const s = $("status"); s.textContent = msg || ""; s.classList.toggle("err", !!err); }
+
+  function applyFilter() {
+    const cur = view[idx] && view[idx].id;
+    view = all.filter((it) => filter === "all" ? true : filter === "todo" ? !(reviews[it.id] && reviews[it.id].verdict) : it.origin === filter);
+    const keep = view.findIndex((x) => x.id === cur);
+    idx = keep >= 0 ? keep : 0;
+  }
+
+  function renderStrip() {
+    const strip = $("strip"); strip.textContent = "";
+    view.forEach((it, i) => {
+      const b = document.createElement("button");
+      b.className = "dot"; b.textContent = String(it.order);
+      const r = reviews[it.id]; if (r && r.verdict) b.dataset.v = r.verdict;
+      b.setAttribute("aria-current", i === idx ? "true" : "false");
+      b.setAttribute("aria-label", "第 " + it.order + " 題" + (r && r.verdict ? (r.verdict === "keep" ? "，收錄" : "，不收錄") : ""));
+      b.addEventListener("click", () => { idx = i; renderCard(); });
+      strip.appendChild(b);
+    });
+    const done = all.filter((it) => reviews[it.id] && reviews[it.id].verdict).length;
+    const kept = all.filter((it) => reviews[it.id] && reviews[it.id].verdict === "keep").length;
+    $("meta").textContent = all.length ? "已審 " + done + " / " + all.length + " 題 · 收錄 " + kept : "";
+    $("finished").hidden = !(all.length && done === all.length);
+  }
+
+  function setVerdict(v) {
+    verdict = v;
+    $("vKeep").setAttribute("aria-pressed", v === "keep" ? "true" : "false");
+    $("vDrop").setAttribute("aria-pressed", v === "drop" ? "true" : "false");
+  }
+
+  function renderCard() {
+    if (!view.length) {
+      $("card").hidden = true; $("empty").hidden = false;
+      if (all.length) $("empty").textContent = "這個篩選條件下沒有題目。";
+      renderStrip(); return;
+    }
+    $("empty").hidden = true; $("card").hidden = false;
+    const it = view[idx], r = reviews[it.id] || {};
+    $("name").textContent = it.order + ". " + (it.name || "");
+    $("origin").textContent = it.origin + (it.source ? " · " + it.source : "");
+    $("judge").textContent = "我的判斷：" + (it.judge || "");
+    $("judge").dataset.j = it.judge || "";
+    $("reason").textContent = it.reason || "";
+    $("prompt").textContent = it.prompt || "";
+    $("refWrap").hidden = !it.reference;
+    $("reference").textContent = it.reference || "";
+    setVerdict(r.verdict || null);
+    $("comment").value = r.comment || "";
+    $("prev").disabled = idx === 0;
+    $("save").textContent = idx === view.length - 1 ? "儲存" : "儲存並下一題";
+    setStatus(r.verdict ? "已儲存過，可以修改後再存一次" : "");
+    renderStrip();
+    window.scrollTo({ top: 0 });
+  }
+
+  async function save() {
+    const it = view[idx];
+    if (!verdict) { setStatus("先選「收錄」或「不收錄」", true); return; }
+    if (!db) { setStatus("連不上資料庫，這次的判斷沒有存到", true); return; }
+    const body = { round: ROUND, item: it.id, name: it.name, verdict, comment: $("comment").value.trim(), savedAt: new Date().toISOString() };
+    $("save").disabled = true; setStatus("儲存中");
+    try {
+      await db.doc("bank-reviews/" + it.id).set(body);
+      reviews[it.id] = body;
+      setStatus("已儲存");
+      if (filter === "todo") { applyFilter(); renderCard(); }
+      else if (idx < view.length - 1) { idx += 1; renderCard(); }
+      else renderStrip();
+    } catch (e) {
+      setStatus(e && e.code === "invalid_argument" ? "你沒有寫入權限，判斷沒有存到" : "儲存失敗，稍後再按一次", true);
+    } finally { $("save").disabled = false; }
+  }
+
+  document.querySelectorAll(".chip").forEach((c) => c.addEventListener("click", () => {
+    filter = c.dataset.f;
+    document.querySelectorAll(".chip").forEach((x) => x.setAttribute("aria-pressed", x === c ? "true" : "false"));
+    applyFilter(); renderCard();
+  }));
+  $("vKeep").addEventListener("click", () => setVerdict("keep"));
+  $("vDrop").addEventListener("click", () => setVerdict("drop"));
+  $("prev").addEventListener("click", () => { if (idx > 0) { idx -= 1; renderCard(); } });
+  $("save").addEventListener("click", save);
+
+  renderCard();
+
+  (async function start() {
+    db = window.claude && window.claude.use ? await window.claude.use("db") : null;
+    if (!db) { $("meta").textContent = ""; $("empty").textContent = "這個畫面讀不到資料庫。請在 claude.ai 登入後開啟這個頁面。"; return; }
+    const timer = setTimeout(() => { if (!all.length) $("empty").textContent = "候選題還讀不到，網路可能不穩，稍候會自動載入。"; }, 10000);
+    db.collection("bank-items").where("round", "==", ROUND).onSnapshot((snap) => {
+      if (!snap.metadata.fromCache) clearTimeout(timer);
+      all = snap.docs.map((d) => Object.assign({ id: d.id }, d.data())).sort((a, b) => (a.order || 0) - (b.order || 0));
+      applyFilter(); renderCard();
+    }, () => { clearTimeout(timer); $("empty").textContent = "讀取候選題時出錯，重新整理頁面再試一次。"; });
+    db.collection("bank-reviews").where("round", "==", ROUND).onSnapshot((snap) => {
+      const next = {};
+      snap.docs.forEach((d) => { next[d.id] = d.data(); });
+      reviews = next;
+      if (filter === "todo") applyFilter();
+      renderStrip();
+    }, () => {});
+  })();
+})();
+</script>
