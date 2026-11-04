@@ -23,14 +23,6 @@
       "with": 1,
       "without": 0.8
     },
-    "compose-with-glossary": {
-      "with": 0.875,
-      "without": 0.875
-    },
-    "concept-sentence-pasted": {
-      "with": 0.857,
-      "without": null
-    },
     "cute-tilde-transition": {
       "with": 0.833,
       "without": 0.5
@@ -51,26 +43,6 @@
       "with": 0.833,
       "without": 0.833
     },
-    "keep-clarifying-not-mean": {
-      "with": 1,
-      "without": 1
-    },
-    "keep-good-text": {
-      "with": 1,
-      "without": 1
-    },
-    "keep-real-correction": {
-      "with": 1,
-      "without": 1
-    },
-    "keep-real-list": {
-      "with": 1,
-      "without": 1
-    },
-    "keep-warning-and-passive": {
-      "with": 1,
-      "without": 1
-    },
     "lecture-lead-in": {
       "with": 0.8,
       "without": 0.6
@@ -82,10 +54,6 @@
     "mechanism-first-paragraph": {
       "with": 0.667,
       "without": null
-    },
-    "no-fabrication": {
-      "with": 1,
-      "without": 1
     },
     "nominal-subject-summary": {
       "with": 0.8,
@@ -103,10 +71,6 @@
       "with": 0.8,
       "without": 0.8
     },
-    "term-http-client": {
-      "with": 1,
-      "without": 1
-    },
     "translationese-sensitive-to": {
       "with": 0.8,
       "without": 0.8
@@ -118,26 +82,6 @@
     "ui-error-messages-missing-please": {
       "with": 1,
       "without": 1
-    },
-    "ui-glossary-attack-speed": {
-      "with": 1,
-      "without": 1
-    },
-    "ui-glossary-endurance-term": {
-      "with": 1,
-      "without": 1
-    },
-    "ui-glossary-health-term": {
-      "with": 0.833,
-      "without": 0.333
-    },
-    "ui-honorific-project-you": {
-      "with": 1,
-      "without": 1
-    },
-    "ui-item-desc-no-operation": {
-      "with": 1,
-      "without": 0.714
     },
     "ui-status-chip-terse-comparison": {
       "with": 0.833,
@@ -166,18 +110,6 @@
     "wiki-link-note-points-elsewhere": {
       "with": 1,
       "without": 0.857
-    },
-    "write-article-intro": {
-      "with": 1,
-      "without": 0.667
-    },
-    "write-readme-intro": {
-      "with": 0.857,
-      "without": 0.857
-    },
-    "write-ui-errors": {
-      "with": 1,
-      "without": 1
     }
   }
 }

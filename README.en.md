@@ -33,7 +33,7 @@ In Claude Code, run `/zh-tw-prose` and then describe the text to write or edit. 
 
 ## Evals
 
-Tests run with `claude plugin eval` in four tiers, so day-to-day changes only run the cases they touch. There are 6 fixed behaviour cases (4 of them check that good text is left alone) and a bank of 38 cases, mostly taken from real edits, from which 8 are sampled before each release. See [evals/README.md](evals/README.md).
+Tests run with `claude plugin eval` in four tiers, so day-to-day changes only run the cases they touch. Each case is text that obviously reads as AI-written, and checks whether the skill rewrites it so it reads as human-written. Most cases come from real edits. See [evals/README.md](evals/README.md).
 
 ## Limits
 

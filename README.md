@@ -99,7 +99,7 @@ python skills/zh-tw-prose/scripts/check.py README.md --glossary GLOSSARY.md
 
 ## 測試
 
-用 `claude plugin eval` 測試，分成四層，平常只跑和改動有關的題目。固定題 6 題，其中 4 題專門檢查過度改寫，例如讀者真的有誤解時的更正句、真正並列的清單。發 release 前再從 38 題的題庫抽考 8 題，題庫大多取自真實的改稿案例。做法與結果見 [evals/README.md](evals/README.md)。
+用 `claude plugin eval` 測試，分成四層，平常只跑和改動有關的題目。題庫的每一題都是明顯是 AI 寫的文字，測 skill 能不能改成像人寫的，題目大多取自真實的改稿案例。做法與結果見 [evals/README.md](evals/README.md)。
 
 ## 限制
 

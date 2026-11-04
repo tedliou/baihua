@@ -13,7 +13,7 @@
 ### 移除
 
 - 語域檔 `references/registers/social.md`、`report.md` 與 `formal.md`，以及語域表的社群貼文、工作報告與正式文件三列。
-- 固定題 `write-social-post`、`keep-formal-terms`、`write-maintenance-notice`、`write-pr-description`，題庫題 `condense-keep-complete`。
+- 所有固定題（`evals/` 下 12 題），以及題庫裡不是「把 AI 文體改成像人寫的」的 12 題：好文字不誤改、從素材寫起、照專案用詞表。eval 只測 skill 能不能把明顯是 AI 寫的文字改成像人寫的。題庫正由作者複審，定案後再補 vervecode.dev 的實際改稿紀錄。
 - 觸發題 `evals/trigger-*` 共 16 題，以及 `eval.py` 與結構測試裡的觸發題判斷。
 
 ## [0.3.2] - 2026-11-03
