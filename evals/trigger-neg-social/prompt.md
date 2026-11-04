@@ -1,8 +1,0 @@
----
-description: "範圍外：社群貼文不應觸發 zh-tw-prose"
-tags: [trigger, negative]
-max_turns: 1
-allowed_tools: [Read, Glob, Grep, Skill]
----
-
-我剛發了一篇文章講怎麼把 Hugo 部落格搬到 Astro，幫我寫一則 Threads 貼文導流。

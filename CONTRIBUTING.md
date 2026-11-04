@@ -33,7 +33,7 @@ python scripts/eval.py L1 --tag false-positive
 ```
 
 ```bash
-# 發 release 前：固定題、抽考 8 題與觸發題
+# 發 release 前：固定題與抽考 8 題
 python scripts/eval.py L2
 ```
 

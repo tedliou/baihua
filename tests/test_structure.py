@@ -84,15 +84,8 @@ class CaseFormatTest(unittest.TestCase):
                 fm = frontmatter(g.read_text(encoding="utf-8"))
                 with self.subTest(grader=f"{case.name}/{g.name}"):
                     self.assertIsNotNone(fm)
-                    self.assertRegex(fm, r"(?m)^type: (regex|llm|tool_used)$")
+                    self.assertRegex(fm, r"(?m)^type: (regex|llm)$")
                     self.assertNotIn("(?m)", fm, "改用 flags: m")
-
-    def test_trigger_cases_use_one_turn(self):
-        for case in case_dirs(FIXED_DIR):
-            text = (case / "prompt.md").read_text(encoding="utf-8")
-            if "trigger" in runner.Case(case).tags:
-                with self.subTest(case=case.name):
-                    self.assertRegex(text, r"(?m)^max_turns: 1$")
 
     def test_bank_tags(self):
         sources = {"src-hand", "src-directed", "src-self", "src-synthetic"}

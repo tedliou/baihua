@@ -2,7 +2,7 @@
 
 用法：
   python scripts/eval.py L1 --tag false-positive      改 skill 時，只跑相關的題目
-  python scripts/eval.py L2                           發 release 前：固定題、抽考 8 題、trigger
+  python scripts/eval.py L2                           發 release 前：固定題與抽考 8 題
   python scripts/eval.py L3 --update-baseline         換模型時：全部題目加 without-skill，重建 baseline
   python scripts/eval.py L2 --dry-run                 只列出會跑哪些題目，不花額度
   python scripts/eval.py compare <aggregate-result.json>
@@ -161,23 +161,18 @@ def scores(result_path):
         out[case["name"]] = {
             "with": round(agg["score"], 3),
             "without": round(agg["scoreWithout"], 3) if "scoreWithout" in agg else None,
-            "trigger": "trigger" in case["dir"] or case["name"].startswith("trigger-"),
         }
     return out, data.get("costUsd", 0)
 
 
 def compare(results, baseline):
-    """回傳退化清單。平均下降 MEAN_DROP 以上或觸發題判斷錯誤算退化。
+    """回傳退化清單。平均下降 MEAN_DROP 以上算退化。
 
     單題分數在兩次執行之間可能差到 0.3，所以單題下降 CASE_DROP 以上只列出來提醒，不算退化。
     """
     problems, drops, notes = [], [], []
     print(f"\n{'題目':<40}{'基準':>8}{'這次':>8}{'差':>8}")
     for name, s in sorted(results.items()):
-        if s["trigger"]:
-            if s["with"] < 1:
-                problems.append(f"{name}：trigger 判斷錯誤（{s['with']}）")
-            continue
         base = baseline.get(name, {}).get("with")
         diff = "" if base is None else f"{s['with'] - base:+.2f}"
         print(f"{name:<40}{'' if base is None else base:>8}{s['with']:>8}{diff:>8}")
@@ -198,7 +193,7 @@ def compare(results, baseline):
 
 def write_baseline(results, private_dir, claude_version):
     stamp = time.strftime("%Y-%m-%d")
-    public = {n: s for n, s in results.items() if not n.startswith("p-") and not s["trigger"]}
+    public = {n: s for n, s in results.items() if not n.startswith("p-")}
     private = {n: s for n, s in results.items() if n.startswith("p-")}
     targets = [(BASELINE, public)]
     if private_dir and private:
@@ -244,7 +239,6 @@ def main():
         check_forbidden(args.private, fixed + bank)
 
     behavior = [c for c in fixed if "behavior" in c.tags]
-    trigger = [c for c in fixed if "trigger" in c.tags]
     seed = args.seed if args.seed is not None else int(time.time())
 
     if args.tier == "L1":
@@ -253,14 +247,13 @@ def main():
         ablation = "with-without" if args.with_without else "none"
         groups = [
             ("behavior", [c for c in behavior + bank if matches(c, args.tag, args.case)], ablation),
-            ("trigger", [c for c in trigger if matches(c, args.tag, args.case)], "none"),
         ]
     elif args.tier == "L2":
         picked = sample(bank, args.sample, random.Random(seed))
-        groups = [("behavior", behavior + picked, "none"), ("trigger", trigger, "none")]
+        groups = [("behavior", behavior + picked, "none")]
         print(f"抽考 seed：{seed}")
     else:
-        groups = [("behavior", behavior + bank, "with-without"), ("trigger", trigger, "none")]
+        groups = [("behavior", behavior + bank, "with-without")]
 
     for group, cases, ablation in groups:
         print(f"{group}（{ablation}）：{len(cases)} 題")

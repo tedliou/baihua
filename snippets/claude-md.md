@@ -1,6 +1,6 @@
 # 常駐片段
 
-zh-tw-prose skill 只在寫技術文章、參考文件、介面文字、工作報告、公告與信件時載入。如果希望 Claude 平常的對話回覆也照同樣的原則寫，把下面這段貼進使用者層的 `~/.claude/CLAUDE.md` 或專案的 `CLAUDE.md`。這段不含空白約 380 字，每個 session 都會載入。
+zh-tw-prose skill 處理技術文章、參考文件、介面文字、工作報告、公告與信件。如果希望 Claude 平常的對話回覆也照同樣的原則寫，把下面這段貼進使用者層的 `~/.claude/CLAUDE.md` 或專案的 `CLAUDE.md`。這段不含空白約 380 字，每個 session 都會載入。
 
 ```markdown
 ## 正體中文寫作

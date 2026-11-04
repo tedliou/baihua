@@ -6,8 +6,8 @@
 
 ### 修改
 
-- 範圍縮小到六種文字：技術文章（含技術部落格）、參考文件、介面文字、工作報告、公告與給客戶的信。社群貼文、行銷文案、心得、遊記與文學創作不再處理，這些文字的修辭本身就是內容，去 AI 腔的規則會把它們改壞。依據是 `experiments/2026-11-03-review/` 的單份審閱：作者三次否決把遊記與餐廳心得改成白話的輸出，有沒有 skill 都一樣。
-- description 改列六種文字與排除的文類。
+- 範圍收斂到六種文字：技術文章（含技術部落格）、參考文件、介面文字、工作報告、公告與給客戶的信。規則只寫這六種文字怎麼寫，不列舉其他文類。依據是 `experiments/2026-11-03-review/` 的單份審閱：作者三次否決把遊記與餐廳心得改成白話的輸出，有沒有 skill 都一樣，表示問題出在規則套用的範圍太廣。
+- description 只寫處理的文字類型，不再列不使用的情況，也不再為自動觸發另外設計。使用者用 `/zh-tw-prose` 呼叫，其他 skill 在指示裡寫明使用 zh-tw-prose。
 - 語域表的「正式文件」拆成「公告」與「信件」兩列，共用 `formal.md`。`formal.md` 刪掉規章、條款、聲明與新聞稿，補上信件一節（內容原本只在 SKILL.md 的語域表）。
 - 核心規則 4 刪掉個人心得、遊記與讀後感的例外。改稿原則 4 刪掉海景的示範。檢查清單、`patterns.md` 與 `translationese.md` 裡以社群貼文、推廣文案、服務條款為例的保留條件改寫或刪除。
 
@@ -15,10 +15,7 @@
 
 - `references/registers/social.md`。
 - 固定題 `write-social-post` 與 `keep-formal-terms`。
-
-### 新增
-
-- 觸發題改成 18 題：`trigger-pos-social` 改為反向題 `trigger-neg-social`，原本潤稿產品介紹的 `trigger-pos-polish` 改為反向題 `trigger-neg-marketing`，新的 `trigger-pos-polish` 改成潤稿給客戶的信，另加 `trigger-neg-essay`（遊記）。
+- 觸發題 `evals/trigger-*` 共 16 題，以及 `eval.py` 與結構測試裡的觸發題判斷。
 
 ## [0.3.2] - 2026-11-03
 
