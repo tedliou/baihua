@@ -111,6 +111,13 @@ def assemble(target, cases):
                 continue
             if g.stem == "fullwidth-punctuation" and "keep-punct" in case.tags:
                 continue
+            if g.stem == "author-rubric":
+                # llm 評審只看得到最後的回覆，把題目與原文寫進評分表，評審才能對照任務要求與原文。
+                g_head, g_front, g_body = g.read_text(encoding="utf-8").split("---", 2)
+                task = case.text.split("---", 2)[2].strip()
+                text = f"{g_head}---{g_front}---\n\n# 題目（任務說明與原文）\n\n{task}\n\n# 評分條件\n\n{g_body.strip()}\n"
+                (dest / "graders" / f"common-{g.name}").write_text(text, encoding="utf-8")
+                continue
             shutil.copy(g, dest / "graders" / f"common-{g.name}")
 
 
