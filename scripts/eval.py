@@ -1,11 +1,16 @@
-"""分層執行 eval，從題庫抽考，並和 baseline 比較分數。
+"""執行 eval，並和 baseline 比較分數。
+
+每一題都是一段明顯是 AI 寫的文字，測 skill 能不能把它改成像人寫的。題目開頭會加上
+「使用 zh-tw-prose skill。」，只跑有 skill 的一組。
 
 用法：
-  python scripts/eval.py L1 --tag false-positive      改 skill 時，只跑相關的題目
-  python scripts/eval.py L2                           發 release 前：固定題與抽考 8 題
-  python scripts/eval.py L3 --update-baseline         換模型時：全部題目加 without-skill，重建 baseline
+  python scripts/eval.py L1 --case <題目…>            改 skill 時，只跑相關的題目（--tag 也可以）
+  python scripts/eval.py L2                           發 release 前：跑全部題目
+  python scripts/eval.py L2 --update-baseline         重建 baseline
   python scripts/eval.py L2 --dry-run                 只列出會跑哪些題目，不花額度
   python scripts/eval.py compare <aggregate-result.json>
+
+每次執行都把每題的輸出存成 eval-run/<時間>/outputs/<題目>.txt，方便人工審閱。
 
 私有題庫放在 repo 之外，用 --private <資料夾> 合併進來。資料夾裡可以放：
   <題目>/prompt.md、<題目>/graders/*.md   和 eval-bank 相同的格式
@@ -18,7 +23,6 @@
 import argparse
 import fnmatch
 import json
-import random
 import re
 import shutil
 import subprocess
@@ -36,7 +40,6 @@ BASELINE = FIXED_DIR / "baseline.json"
 MODEL = "sonnet"
 INVOKE = "使用 zh-tw-prose skill。"
 CATEGORIES = ["ai-flavor", "translationese", "glossary", "core-rule"]
-SAMPLE_SIZE = 8
 CASE_DROP = 0.17
 MEAN_DROP = 0.03
 
@@ -70,20 +73,6 @@ def matches(case, tags, globs):
     if tags and set(tags) & set(case.tags):
         return True
     return any(fnmatch.fnmatch(case.name, g) for g in globs)
-
-
-def sample(bank, size, rng):
-    """每個類別至少抽一題，剩下的名額從其餘題目隨機抽。"""
-    pool = list(bank)
-    picked = []
-    for cat in CATEGORIES:
-        candidates = [c for c in pool if c.category == cat]
-        if candidates and len(picked) < size:
-            choice = rng.choice(candidates)
-            picked.append(choice)
-            pool.remove(choice)
-    rest = rng.sample(pool, min(size - len(picked), len(pool)))
-    return sorted(picked + rest, key=lambda c: c.name)
 
 
 def check_forbidden(private_dir, cases):
@@ -124,11 +113,12 @@ def assemble(target, cases):
             shutil.copy(g, dest / "graders" / f"common-{g.name}")
 
 
-def run_group(stamp, group, cases, ablation, args):
+def run_group(stamp, group, cases, args):
     if not cases:
         return None
     eval_dir = RUN_DIR / stamp / group
     out_dir = RUN_DIR / stamp / f"{group}-result"
+    full = RUN_DIR / stamp / f"{group}-full.json"
     assemble(eval_dir, cases)
     claude = shutil.which("claude")
     if not claude:
@@ -139,17 +129,63 @@ def run_group(stamp, group, cases, ablation, args):
         "--output-dir", str(out_dir),
         "--model", MODEL,
         "--judge-model", MODEL,
-        "--ablation", ablation,
+        "--ablation", "none",
         "--runs", str(args.runs),
         "-j", str(args.jobs),
         "--threshold", "0",
         "--no-publish",
         "--trust-plugin",
+        "--keep-temp",
+        "--json", str(full),
     ]
-    print(f"\n== {group}：{len(cases)} 題，ablation {ablation}")
+    print(f"\n== {group}：{len(cases)} 題")
     subprocess.run(cmd, cwd=ROOT, check=False)
+    if full.is_file():
+        save_outputs(full, RUN_DIR / stamp / "outputs")
     result = out_dir / "aggregate-result.json"
     return result if result.is_file() else None
+
+
+def save_outputs(full_json, target):
+    """從每次執行的 trace 取出最後的回覆存成文字檔，再刪掉 --keep-temp 留下的暫存資料夾。"""
+    target.mkdir(parents=True, exist_ok=True)
+    data = json.loads(full_json.read_text(encoding="utf-8"))
+    reads = {}
+    for case in data.get("cases", []):
+        arms = case["arms"]
+        runs = arms.get("with", []) if isinstance(arms, dict) else arms
+        for n, run in enumerate(runs, 1):
+            trace = Path(run.get("tracePath") or "")
+            text = ""
+            if trace.is_file():
+                for line in trace.read_text(encoding="utf-8").splitlines():
+                    try:
+                        event = json.loads(line)
+                    except ValueError:
+                        continue
+                    if not isinstance(event, dict):
+                        continue
+                    if event.get("type") == "result":
+                        text = event.get("result") or ""
+                    for block in (event.get("message") or {}).get("content") or []:
+                        if isinstance(block, dict) and block.get("type") == "tool_use" and block.get("name") == "Read":
+                            path = str((block.get("input") or {}).get("file_path", ""))
+                            reads.setdefault(case["name"], []).append(path.split("zh-tw-prose/")[-1])
+            suffix = f"-{n}" if len(runs) > 1 else ""
+            (target / f"{case['name']}{suffix}.txt").write_text(text.strip() + "\n", encoding="utf-8")
+            temp = trace.parents[1] if len(trace.parents) > 1 else None
+            if temp is not None and temp.name.startswith("claude-eval-") and temp.is_dir():
+                for p in sorted(temp.rglob("*"), key=lambda q: len(q.parts), reverse=True):
+                    try:
+                        p.chmod(0o700) if p.is_dir() else p.chmod(0o600)
+                    except OSError:
+                        pass
+                shutil.rmtree(temp, ignore_errors=True)
+    names = [c["name"] for c in data.get("cases", [])]
+    read_register = [n for n in names if any("registers/" in r for r in reads.get(n, []))]
+    summary = {"read_register": f"{len(read_register)}/{len(names)}", "reads": {n: reads.get(n, []) for n in names}}
+    (target / "_reads.json").write_text(json.dumps(summary, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(f"讀了語域檔案的題目：{summary['read_register']}")
 
 
 def load_baseline(private_dir):
@@ -167,7 +203,6 @@ def scores(result_path):
         agg = case["aggregates"]
         out[case["name"]] = {
             "with": round(agg["score"], 3),
-            "without": round(agg["scoreWithout"], 3) if "scoreWithout" in agg else None,
         }
     return out, data.get("costUsd", 0)
 
@@ -198,7 +233,8 @@ def compare(results, baseline):
     return problems
 
 
-def write_baseline(results, private_dir, claude_version):
+def write_baseline(results, private_dir, claude_version, keep=None):
+    """把分數寫進 baseline。keep 是現有題目的名稱集合，給了就順便刪掉已經不在題庫的題目。"""
     stamp = time.strftime("%Y-%m-%d")
     public = {n: s for n, s in results.items() if not n.startswith("p-")}
     private = {n: s for n, s in results.items() if n.startswith("p-")}
@@ -207,9 +243,10 @@ def write_baseline(results, private_dir, claude_version):
         targets.append((private_dir / "baseline.json", private))
     for path, cases in targets:
         old = json.loads(path.read_text(encoding="utf-8"))["cases"] if path.is_file() else {}
+        if keep is not None:
+            old = {n: v for n, v in old.items() if n in keep}
         for n, s in cases.items():
-            without = s["without"] if s["without"] is not None else old.get(n, {}).get("without")
-            old[n] = {"with": s["with"], "without": without}
+            old[n] = {"with": s["with"]}
         body = {"model": MODEL, "claudeVersion": claude_version, "updated": stamp, "cases": dict(sorted(old.items()))}
         path.write_text(json.dumps(body, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         print(f"已更新 {path}")
@@ -217,16 +254,13 @@ def write_baseline(results, private_dir, claude_version):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("tier", choices=["L1", "L2", "L3", "compare"])
+    parser.add_argument("tier", choices=["L1", "L2", "compare"])
     parser.add_argument("result", nargs="?", help="compare 用：aggregate-result.json 的路徑")
     parser.add_argument("--tag", nargs="*", default=[], help="L1：要跑的 tag")
     parser.add_argument("--case", nargs="*", default=[], help="L1：要跑的題目名稱，可用 glob")
     parser.add_argument("--private", type=Path, help="私有題庫資料夾")
-    parser.add_argument("--sample", type=int, default=SAMPLE_SIZE, help="L2 抽考題數")
-    parser.add_argument("--seed", type=int, help="抽題用的 seed，預設用目前時間")
     parser.add_argument("--runs", type=int, default=1)
     parser.add_argument("-j", "--jobs", type=int, default=4)
-    parser.add_argument("--with-without", action="store_true", help="L1：也跑沒有 skill 的一組，用來補基準")
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--update-baseline", action="store_true")
     args = parser.parse_args()
@@ -239,54 +273,38 @@ def main():
         print("\n".join(["", "退化："] + problems) if problems else "\n沒有退化。")
         sys.exit(1 if problems else 0)
 
-    fixed = load_cases(FIXED_DIR)
     bank = [c for c in load_cases(BANK_DIR) if c.path.name != "_common"]
     if args.private:
         bank += load_cases(args.private, private=True)
-        check_forbidden(args.private, fixed + bank)
-
-    behavior = [c for c in fixed if "behavior" in c.tags]
-    seed = args.seed if args.seed is not None else int(time.time())
+        check_forbidden(args.private, bank)
 
     if args.tier == "L1":
         if not args.tag and not args.case:
             parser.error("L1 需要 --tag 或 --case")
-        ablation = "with-without" if args.with_without else "none"
-        groups = [
-            ("behavior", [c for c in behavior + bank if matches(c, args.tag, args.case)], ablation),
-        ]
-    elif args.tier == "L2":
-        picked = sample(bank, args.sample, random.Random(seed))
-        groups = [("behavior", behavior + picked, "none")]
-        print(f"抽考 seed：{seed}")
+        cases = [c for c in bank if matches(c, args.tag, args.case)]
     else:
-        groups = [("behavior", behavior + bank, "with-without")]
+        cases = bank
 
-    for group, cases, ablation in groups:
-        print(f"{group}（{ablation}）：{len(cases)} 題")
-        for c in cases:
-            print(f"  {c.name}  [{', '.join(c.tags)}]")
+    print(f"{len(cases)} 題")
+    for c in cases:
+        print(f"  {c.name}  [{', '.join(c.tags)}]")
     if args.dry_run:
         return
 
     stamp = time.strftime("%Y%m%d-%H%M%S")
-    results, cost, version = {}, 0.0, ""
-    for group, cases, ablation in groups:
-        path = run_group(stamp, group, cases, ablation, args)
-        if cases and not path:
-            sys.exit(f"{group} 沒有產生結果，請看上面 claude plugin eval 的輸出。")
-        if path:
-            r, c = scores(path)
-            results.update(r)
-            cost += c
-            version = json.loads(path.read_text(encoding="utf-8")).get("claudeVersion", version)
+    path = run_group(stamp, "bank", cases, args)
+    if not path:
+        sys.exit("沒有產生結果，請看上面 claude plugin eval 的輸出。")
+    results, cost = scores(path)
+    version = json.loads(path.read_text(encoding="utf-8")).get("claudeVersion", "")
 
-    manifest = {"tier": args.tier, "seed": seed, "costUsd": round(cost, 2), "scores": results}
+    manifest = {"tier": args.tier, "costUsd": round(cost, 2), "scores": results}
     (RUN_DIR / stamp / "summary.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"\n費用約 {cost:.2f} 美元，結果在 {RUN_DIR / stamp}")
+    print(f"\n費用約 {cost:.2f} 美元，結果在 {RUN_DIR / stamp}，每題的輸出在 outputs/")
 
     if args.update_baseline:
-        write_baseline(results, args.private, version)
+        keep = {c.name for c in bank} if args.tier == "L2" else None
+        write_baseline(results, args.private, version, keep)
         return
     problems = compare(results, load_baseline(args.private))
     print("\n".join(["", "退化："] + problems) if problems else "\n沒有退化。")

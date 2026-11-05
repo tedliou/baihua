@@ -25,15 +25,15 @@ python skills/zh-tw-prose/scripts/check.py README.md
 claude plugin validate --strict .
 ```
 
-改動 SKILL.md 或 references 時，用 `scripts/eval.py` 跑 eval，並在 PR 說明附上結果摘要。eval 需要 Claude Code，會實際呼叫模型並產生費用，分層方式見 [evals/README.md](evals/README.md)。
+改動 SKILL.md 或 references 時，用 `scripts/eval.py` 跑 eval，並在 PR 說明附上結果摘要。eval 需要 Claude Code，會實際呼叫模型並產生費用，做法見 [evals/README.md](evals/README.md)。
 
 ```bash
-# 只跑和改動有關的題目，例如改了保留條件
-python scripts/eval.py L1 --tag false-positive
+# 只跑和改動有關的題目
+python scripts/eval.py L1 --case lede-starts-with-constraint comma-chained-summary
 ```
 
 ```bash
-# 發 release 前：固定題與抽考 8 題
+# 發 release 前：跑全部題目
 python scripts/eval.py L2
 ```
 

@@ -113,21 +113,6 @@ class CaseFormatTest(unittest.TestCase):
                     self.fail(f"{case.name} 的原文出現在 skill 裡：{line}")
 
 
-class SamplingTest(unittest.TestCase):
-    def test_sample_covers_every_category(self):
-        bank = [runner.Case(p) for p in case_dirs(BANK_DIR) if p.name != "_common"]
-        present = {c.category for c in bank}
-        for seed in range(20):
-            picked = runner.sample(bank, runner.SAMPLE_SIZE, runner.random.Random(seed))
-            with self.subTest(seed=seed):
-                self.assertEqual(len(picked), min(runner.SAMPLE_SIZE, len(bank)))
-                self.assertEqual({c.category for c in picked} & present, present)
-
-    def test_same_seed_same_sample(self):
-        bank = [runner.Case(p) for p in case_dirs(BANK_DIR) if p.name != "_common"]
-        a = runner.sample(bank, 8, runner.random.Random(7))
-        b = runner.sample(bank, 8, runner.random.Random(7))
-        self.assertEqual([c.name for c in a], [c.name for c in b])
 
 
 if __name__ == "__main__":
