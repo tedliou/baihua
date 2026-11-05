@@ -1,0 +1,7 @@
+Hook 依檢查腳本的結束碼，決定這次指令要擋下還是交回原本的流程：
+
+〔流程圖〕
+
+腳本以結束碼 2 結束時，寫到標準錯誤輸出（stderr）的文字會回傳給 Agent，當作指令被擋下的原因。[官方的 hooks 指南](https://code.claude.com/docs/en/hooks-guide#hooks-and-permission-modes)寫明，PreToolUse hook 在任何權限模式的檢查之前執行，所以在 `bypassPermissions` 模式下一樣擋得下指令，[子代理呼叫工具](https://code.claude.com/docs/en/hooks.md)時也會經過同樣的 hook。結束碼 0 只代表 hook 不擋，指令仍要經過原本的權限設定。
+
+權限設定的 deny 規則也能擋指令，但只能用萬用字元比對指令文字，`git push origin +main` 這類寫法就會漏掉，原因見[權限規則怎麼比對 Bash 指令](/ai/claude-code-bash-deny-rules/)。Hook 的腳本可以自己寫判斷邏輯，例如查 Agent 目前在哪個分支。

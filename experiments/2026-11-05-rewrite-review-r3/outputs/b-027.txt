@@ -1,0 +1,5 @@
+- :page[growth/coins-selling]：升級的價錢全部用金幣支付。
+- :page[combat/bosses]：每打倒一隻 Boss，升級就開放下一層，也解鎖下一區的地區裝置。
+- :page[growth/achievements]：黃金酵母祝福要用黃金酵母，成就是黃金酵母的來源之一。
+- :page[growth/codex]：圖鑑的里程碑也會給黃金酵母。
+- :page[world/exploration]：隔熱鞋墊要用採集物 :entry[item-obsidian] 製作。

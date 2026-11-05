@@ -1,0 +1,18 @@
+[
+ {
+  "item": "b-016",
+  "output": "用 Dev Containers 隔離 AI Agent：在容器裡開啟 Full Access，並把影響範圍限縮在掛載內容"
+ },
+ {
+  "item": "b-016",
+  "output": "用 Dev Containers 隔離 AI Agent：在容器裡開啟 Full Access 並控制掛載範圍"
+ },
+ {
+  "item": "v-A2",
+  "output": "Minecraft Spigot 伺服器改用 Paper：照官方遷移文件換 jar，世界、LuckPerms 群組與外掛都保留"
+ },
+ {
+  "item": "v-A2",
+  "output": "Minecraft Spigot 伺服器換成 Paper：照官方文件遷移，世界、LuckPerms 群組與外掛都保留"
+ }
+]

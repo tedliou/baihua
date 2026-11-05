@@ -1,0 +1,1 @@
+Spigot 伺服器轉 Paper：照官方遷移文件換 jar，世界、LuckPerms 與外掛都保留

@@ -1,0 +1,9 @@
+「Run In Background」的位置在這裡：
+
+```text
+Edit > Project Settings > Player > Resolution and Presentation > Run In Background
+```
+
+這個選項和背景畫面無關。這次要確認的是，瀏覽器被打開之後，Unity 還會不會繼續處理 Callback。
+
+Windows Player 由「Run In Background」控制這個行為。Unity 的 [Windows Player settings](https://docs.unity3d.com/Manual/playersettings-windows.html) 寫明：啟用後，App 失去焦點時仍會在背景執行。關閉時，App 失去焦點就會暫停。

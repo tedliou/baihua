@@ -1,0 +1,11 @@
+## 換成 Paper 並啟動
+
+備份完成、地獄與終界也搬回原版位置後，只要換掉 jar 檔，Paper 就會在第一次啟動時轉換世界。
+
+從 [Paper 下載頁](https://papermc.io/downloads/paper)下載與 Spigot 相同 Minecraft 版本的 Paper，放進伺服器資料夾，再照遷移文件的做法，把檔名改成啟動指令使用的 jar 檔名。例如 `start.bat` 啟動的是 `spigot-26.3.jar`，就先刪掉原本的 Spigot jar，再把 Paper 的檔案改成這個名字，`start.bat` 不必修改。`plugins` 資料夾留在原位。
+
+接著照原本的方式啟動伺服器。Paper 發現世界需要轉換，會先印出下面這段警告，並等待 30 秒：
+
+〔ALERT 警告〕
+
+已經備份的話，不必中斷，等 30 秒後 Paper 會轉換三個維度的資料夾。看到 `Done` 就表示轉換完成。之後再啟動不會出現這段警告，也不必再等待轉換。
