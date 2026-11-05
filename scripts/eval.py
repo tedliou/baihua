@@ -105,6 +105,7 @@ def assemble(target, cases):
         prompt.write_text(f"{head}---{front}---\n\n{INVOKE}\n\n{body.lstrip()}", encoding="utf-8")
         if case.path.parent == FIXED_DIR:
             continue
+        (dest / "graders").mkdir(exist_ok=True)
         for g in COMMON_GRADERS.glob("*.md"):
             if g.stem == "cjk-latin-spacing" and "no-spacing" in case.tags:
                 continue

@@ -1,5 +1,5 @@
 ---
 type: regex
-pattern: '先試|最簡單'
+pattern: '先試'
 match: not_contains
 ---

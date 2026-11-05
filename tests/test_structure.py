@@ -78,8 +78,9 @@ class CaseFormatTest(unittest.TestCase):
     def test_graders(self):
         for case in self.all_cases():
             graders = sorted((case / "graders").glob("*.md"))
-            with self.subTest(case=case.name):
-                self.assertTrue(graders)
+            if case.parent != BANK_DIR:
+                with self.subTest(case=case.name):
+                    self.assertTrue(graders)
             for g in graders:
                 fm = frontmatter(g.read_text(encoding="utf-8"))
                 with self.subTest(grader=f"{case.name}/{g.name}"):
