@@ -1,0 +1,860 @@
+[
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "aphorism-closing",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出刪掉了原文中的「建立專案用 `uv init --python 版本號`，加套件用 `uv add`，執行用 `uv run`，換電腦用 `uv sync`」這一句。不過任務說明前文已分段教過這些指令，作為最後一段潤稿，這樣精簡是合理的潤稿取捨，且保留了核心分工與三個檔案的事實，沒有捏造或口語、缺主詞等問題。但條件 7 提到「刪掉任務裡要求保留的事實、數字、連結或程式碼」，任務並未明確要求保留該指令清單，只要求潤稿，故不算違反。\n\nPASS",
+   "輸出保留了 uv、VS Code 的分工，以及 `pyproject.toml`、`uv.lock`、`.python-version` 這三個檔案和環境可重建的結論。四個指令的複述刪掉了，但前文已逐段教過，屬於合理的去重，不算刪掉要求保留的事實。文字書面、完整，沒有說教、口語、缺主詞或捏造的問題。\n\nPASS",
+   "輸出保留了核心事實：uv 管 Python 版本、`.venv` 與套件，VS Code 指向 `.venv`，以及三個檔案跟著專案走即可重建環境。省略的四個指令前文已分段教過，因此屬於合理去重，不算刪掉要求保留的內容。文句書面通順，沒有說教、口語、缺主詞或捏造的問題。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "argumentative-section-flow",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出沒有指導讀者或恭維的句子，用詞也維持書面語氣，沒有明顯過於口語的說法。範本名稱、節點名稱、「拿鉄」、「艺术」等事實都保留，Prompt 與截圖位置也按要求以〔Prompt〕〔截圖：……〕代替，沒有捏造內容或加入未做過的情境。\n\nPASS",
+   "輸出改成直述寫法，沒有指導或恭維語氣，用詞也都適合放進文章。範本名稱、節點設定、咖啡店與海報的結果、簡體「艺术」和「拿鉄」等事實都保留，也沒有捏造內容；Prompt 與截圖位置用〔Prompt〕〔截圖：……〕標示，符合任務要求。\n\nPASS",
+   "輸出保留了〔Prompt〕與〔截圖：……〕的位置，所有事實（「拿鐵」寫成「拿鉄」、簡體「艺术」、各圖的差異、改用框選位置範本）都在，也沒有教學口吻、截短的口語、缺漏主詞或捏造內容。「差很多」略口語，但不影響閱讀。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "audience-sentence-in-summary",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出沒有教導或恭維語氣，用詞書面，因果關係也交代清楚（「因此」連接審查方式與次數變化）。checkpoint 先審、其餘開 PR 前審一次、主 Session 同一 Context 實作、長 spec 才全部派給 Subagent 等事實都保留，審查次數的數字也與背景一致。輸出沒有捏造內容或多餘的範圍聲明，只省略了「省下時間與額度」的字面說法，這不算明顯的事實錯誤。\n\nPASS",
+   "輸出保留了所有關鍵事實：適用對象、checkpoint 先審其餘開 PR 前審一次、審查次數從每張一次減為 checkpoint 數加一次、預設主 Session 同一 Context、長 spec 才全派 Subagent。沒有說教或恭維語氣，用詞書面、不口語，句子主詞與因果完整，也沒有加入「尚未驗證」之類範圍聲明或捏造內容。「省下逐張審查的時間與額度」被省略，但這屬於精簡，並非改動事實。\n\nPASS",
+   "輸出保留了任務中的事實：適用對象、checkpoint 先審與其餘集中在開 PR 前審一次、審查次數從每張一次減為 checkpoint 數量加一次、主 Session 預設實作與長 spec 才派給 Subagent。沒有說教、口語化、缺主詞或標題問題，也沒有加入「沒有實測」之類的範圍聲明或捏造內容。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "closing-advice-after-measure",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出保留了所有數字、p95 說明、6 倍比較、Engine 建置時間未量測及 GitHub 連結，沒有教導讀者或恭維的語氣，用詞書面且完整，也沒有捏造事實或加入原文沒有的情境。段落開頭有交代硬體與條件，句子主詞清楚，未觸犯任何失敗條件。\n\nPASS",
+   "輸出保留了所有要求的事實、數字和連結（5.8 fps、p50 163 ms、p95 168 ms、p95 的說明、RTX 3070 的 26.6 ms、約慢 6 倍、Engine 建置時間未量到、GitHub issue #28），也沒有捏造內容。語氣是書面、中性的，沒有說教或口語截短，句子主詞完整，也沒有多出作者沒做過的情境或範圍聲明。\n\nPASS",
+   "輸出保留了所有要求的事實、數字和連結（5.8 fps、p50 163 ms、p95 168 ms、p95 的解釋、RTX 3070 的 26.6 ms、約慢 6 倍、Engine 建置時間未量到、GitHub issue #28）。語氣是書面的，沒有說教、口語截短或捏造內容，主詞與情境也交代清楚。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "comma-chained-summary",
+  "author": false,
+  "regex": false,
+  "rubric": false,
+  "pass": false,
+  "why": [
+   "輸出使用「字都寫對」，這正是評分條件第 2 項列舉的過於口語用法（應寫成「生成的文字都正確」）。輸出末尾還附了一段關於佔位字樣的說明，違反「只輸出成品本身」的要求。\n\nFAIL",
+   "輸出中的「字都寫對」是條件 2 明列的過於口語用法（應為「生成的文字都正確」），不適合放進技術文章的 summary。另外，輸出末尾附了任務明確禁止的說明，並提到佔位字樣，但判定仍以前者為主。\n\nFAIL",
+   "輸出中的「字都寫對」正是評分條件第 2 點舉例的過於口語說法，應改為「生成的文字都正確」之類的書面用語，這屬於明顯問題。\n\nFAIL"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "comma-chopped-lede",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出保留了原文所有事實與程式碼（`state`、`confidence`、單一 HTTP POST、回傳機率而非文字、由程式依門檻決定自動或人工），語氣平實，沒有說教、口語或捏造內容，句子的主詞與因果也都清楚。\n\nPASS",
+   "輸出保留了所有要求的事實與程式碼（HTTP POST、`state`、題目、機率、不產生文字、`confidence` 門檻），句子完整、用詞書面，沒有教導讀者的句子或口語截短。段落以「Jev 是什麼」交代情境後再說明串接方式，沒有捏造內容，因此不構成明顯問題。\n\nPASS",
+   "輸出保留了原文的所有事實與程式碼（`state`、`confidence`、單一 HTTP POST、回傳機率而非文字、由程式依門檻決定自動或人工），語氣書面，沒有說教、缺主詞、截短詞或捏造內容。這段是對 Jev 的定義說明，不屬於缺少動機的文章開頭。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "cute-tilde-transition",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出保留了 run.bat、update.bat 和「彩色貼圖生成」等事實，語氣書面，沒有指導讀者、恭維或裝熟的句子，也沒有缺主詞或捏造內容。「最簡單」與「容易」略有重複，但不影響閱讀。\n\nPASS",
+   "輸出保留了 run.bat、update.bat、啟動快速、定期更新主程式和彩色貼圖生成等原文事實，語氣是書面敘述，沒有指導讀者、恭維或口語截短的問題。最後一句「先從容易的部分入手」略微重複，但不影響閱讀，也沒有捏造內容或加入範圍聲明。\n\nPASS",
+   "輸出沒有指導讀者、過度口語、缺主詞或捏造的問題，原文事實（雙擊 run.bat、偶爾執行 update.bat 更新主程式、接著彩色貼圖生成）都保留。「先從容易的部分入手」略顯輕微評語，但不構成明顯問題。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "denial-before-doc-quote",
+  "author": false,
+  "regex": true,
+  "rubric": false,
+  "pass": false,
+  "why": [
+   "輸出仍保留「這裡先不要把它想成背景畫面設定」這句，屬於指導讀者的句子，與條件 1 所舉的「先不要把它想成……」相符。其他部分（選單路徑、連結、事實）都有保留，但這一項已足以判定不通過。\n\nFAIL",
+   "輸出保留了「這裡先不要把它想成背景畫面設定」這句在指導讀者的話，屬於條件 1 的明顯問題。其餘部分（程式碼區塊、選單路徑、連結與事實）皆保留正確，但這一句已足以判 FAIL。\n\nFAIL",
+   "輸出保留了「這裡先不要把它想成背景畫面設定。」這句，屬於在指導讀者如何思考的句子，符合條件 1 的明顯問題。其餘程式碼區塊、選單路徑與連結皆保留完整。\n\nFAIL"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "filename-in-title-summary",
+  "author": false,
+  "regex": true,
+  "rubric": false,
+  "pass": false,
+  "why": [
+   "標題後半用了「不必每套各下載一次」這種否定說法來描述結果，正是條件 4 點名的問題，標題應改成正面表述讀者得到的結果。開頭第一段先交代問題再寫目的，沒有教導語氣或捏造事實，這部分沒有問題。\n\nFAIL",
+   "標題後半「不必每套各下載一次」是否定說法，正好是條件 4 舉的例子，應改寫成正面的結果，例如「同一份模型只需下載一次」。開頭第一段則沒有明顯問題：它先交代重複存模型、佔硬碟的問題，再寫目的，沒有指導語氣或口語截短。\n\nFAIL",
+   "標題後半寫成「不必每套各下載一次」，這是條件 4 明確點名的否定式結果寫法，不是「主題：讀者得到的結果」的正面形式。開頭段先交代問題再寫目的，沒有其他明顯問題，但標題這一項已足以判 FAIL。\n\nFAIL"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "fix-translationese",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出自然流暢，沒有說教、口語截短、缺主詞或捏造的問題；「`--graceful`」參數與「保留連線」等事實都保留，並且只有成品本身。\n\nPASS",
+   "輸出自然流暢，沒有說教、口語截短、缺主詞或捏造的問題；「修改設定檔後，系統會重新啟動所有服務」交代了情境與因果，`--graceful` 程式碼完整保留，原文事實也都在。\n\nPASS",
+   "輸出自然流暢，沒有說教、口語截短、缺主詞或捏造等問題，因果關係以「，變更因此能立即生效」交代清楚，`--graceful` 參數也完整保留。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "flattering-aside",
+  "author": false,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出保留了 RTX 3070、約 2.8 秒、非無縫圖、後續解決、匯入 Unity 場景等事實，沒有說教、過度口語、缺主詞、標題或捏造的問題。「聰明的你會發現」這句裝熟的語氣已被移除，「後面會解決」略口語但不影響閱讀。\n\nPASS",
+   "輸出保留了 RTX 3070、約 2.8 秒、貼圖非無縫、後續解決、匯入 Unity 場景流程等所有事實，沒有教導或恭維語氣，用詞書面且完整，句子主詞與因果清楚，也沒有捏造或範圍聲明。原文「聰明的你會發現」的裝熟語氣已被去除。\n\nPASS",
+   "輸出去掉了「聰明的你會發現」這類恭維語氣，RTX 3070、2.8 秒、貼圖非無縫圖、匯入 Unity 場景等事實都保留。句子主詞完整，也沒有口語截短或捏造的內容；「後面」稍口語，但不影響閱讀。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "jar-swap-steps-and-worries",
+  "author": false,
+  "regex": false,
+  "rubric": true,
+  "pass": false,
+  "why": [
+   "輸出保留了連結、程式碼、〔ALERT 警告〕位置與備份、30 秒、三個維度等事實，沒有指導語氣、口語或標題問題。但它刪掉了任務要求保留的啟動時間數字：第一次約 39 秒、之後約 9 秒都沒有出現，只剩「出現 `Done` 就表示啟動完成」，這屬於刪掉要求保留的事實。\n\nFAIL",
+   "輸出保留了下載連結、`start.bat` 與 `spigot-26.3.jar` 的例子、〔ALERT 警告〕的位置、30 秒等待和三個維度的轉換。沒有口語截短、缺主詞或指導讀者的句子，標題也沒有問題。39 秒與 9 秒的啟動時間沒有重複寫進這一節，因為文章最後的「實測紀錄」已經有這兩個數字，所以不算刪掉必要的事實。\n\nPASS",
+   "輸出保留了連結、`start.bat`、`spigot-26.3.jar`、30 秒、三個維度和〔ALERT 警告〕的位置，也沒有教訓讀者的語氣、口語截短或缺主詞的句子。39 秒與 9 秒的數字已寫在文末的「實測紀錄」，這裡省略是避免重複，不算刪掉要求保留的事實。「主控台出現 `Done` 就表示啟動完成」只是合理的補充，不算捏造。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "lecture-lead-in",
+  "author": false,
+  "regex": true,
+  "rubric": false,
+  "pass": false,
+  "why": [
+   "輸出的引導句仍保留「分清楚它們才用得好 Upscaler」，這正是條件 1 所列的指導讀者式句子，屬於明顯問題。其餘內容的事實與數字皆保留完整。\n\nFAIL",
+   "輸出第一句「分清楚它們才用得好 Upscaler」仍然是在指導讀者的句子，而這正是評分條件第 1 點明確點名的例子，所以屬於明顯問題。其餘內容的事實與數字都有保留，但這一句已足以判定未通過。\n\nFAIL",
+   "輸出的引導句「往下捲有兩組解析度，分清楚它們才用得好 Upscaler：」仍然保留了原文那種指導讀者的語氣（「分清楚它們才用得好」），這正是評分條件第 1 條列為明顯問題的例子。清單內容的事實與數字沒有改動，但引導句這一項已足以判定不通過。\n\nFAIL"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "lecturing-warning-dns",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出保留了所有關鍵事實（`Resolve-DnsName`、先驗證再判斷網站、無效或影響連線時恢復 DHCP、不更動 IP 與閘道），沒有教育語氣、口語截短、缺主詞或捏造內容；「請先……再……」是文章內的操作指示，屬正常寫法，不算問題。\n\nPASS",
+   "輸出保留了原文所有事實與程式碼（`Resolve-DnsName`、DHCP、不要改 IP 與閘道），語句通順書面，沒有說教、口語、缺主詞或捏造內容。「請」字的使用屬正常教學文章語氣，不構成問題。\n\nPASS",
+   "輸出保留了所有事實與程式碼（`Resolve-DnsName`、DHCP、IP 與閘道），句子主詞與因果完整，語氣為書面且沒有說教、恭維、口語截短或捏造內容，也不屬於標題或開頭 summary 的情況。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "lede-absolute-claims",
+  "author": true,
+  "regex": false,
+  "rubric": false,
+  "pass": false,
+  "why": [
+   "輸出保留了「每張的字都寫對」，這正是評分條件第 2 點點名的過於口語寫法（應為「生成的文字都正確」），不適合放進技術文章。其餘事實與數字沒有被改動，也沒有說教或捏造的內容，但這一處已構成明顯問題。\n\nFAIL",
+   "輸出保留了「每張的字都寫對」，這正是評分條件第 2 項點名的過於口語用法（應為「生成的文字都正確」），不適合放進技術文章。\n\nFAIL",
+   "輸出含有「每張的字都寫對」，這是條件 2 明確列舉的過於口語用法（應為「生成的文字都正確」），不適合放進技術文章。其餘事實（三種作品、固定位置、換種子後位置不變）均保留，無其他明顯問題，但此一項已構成 FAIL。\n\nFAIL"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "lede-rules-not-enough-compressed",
+  "author": false,
+  "regex": false,
+  "rubric": false,
+  "pass": false,
+  "why": [
+   "輸出的 summary 與第一段都寫了「判斷錯時」，這是條件 2 明確列為過於口語、詞被截短的例子，應寫成「判斷錯誤」。其他條件沒有明顯問題，但這一項已足以判 FAIL。\n\nFAIL",
+   "輸出在 summary 和第一段都用了「判斷錯時」，這正是評分條件第 2 點點名的口語截短詞，應寫成「判斷錯誤」。其餘事實、連結與程式碼都有保留，但這個用詞問題已符合 FAIL 條件。\n\nFAIL",
+   "輸出的 summary 和開頭第一段都寫了「判斷錯時」，這正是條件 2 點名的截短用詞，應寫成「判斷錯誤」。其他方面（先交代問題、保留連結與程式碼、沒有捏造事實）都沒有問題，但這個明確列出的用詞問題足以判 FAIL。\n\nFAIL"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "lede-shortest-path-spec-dump",
+  "author": false,
+  "regex": true,
+  "rubric": false,
+  "pass": false,
+  "why": [
+   "Summary 一開頭就直接寫安裝與指令步驟，沒有先交代讀者想讓 Claude Code 在本機用 ComfyUI 產圖的問題或動機，違反第 5 條。開頭兩段雖然先用一句話介紹 ComfyUI，但摘要本身沒有改善這一點。其他條件沒有明顯問題：事實與數字都保留，也沒有說教或口語過頭的句子。\n\nFAIL",
+   "摘要和開頭都直接切入做法（安裝 comfy-mcp、`comfy install`、`claude mcp add`），沒有先交代讀者的問題或動機再寫目的。開頭雖然先說明 ComfyUI 是什麼，但那只是名詞解釋，不是讀者的需求，因此違反第 5 條。\n\nFAIL",
+   "Summary 一開頭就寫「安裝 … 用 `comfy install` … 再以 `claude mcp add`…」，直接切入做法，沒有先交代讀者想讓 Claude Code 操作本機 ComfyUI 的問題或動機，違反第 5 條。開頭第一段只用一句 ComfyUI 定義帶過，隨即進入「三步」的做法，同樣沒有寫出讀者的問題或動機。\n\nFAIL"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "lede-starts-with-constraint",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出沒有說教或口語化的問題，句子主詞與因果（「所以」）都交代清楚，也沒有捏造或範圍聲明。開頭先講讀者最在意的資料能否完整保留，再交代 26.1 起地獄與終界資料夾不同的原因。所有保留的事實與連結（遷移文件、直接替代品、LuckPerms、EssentialsX、vip 群組、三個維度的方塊）都與原文相符，省略的效能最佳化連結不屬於必須保留的內容。\n\nPASS",
+   "輸出沒有觸犯任何一項明顯問題：沒有說教或口語截短的詞，句子主詞完整（「我在……放一塊標記方塊」），summary 先講讀者關心的資料能否完整搬過去，再交代 26.1 的資料夾差異。保留了遷移文件與直接替代品的連結、vip 群組和三個維度的標記方塊，也沒有捏造事實。省略官方網站的效能最佳化連結，對這位在意資料遷移的讀者影響不大。\n\nPASS",
+   "輸出把讀者最在意的「世界與外掛資料能完整保留」放在最前面，並交代了 Spigot 在 26.1 起把地獄與終界存在不同資料夾的事實，因果也用「所以」連起來。第一段保留了遷移文件和 getting-started 兩個連結，也寫出實測的主詞與內容（LuckPerms、EssentialsX、vip 群組、三塊方塊）。沒有說教、口語、缺主詞或範圍聲明的問題，也沒有捏造事實。刪掉效能最佳化那句和 papermc.io 連結，是配合讀者關注點的取捨，不算明顯問題。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "limitation-scope-contrast",
+  "author": false,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出保留了所有要求的事實與程式碼（`bash -c \"git push origin main\"`、`env git`、完整路徑、`$(...)`、腳本可被 Agent 改掉），沒有教育讀者的句子、過度口語、缺主詞或捏造內容。「不防刻意繞過」「擋不到」雖稍簡短，但仍屬可放進文章的用字，因果關係也有「所以」「一旦……就」交代。\n\nPASS",
+   "輸出沒有指導讀者的句子、過度口語或缺漏主詞的問題，原文的三類盲點（字串包裝、`env git`／完整路徑、`$(...)`）與「改掉腳本即失效」的事實都保留，沒有捏造內容。因果用「所以」連接，也算完整。\n\nPASS",
+   "輸出沒有說教或恭維的句子，用詞完整書面（如「判斷錯誤」），句子主詞與因果交代清楚。原文的事實與程式碼（`bash -c \"git push origin main\"`、`env git`、完整路徑、`$(...)`、腳本可被 Agent 改掉而失效）都保留，也沒有捏造內容或加入範圍聲明。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "overpromising-title",
+  "author": false,
+  "regex": true,
+  "rubric": false,
+  "pass": false,
+  "why": [
+   "輸出的標題是「用 Dev Containers 把 AI Agent 放進容器，開啟 Full Access 前先確認掛載內容」，寫成「用 A 把 B 放進 C，開啟 D 前先確認 E」的做法說明句，正好是條件 4 明列的失敗形式，而不是「主題：讀者得到的結果」的形式。\n\nFAIL",
+   "輸出標題是「用 Dev Containers 把 AI Agent 放進容器，開啟 Full Access 前先確認掛載內容」，屬於「用 A 把 B 放進 C，開啟 D 前先確認 E」這種說明做法的句式，正好是條件 4 明列的 FAIL 例子，而不是「主題：讀者得到的結果」的形式。\n\nFAIL",
+   "輸出是一句說明怎麼做的話（用 A 把 B 放進 C，開啟 D 前先確認 E），正是條件 4 列舉的標題形式，而不是「主題：讀者得到的結果」的形式。\n\nFAIL"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "rewrite-ai-paragraph",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出保留了原文的事實與數字（建置快取、90 秒降到 20 秒），語氣是自然的書面台灣正體中文，沒有說教、恭維、口語截短或缺主詞的問題。第二段對快取運作方式和開發者影響的說明，是建置快取的一般描述，沒有新增具體數字或不實的事實，不算明顯捏造。\n\nPASS",
+   "輸出保留了 90 秒降到 20 秒的數字，也去掉了 AI 腔的套話、說教和恭維。「只重新建置有變動的部分」是建置快取本身的定義，不算明顯捏造新事實。句子主詞完整，沒有範圍聲明，語氣也適合放進技術文章。\n\nPASS",
+   "輸出保留了 90 秒降到 20 秒的數字，也沒有說教或口語過頭的問題。但第二段加入了原文沒有的事實：「以前每次提交都要從頭編譯所有模組」「只重新建置有變動的部分」，以及開發者「每次推送後停下來等結果」的工作流程。這些是替作者編造的團隊建置細節，屬於明顯捏造。\n\nFAIL"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "telegraphic-article-sentences",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出保留了開頭句、〔流程圖〕位置、所有連結與程式碼（`git push origin +main`、`bypassPermissions`），事實也沒有增刪。內容沒有說教或恭維語氣，沒有缺主詞或因果斷裂的句子，也沒有捏造的情境或範圍聲明。「擋得下」、「自己寫判斷」略偏口語，但不影響閱讀，不算明顯問題。\n\nPASS",
+   "輸出保留了〔流程圖〕位置、所有連結、程式碼與事實，句子完整，沒有教導讀者或口語截短的問題，也沒有缺主詞或捏造內容。「權限設定的 deny 規則也能擋指令，但只能用萬用字元比對指令文字」等句因果與主詞清楚，整體可直接放進技術文章。\n\nPASS",
+   "輸出保留了所有事實、數字、連結、程式碼與〔流程圖〕位置，沒有教導讀者或恭維的句子，也沒有過於口語的用字。句子主詞與因果交代也足夠清楚，因此未觸及任何 FAIL 條件。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "title-dated-performance-claim",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出是「主題：讀者得到的結果」形式的標題，沒有教導語氣、口語或缺主詞的問題。保留了世界、LuckPerms 群組與外掛，並提到官方遷移文件，皆與原文事實相符，沒有捏造。唯一小問題是省略了「三個維度」，但不影響閱讀，也不算改動事實。\n\nPASS",
+   "輸出是「主題：結果」形式的標題，保留了世界、LuckPerms 群組與外掛，也交代了依據官方遷移文件，沒有說教、口語、缺主詞或捏造的問題。「三個維度」的數字省略，但標題只需概括，不算改動事實。\n\nPASS",
+   "標題採「主題：結果」的形式，保留了 Spigot 換成 Paper、官方遷移文件、世界、LuckPerms 群組與外掛這些事實，沒有捏造內容，也沒有說教、口語或否定句式的問題。「照官方遷移文件」雖帶有做法，但整體仍在說明讀者得到的結果。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "translationese-sensitive-to",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出保留了連結、`.devcontainer/devcontainer.json` 路徑、platform、build_tools 和 android-sdk 等事實。句子主詞完整，因果用「由於……因此」連接，語氣書面且沒有說教或恭維。「我可以瀏覽」改成「我瀏覽了」只是小幅用字調整，不影響閱讀，也沒有捏造事實。\n\nPASS",
+   "輸出保留了連結、`.devcontainer/devcontainer.json`、`android-sdk`、platform 和 build_tools 等要保留的內容。句子完整，因果關係用「由於」和「因此」交代清楚，用詞書面，也沒有說教、恭維或多餘的範圍聲明。把「我可以瀏覽」改成「我瀏覽了」只是小幅的語氣調整，不算捏造事實。\n\nPASS",
+   "輸出保留了連結與 .devcontainer/devcontainer.json 等路徑，語氣書面且沒有指導或恭維。因果關係有「由於……」「因此」交代，句子主詞完整，也沒有加入原文沒有的事實。「我可以瀏覽」改成「我瀏覽了」只是時態微調，不影響原意。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "ui-colon-label-item-descriptions",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出沒有教導讀者或恭維的句子，用詞也不口語或過度截短。名稱與「名稱｜說明」格式都保留，原文的事實（命中效果、Buff、黏彈、擴散、耐久、修理、賣價）沒有被刪改或捏造，也沒有缺主詞或用逗號硬串因果的問題。\n\nPASS",
+   "輸出保留了名稱與「名稱｜說明」格式，冒號標籤改成逗號，也沒有指導讀者的句子、過度口語的用詞或缺漏的主詞。原文的效果（命中效果、Buff、黏彈、擴散、耐久、修理、賣價）都完整保留，沒有捏造新事實。\n\nPASS",
+   "輸出保留了四個名稱和「名稱｜說明」格式，冒號標籤改成逗號，並補上助詞與連接詞。內容沒有教導或恭維語氣，也沒有過度口語、缺主詞或刪改、捏造事實的問題，所以沒有符合任何 FAIL 條件。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "ui-error-messages-missing-please",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出四則都是完整句子，保留了主詞、助詞與「請」，語氣平實、無道歉或裝可愛，也沒有教導或口語截短的問題。事實與順序皆與原文一致，每則一行；「這個房間設有密碼」「操作沒有成功」只是補足主詞，未捏造新事實。\n\nPASS",
+   "輸出四則都是完整句，保留了主詞、助詞與「請」，語氣平實，沒有說教、口語截短或捏造內容，也維持原順序、每則一行且一則只講一件事。「操作沒有成功」只是補足主詞，不算改動事實。\n\nPASS",
+   "輸出四則訊息句子完整，保留主詞、助詞與「請」，語氣平實，沒有指導、口語截短、缺主詞或捏造事實的問題，順序與一行一則皆照原文。「這個房間設有密碼」「操作沒有成功」是合理補足主詞，未改動原意。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "ui-status-chip-terse-comparison",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出把「回血快、跑跳差」展開成完整詞語，「自然回血變快、移動變慢、跳躍變低」，與實際效果一致，沒有縮寫過度、沒有說明句或教育語氣，也沒有捏造事實，標籤仍然簡短且只講一件事。\n\nPASS",
+   "輸出以完整詞語寫出三項效果（自然回血變快、移動變慢、跳躍變低），沒有說教、口語縮寫或捏造內容，且仍維持簡短的標籤形式，與實際效果一致。\n\nPASS",
+   "輸出把「回血快、跑跳差」展開成完整詞語，並保持三項各自簡短、不寫成說明句，且與實際效果（回血變快、移動變慢、跳得較低）一致，沒有捏造或遺漏事實，也沒有口語縮寫或教導語氣。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "untested-scenario-disclaimer",
+  "author": false,
+  "regex": true,
+  "rubric": false,
+  "pass": false,
+  "why": [
+   "輸出沿用了「我的兩個專案各放一份」這句，沒有寫出是誰放了什麼，正是條件 3 點名的缺主詞、受詞問題。此外，任務提供的 portable 版設定檔位置（`ComfyUI_windows_portable\\ComfyUI`）整段被刪掉，可能違反條件 7。\n\nFAIL",
+   "輸出的「總結」段直接寫結果，沒有先交代讀者在同一台電腦裝多個 ComfyUI、模型重複佔用硬碟的問題或動機（條件 5）。「我的兩個專案各放一份」也沒寫出放的是 `extra_model_paths.yaml`，正是條件 3 舉的例子。此外，任務要求的 portable 版設定檔位置 `ComfyUI_windows_portable\\ComfyUI` 被整個刪掉（條件 7）。\n\nFAIL",
+   "輸出保留了 comfy-cli 的事實，也沒有提到未實測的 portable 版，這部分沒問題。但「我的兩個專案各放一份」沒寫出放的是 `extra_model_paths.yaml`，也沒寫是誰放的，正是評分條件第 3 點舉的缺主詞、受詞的例子，讀者得自己補關係。\n\nFAIL"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "untranslated-ui-option-in-parens",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出保留了任務要求的所有事實：開關名稱未翻譯、開啟後擴寫成英文描述、預設關閉、開啟會改寫框的內容、「Prompt upsampler is on」與實際預設不符，以及按「執行」產出貼文。沒有教育式語氣、過度口語、缺主詞、捏造或範圍聲明，因果也有「所以」連接，「就好」只是輕微口語，不影響閱讀。\n\nPASS",
+   "輸出保留了任務要求的所有事實：開關名稱與未翻譯、開啟後的行為、預設關閉、維持關閉的原因、「Prompt upsampler is on」可忽略，以及按「執行」的結果。文字書面度足夠，因果有「所以」連接，沒有恭維、過度口語或捏造的內容。\n\nPASS",
+   "輸出保留了所有要求的事實：enable_prompt_enhancer 未翻譯、開啟後擴寫成詳細英文描述、預設關閉、開啟會改寫框的內容、「Prompt upsampler is on」可忽略、按「執行」產出貼文。因果關係有用「所以」連接，沒有教育或恭維的語氣，也沒有標題、範圍聲明或捏造內容。「就可以」「就好」稍口語，但不影響閱讀。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "wiki-bullet-aphorism-tail",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出刪掉了原文結尾的總結句「也就是白天快、晚上深」，符合 wiki 規則（同一資訊只寫一次）。所有占位符、`:entry[...]` 連結與數字事實都原樣保留，沒有教導語氣、口語截短、缺主詞或捏造的內容。\n\nPASS",
+   "輸出只刪掉「也就是白天快、晚上深」這句總結，符合 wiki 規則「前一句已說明的道理不再收成總結」。所有 `{...}` 占位符、`:entry[...]` 連結、數字與事實都原樣保留，沒有教導語氣、過度口語、缺主詞或捏造的內容。\n\nPASS",
+   "輸出刪掉了「也就是白天快、晚上深」這句重複的總結，符合 wiki 規則。所有占位符、`:entry[...]` 連結和數字都原樣保留，沒有教導語氣、口語截短、缺主詞或捏造的內容。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "wiki-claim-left-to-discover",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出保留了所有占位符和數字，也依 wiki 規則去掉「由玩家自己發現」的說法，改寫成頁面事實（效果已列在上方表格與條目頁）。句子主詞、動作和受詞完整，每段不超過三句，沒有分號，也沒有說教、口語化或捏造的內容。\n\nPASS",
+   "輸出保留了所有占位符與數字，也把「由玩家自己發現」的說法改成表格與條目頁已列出效果，同時留下發現卡與烘焙篇的事實。文中沒有說教、口語截短、缺主詞或捏造的內容，沒有明顯問題。\n\nPASS",
+   "輸出保留了所有占位符和數字，句子主詞、動作、受詞完整，沒有說教或口語截短。第二段改寫成把效果說明指向上方表格和條目頁，符合 wiki 規則與頁面事實，沒有捏造內容，也維持三句以內且不用分號。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "wiki-link-note-points-elsewhere",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出只刪掉第一項中「見那一頁」這類編輯內部語言，其他四項原樣保留，連結和事實都沒有被改動或捏造。也沒有出現教導、口語截短、缺主詞或範圍聲明等條件所列的問題。\n\nPASS",
+   "輸出刪掉了第一項的「金幣的來源見那一頁」這句編輯內部語言，其餘四項原樣保留，連結、事實與 :entry 標記都沒有改動。對照七條 FAIL 條件，沒有發現任何一條成立。\n\nPASS",
+   "輸出只刪掉第一項「金幣的來源見那一頁」這句編輯內部語言，其他項目維持原樣，連結和條目引用都保留。輸出沒有教導語氣、口語截短、缺主詞、標題問題或捏造內容，所以沒有觸犯任何一項 FAIL 條件。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-04-rewrite-review/outputs",
+  "case": "wrong-result-before-steps",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出保留了原文的事實與數字（1024、1088 × 1456、約七成、3:4）、三個步驟，以及產圖結果的圖說。第一張介面截圖屬於可刪的錯誤狀態截圖，刪除沒有問題。文中沒有說教、口語截短、缺主詞或捏造內容的句子，因果關係也寫得清楚。\n\nPASS",
+   "輸出保留了原文的所有事實與數字（1024、1088 × 1456、五個框、約七成、三個步驟、縮放與之後要同步修改的提醒），也保留了〔圖〕的位置，沒有教訓式語氣、口語截短、缺主詞或捏造的內容。「由……決定」、「所以」等因果句式完整，標題也維持原本的小節名稱。\n\nPASS",
+   "輸出保留了原文所有事實與數字（1024、1088 × 1456、五個框、約七成、三個步驟、後續提醒），也保留了〔圖〕圖說位置。沒有說教或口語截短的用詞，因果關係寫得清楚（「所以不會顯示」），標題是名詞形式，也沒有加入捏造內容或範圍聲明。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "aphorism-closing",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出只把開頭改成「VS Code 搭配 uv 時，uv 管…」，保留所有指令、檔名與分工事實，語氣書面、客觀，沒有教導讀者、口語、缺主詞或捏造的內容，也不含標題或開頭/summary 問題。\n\nPASS",
+   "輸出保留了所有事實與指令（`uv init --python 版本號`、`uv add`、`uv run`、`uv sync`，以及 `pyproject.toml`、`uv.lock`、`.python-version`），只把開頭改成較通順的「VS Code 搭配 uv 時」，沒有教訓語氣、口語化、缺主詞、捏造內容或範圍聲明等問題。\n\nPASS",
+   "輸出僅把開頭改為「VS Code 搭配 uv 時，uv 管……」，保留了所有指令與檔名，沒有教導語氣、口語、缺主詞、捏造或改動事實等問題，語句通順，可直接放進文章。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "argumentative-section-flow",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出保留了原文的事實與細節（節點名稱、「拿鉄」被寫成「拿鉄」日文字形、簡體「艺术」等），也依要求以〔Prompt〕〔截圖〕代替佔位。文中沒有指導或恭維的句子、過度口語或截短的詞，也沒有缺主詞或捏造的內容，標題沿用原樣。\n\nPASS",
+   "輸出保留了所有事實與名稱（節點名、enable_prompt_enhancer、「拿鉄」、「艺术」等），並以〔Prompt〕〔截圖：……〕保留位置。口語的「字都寫對」改成了「都正確」，也沒有教導式或恭維的句子。沒有明顯的缺主詞、截短詞或捏造問題。\n\nPASS",
+   "輸出把原文改成直述寫法，沒有指導讀者或恭維的句子，用詞也不口語。保留了節點名稱、「enable_prompt_enhancer」、「拿鉄」、「艺术」等事實，Prompt 與截圖的位置也用〔〕標示保留。沒有明顯問題。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "audience-sentence-in-summary",
+  "author": true,
+  "regex": true,
+  "rubric": false,
+  "pass": false,
+  "why": [
+   "輸出加入「目前都還沒測過」，這是「沒有實測」類的範圍聲明，符合第 6 條的 FAIL 情形。原文「省下逐張審查的時間與額度」這項取捨的說明也被刪掉，改成審查次數的數字。\n\nFAIL",
+   "輸出保留了原有事實：適用對象、checkpoint 先審與開 PR 前集中審一次的取捨、審查次數從每張一次減為 checkpoint 數加一次，以及實作預設由主 Session 完成。語氣是書面的，沒有說教或口語縮寫，句子主詞完整。「還沒測過」是文章尚未驗證清單裡作者自己寫的事實，沒有捏造，也不是多餘的範圍聲明。\n\nPASS",
+   "輸出末段加入「延後審查是否會漏掉……以及實際能省下多少 Token，目前都還沒測過」，這是「沒有實測」類的範圍聲明，符合第 6 條的 FAIL 情形。其餘內容沒有明顯問題，事實也都保留。\n\nFAIL"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "closing-advice-after-measure",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出保留了所有事實、數字與連結（5.8 fps、163/168 ms、26.6 ms、約慢 6 倍、Engine 建置時間未量到、issue #28），也補上了 p95 的說明，沒有教育讀者或口語截短的問題，句子主詞完整，也沒有捏造或多出範圍聲明。\n\nPASS",
+   "輸出保留了所有事實、數字與連結：5.8 fps、p50 163 ms、p95 168 ms、3070 的 26.6 ms、約慢 6 倍、Engine 建置時間未量到，以及 issue #28 連結。p95 的解釋也正確，沒有教育讀者的語氣、口語截短、缺主詞或捏造內容。\n\nPASS",
+   "輸出保留了所有事實、數字與連結（5.8 fps、163/168 ms、26.6 ms、約慢 6 倍、Engine 建置時間未量到、issue #28），並把 p95 的意思自然地併入句中。語氣為書面，沒有教導讀者、口語截短、缺主詞或捏造內容的問題。「這樣的速度可以用」略顯平淡，但不影響閱讀。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "comma-chained-summary",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出沒有教導或恭維讀者的句子，也沒有過度口語、缺主詞或捏造的內容。咖啡店貼文、市集活動海報、教學影片縮圖、繁體中文與換隨機種子位置不偏移等事實都保留，語氣也貼近作者第一段。開頭先講模型與做法，但同一句後半有交代「不用另外開設計軟體排字」的動機，不算沒有交代動機。\n\nPASS",
+   "輸出沿用作者第一段的語氣，沒有教育或恭維的句子，也沒有口語截短的詞。它保留了三種實測圖和隨機種子換圖後位置不偏移的事實，沒有捏造內容。動機（不用另外開設計軟體排字）也有交代，只是放在句尾，不算明顯問題。\n\nPASS",
+   "輸出沒有教導或恭維的句子，用詞書面，主詞完整，也沒有捏造事實。它保留了咖啡店貼文、市集海報、縮圖、繁體中文、換隨機種子後位置不偏移這些事實，並以「不用另外開設計軟體排字」交代動機，只有兩句。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "comma-chopped-lede",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出沒有教導或恭維語氣、口語截短、缺主詞或引導詞的問題，也沒有標題或範圍聲明的問題。原文的事實（HTTP POST、`state`、題目、機率、不產生文字、`confidence` 門檻、自動執行或人工）都保留，沒有捏造。段落直接以「Jev 是 TypeSafe 的決策模型」開頭，雖然沒先交代問題，但這是任務要求的潤稿，且條件 5 只針對文章開頭或 summary 需先寫動機，此處僅是一段技術說明的開頭，不構成明顯問題。\n\nPASS",
+   "輸出沒有教導或恭維語氣、口語化、缺主詞或因果引導詞、標題問題等情況，事實（HTTP POST、`state`、機率、不產生文字、`confidence` 門檻）也都保留，沒有捏造內容。\n\nPASS",
+   "輸出保留了所有事實與程式碼（HTTP POST、`state`、機率、不產生文字、`confidence` 門檻），用字書面且主詞完整，沒有說教、口語或捏造的內容。段落一開頭就交代 Jev 是什麼，再說明串接方式，不算只丟規格而漏掉情境。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "cute-tilde-transition",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出沒有教育讀者或恭維的語氣，用詞書面且完整，句子主詞清楚，也保留了 run.bat、update.bat、安裝完成、彩色貼圖生成等原有事實，沒有捏造內容。原文「剛開始先輕鬆點」被刪除，屬於語氣修飾，不算改動事實。\n\nPASS",
+   "輸出保留了 run.bat、update.bat、更新主程式和彩色貼圖生成等原文事實，也刪去了「輕鬆點~」這類裝熟的語氣。語句通順、書面，沒有缺主詞、口語截短或捏造內容的問題。\n\nPASS",
+   "輸出保留了 run.bat、update.bat 與彩色貼圖生成等事實，語氣平實，沒有指導讀者、裝熟或過度口語的句子。刪去「剛開始先輕鬆點~」屬於去除閒聊語氣，不算改動事實，也沒有缺主詞或捏造內容。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "denial-before-doc-quote",
+  "author": true,
+  "regex": true,
+  "rubric": false,
+  "pass": false,
+  "why": [
+   "輸出仍保留「這個選項先不要當成背景畫面的設定」，這是在指導讀者該怎麼想，符合條件 1 的明顯問題。其餘的路徑、程式碼區塊與連結都有保留，但這一句已足以判定不通過。\n\nFAIL",
+   "輸出保留了選單路徑程式碼區塊與連結，事實也沒有被改動，但仍留有「這個選項先不要當成背景畫面的設定」這類指導讀者的句子，符合條件 1 的 FAIL 情形。\n\nFAIL",
+   "輸出保留了選單路徑、連結與程式碼區塊，事實也沒有改動，但仍留有「這個選項先不要當成背景畫面的設定」這種在指導讀者如何理解的句子，符合條件 1 的失敗情形。\n\nFAIL"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "filename-in-title-summary",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出的標題是「主題：讀者得到的結果」的形式，沒有寫成做法句，也沒有否定說法。開頭先交代多套 ComfyUI 重複下載、硬碟被佔滿的問題，再寫共用資料夾這個目的，沒有重複正文已有的做法細節。句子主詞完整，沒有說教、口語截短、捏造或多餘的範圍聲明。\n\nPASS",
+   "標題採「主題：結果」的形式，沒有交代做法，也沒有用否定說法。開頭先寫讀者的問題（每套各有 `models` 資料夾、重複下載、硬碟被佔滿），再寫目的（共用資料夾、模型只下載與保存一次）。句子主詞完整，沒有教導或恭維的語氣，也沒有口語截短或捏造的事實。\n\nPASS",
+   "輸出的標題是名詞片語，沒有寫成做法句，也沒有用否定說法。開頭先交代多套 ComfyUI 重複下載、硬碟被佔滿的問題，再寫目的，沒有提到做法細節，符合任務對標題和開頭的要求。內容中沒有教導或恭維的語氣、口語截短、缺主詞的句子，也沒有捏造的情境或範圍聲明。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "fix-translationese",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出自然流暢，沒有說教、口語截短、缺主詞或捏造的問題，並保留了 `--graceful` 參數與原文的所有事實（修改設定檔、重新啟動所有服務、保留連線、避免中斷）。\n\nPASS",
+   "輸出自然流暢，沒有說教、過度口語、缺主詞或捏造的內容，且保留了 `--graceful` 參數及原文的所有事實（修改設定檔後重新啟動所有服務、變更立即生效、保留連線避免中斷）。\n\nPASS",
+   "輸出自然簡潔，沒有教導、口語截短、缺主詞或標題等問題，且保留了 `--graceful` 參數與原文事實（修改設定檔後重新啟動所有服務、變更即時生效、保留連線避免中斷），未捏造內容。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "flattering-aside",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "兩段都已去掉「聰明的你」這類恭維與裝熟的語氣，用詞書面、不口語，句子主詞完整。RTX 3070、2.8 秒、無縫圖問題後續處理、匯入 Unity 場景流程等事實都保留，也沒有捏造內容。「後面會處理」稍口語，但不影響閱讀，不算明顯問題。\n\nPASS",
+   "兩段都保留了 RTX 3070、2.8 秒、貼圖非無縫圖、後續處理與匯入 Unity 場景這些事實，也去掉了「聰明的你」這類恭維語氣。用詞書面度足夠，句子主詞完整，沒有出現標題、範圍聲明或捏造內容，也沒有明顯的問題。\n\nPASS",
+   "兩段都保留了 RTX 3070、2.8 秒、貼圖非無縫、之後處理、匯入 Unity 場景這些事實。「聰明的你會發現」這句恭維已去掉，用詞也沒有過度口語或截短。第二段緊接在生成速度之後，開頭的事實有上下文可承接，不算缺引導詞。沒有發現明顯問題。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "jar-swap-steps-and-worries",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出保留了連結、`start.bat`、`spigot-26.3.jar`、`plugins`、30 秒、三個維度與〔ALERT 警告〕位置，沒有說教、口語縮寫、缺主詞或捏造的內容。39 秒與 9 秒的數字已寫在文末「實測紀錄」，這裡省略是避免重複，不算刪掉要求保留的事實。\n\nPASS",
+   "輸出保留了連結、程式碼、`plugins` 資料夾、30 秒等待和三個維度等關鍵事實，標題沿用原題，也沒有教育式語氣、口語截短或缺主詞的句子。39 秒和 9 秒的啟動時間已寫在文末的「實測紀錄」，這裡省略是避免重複，不算刪掉要求保留的事實；「log 出現 `Done` 就表示啟動完成」也不算捏造。\n\nPASS",
+   "輸出保留了下載連結、`spigot-26.3.jar`、`start.bat`、`plugins`、30 秒、三個維度和〔ALERT 警告〕的位置。39 秒與 9 秒的啟動時間已寫在文末「實測紀錄」，這裡省略是合理的。句子主詞完整，用詞書面，沒有教育或口語化的語氣，標題維持原樣，也沒有捏造事實或加入範圍聲明。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "lecture-lead-in",
+  "author": true,
+  "regex": true,
+  "rubric": false,
+  "pass": false,
+  "why": [
+   "輸出的引導句保留了「分清楚它們才能用好 Upscaler」，這正是條件 1 點名的教導讀者式句子，只把「用得好」改成「能用好」，問題並未消除。清單本身的事實與數字都保留完整。\n\nFAIL",
+   "輸出的引導句仍保留「分清楚它們才能用好 Upscaler」，這正是條件 1 點名的指導讀者式句子，只是把「才用得好」改成「才能用好」。清單內容的事實和數字都有保留，但引導句已經足以判 FAIL。\n\nFAIL",
+   "輸出的引導句仍寫「分清楚它們才能用好 Upscaler」，這是在指導讀者，與條件 1 所舉的「分清楚它們才用得好」幾乎相同，屬於明顯問題。清單內容的事實與數字則都有保留。\n\nFAIL"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "lecturing-warning-dns",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出保留了 `Resolve-DnsName`、DHCP 和「不要動 IP 與閘道」這些要求保留的內容，沒有說教、捏造或範圍聲明。句子主詞和因果關係也清楚，只有「能不能開啟」「不要再去動」稍微口語，但不影響放進技術文章。\n\nPASS",
+   "輸出保留了原文的所有事實：適用情境（解析品質、隱私偏好、已確認的 DNS 層問題）、以 `Resolve-DnsName` 驗證、再判斷網站能否開啟、無效或影響連線時恢復 DHCP、不再改動 IP 與閘道。沒有教育讀者或恭維的語氣，用詞書面自然，句子主詞與邏輯完整，也沒有捏造或範圍聲明。「改完後」「就立刻」略口語但不影響放進文章。\n\nPASS",
+   "輸出保留了原文所有事實與程式碼（`Resolve-DnsName`、DHCP、不再動 IP 與閘道），語氣是中性的技術文章口吻，沒有說教、恭維、過度口語、缺主詞或捏造內容；「改完後」「如果……就……」的補充也只是順暢化，沒有改變原意。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "lede-absolute-claims",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出保留了原文的所有事實（MOSS-Image、範本先框出文字與照片位置、三種繁體中文作品、換種子後位置不變），沒有指導或恭維的句子，也沒有捏造或多出的範圍聲明。原文口語的「字都寫對」已改為「文字都正確」，句子的主詞與連接也完整，沒有明顯問題。\n\nPASS",
+   "輸出保留了原文的所有事實：Prompt 直接寫字、不必另外排字、固定位置的問題、範本先框位置、三種作品，以及換隨機種子後位置不變。口語的「字都寫對」也已改成「文字都正確」，沒有說教、缺主詞或捏造的內容。\n\nPASS",
+   "輸出保留了原文所有事實（咖啡店新品貼文、市集活動海報、教學影片縮圖、隨機種子重產後位置不變），沒有說教、口語截短、缺主詞或捏造的內容，「每張圖的文字都正確」也是書面用語，因此沒有明顯問題。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "lede-rules-not-enough-compressed",
+  "author": false,
+  "regex": false,
+  "rubric": false,
+  "pass": false,
+  "why": [
+   "輸出兩處（summary 與第一段）都寫「Agent 判斷錯時」，「判斷錯」是評分條件第 2 點點名的過度口語、詞被截短的用法，應寫成「判斷錯誤」。第一段開頭的「最怕它直接推送」也偏口語。其餘事實、連結與程式碼都有保留。\n\nFAIL",
+   "輸出中的「Agent 判斷錯時」（summary 與第一段各出現一次）保留了評分條件第 2 點明確點名的截短口語「判斷錯」，應寫成「判斷錯誤」。另外「最怕」、「照樣會執行」也偏口語，不適合放進技術文章。\n\nFAIL",
+   "輸出把「判斷錯誤」縮短成「判斷錯」，在 summary 與開頭第一段各出現一次（「Agent 判斷錯時」）。這正是條件 2 點名的詞被截短的例子。第一段的「最怕」、「照樣會執行」也偏口語，不適合放進技術文章。其他條件（保留連結與程式碼、補充事實、先寫問題再寫做法）沒有明顯問題。\n\nFAIL"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "lede-shortest-path-spec-dump",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出沒有說教或恭維的句子，用詞書面、主詞完整，也沒有捏造事實或加上範圍聲明。開頭先用一句話說明 ComfyUI 是什麼，再交代「要讓 Claude Code 在自己的電腦上產圖」的目的，才寫做法。summary 以「接上後就能用對話啟動、下載、執行」的結果為主，雖然沒有明寫問題，但目的已經清楚。版本號與指令被省略，是因為任務說明「安裝」一節會列出，所以不算刪掉要求保留的事實。\n\nPASS",
+   "兩段開頭先說明 ComfyUI 是什麼，再交代要在本機用 Claude Code 產圖，接著才寫做法，順序合理。文字書面、不口語，沒有教導或恭維語氣，也沒有捏造或多餘的範圍聲明。安裝指令與版本由後面的「安裝」一節負責，所以省略不算刪掉要求保留的事實。summary 雖然直接寫「接上後就能做到什麼」，但這是讀者得到的結果，不是規格堆疊，不算明顯問題。\n\nPASS",
+   "輸出沒有指導或恭維的句子、過度口語的用詞、缺主詞的句子、說明式標題、未做過的情境或捏造的事實。開頭先說明 ComfyUI 是什麼，再交代要讓 Claude Code 在自己電腦上產圖的目的，之後才寫做法。summary 以結果帶出做法，雖然沒有明寫問題，但不算直接切入規格。指令與版本號留給「安裝」一節，Windows 11、RTX 3070 與 1024 × 1024 等關鍵事實都保留了。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "lede-starts-with-constraint",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出沒有教導或恭維的句子，沒有過度口語或缺主詞的問題，因果連接也完整。summary 先說讀者最在意的結果，也就是資料能完整保留，再交代 26.1 起的資料夾差異與做法。文中的連結與事實（LuckPerms、EssentialsX、vip 群組、三塊標記方塊）都保留，沒有捏造內容或範圍聲明。「麻煩在」、「還在」略口語，但不影響放進文章。\n\nPASS",
+   "輸出先回應讀者最在意的資料能否完整搬移，再說明 Spigot 地獄與終界的資料夾差異。它沒有教導或恭維的句子，也沒有口語截短的用詞。實測內容（LuckPerms、EssentialsX、vip 群組、三塊標記方塊）與原文一致，沒有捏造事實，兩個關鍵連結和遷移文件的說法也都保留。省略效能最佳化的描述，是配合讀者關注點所做的取捨，不算改動必要事實。\n\nPASS",
+   "輸出先回應讀者最在意的資料能否完整搬移，再交代 26.1 起地獄與終界資料夾不同的原因和做法。句子主詞完整，因果清楚，沒有說教或過度口語的句子，也沒有捏造事實或加上未實測的聲明。測試內容（標記方塊、LuckPerms、vip 群組）都與任務提供的資料一致，保留了兩個關鍵連結，省略效能最佳化那段不影響讀者關心的重點。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "limitation-scope-contrast",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出保留了任務要求的全部事實與程式碼，包括 `bash -c \"git push origin main\"`、`env git`、完整路徑和 `$(...)`，以及腳本可被 Agent 改掉的情況。用詞書面、主詞完整，沒有說教或恭維的句子，也沒有捏造的情境或範圍聲明。最後一句的因果關係靠逗號連接，但語意清楚，不算明顯問題。\n\nPASS",
+   "輸出沒有教育讀者或恭維的句子，用詞書面、完整，如「判斷錯誤」改成「一時判斷錯誤」，也沒有口語截短問題。主詞與因果關係清楚，沒有標題或開頭問題，也沒有捏造情境。原文的三種情況（`bash -c \"git push origin main\"`、`env git` 或完整路徑、`$(...)`）與腳本可被改掉的事實都保留，程式碼未被更動。\n\nPASS",
+   "輸出直接說明腳本防的是判斷錯誤、擋不住有意繞過，並完整保留三種繞過寫法（`bash -c \"git push origin main\"`、`env git`／完整路徑、`$(...)`）與腳本可被修改的事實，沒有教導讀者的句子、口語截短、缺主詞或捏造內容，也不是標題或開頭段落，各項失敗條件皆未觸發。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "overpromising-title",
+  "author": true,
+  "regex": true,
+  "rubric": false,
+  "pass": false,
+  "why": [
+   "輸出是「用 A 在容器裡執行 B，並開啟 C」這種說明做法的句子，不是「主題：讀者得到的結果」的形式，符合第 4 條的明顯問題。\n\nFAIL",
+   "輸出的標題是「用 VS Code Dev Containers 在容器裡執行 AI Agent，並開啟 Full Access」，寫成一句說明怎麼做的話，沒有採用「主題：讀者得到的結果」的形式，符合第 4 條的明顯問題。標題也沒有呈現讀者得到的結果，例如隔離保護或掛載範圍的注意事項。\n\nFAIL",
+   "輸出是「用 A 在容器裡執行 B，並開啟 C」的做法敘述句，不是「主題：讀者得到的結果」的形式，符合第 4 條的明顯問題。標題也沒有交代讀者得到的結果。\n\nFAIL"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "rewrite-ai-paragraph",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出把原文的 AI 腔套語都去掉了，保留了 90 秒降到 20 秒的數字和建置快取的事實。句子沒有說教或恭維，用詞也不過度口語。先寫問題再寫做法，結尾說明開發者不必中斷工作，這是對原文「更專注」的合理改寫，沒有捏造事實。因果關係雖只用逗號連接，但語意清楚，不影響閱讀。\n\nPASS",
+   "輸出保留了 90 秒降到 20 秒的數字與建置快取的核心事實，AI 腔的空話都已去除。沒有教導讀者的句子，用詞也不過於口語，主詞與因果關係清楚，也沒有捏造事實或加入範圍聲明。\n\nPASS",
+   "輸出保留了 90 秒降到 20 秒的數字，也沒有說教、恭維或過度口語的句子。「建置時間一長，每次提交後都得等」雖然省略主詞，但讀者不必自己補關係。「不必再中斷手上的工作」是對原文「更專注」的合理轉述，不算捏造，所以沒有明顯問題。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "telegraphic-article-sentences",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出保留了〔流程圖〕位置、所有連結、程式碼與結束碼的事實，只做了「當作→作為」「加上所以」「但它只能」這類小幅的書面化調整。句子完整，沒有說教、口語截短、缺主詞或捏造內容的問題。\n\nPASS",
+   "輸出保留了〔流程圖〕位置、所有連結與程式碼，事實未被改動；新增的「所以」讓因果關係更明確，其餘只是句子順暢度的微調，沒有說教、口語化、缺主詞或捏造的內容。\n\nPASS",
+   "輸出保留了所有連結、程式碼與〔流程圖〕位置，只加了「會」、「所以」、「作為」等連接用詞，句子完整、書面，沒有教導讀者、口語、缺主詞或捏造事實的問題。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "title-dated-performance-claim",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出是「主題：讀者得到的結果」形式的標題，沒有教導語氣、口語縮寫或缺主詞的問題。保留了三個維度的世界、LuckPerms 群組與外掛這些事實，未捏造內容；「外掛」未標明兩個，但不算改動事實。\n\nPASS",
+   "輸出是「主題：讀者得到的結果」形式的標題，沒有說明性句子、口語或缺漏。保留了三個維度的世界、LuckPerms 群組與外掛這些事實，也沒有捏造或加入未做過的情境。\n\nPASS",
+   "輸出是「主題：讀者得到的結果」形式，沒有教育語氣、口語、缺漏或否定說法；保留了三個維度的世界、LuckPerms 群組與外掛這些事實，也沒有捏造內容。「外掛」未特別標示兩個，但不影響正確性。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "translationese-sensitive-to",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出保留了連結、`.devcontainer/devcontainer.json`、android-sdk、platform 和 build_tools，沒有改動或捏造事實。因果關係以「所以」交代，用詞書面而不過度口語，也沒有說教、恭維或多餘的範圍聲明。\n\nPASS",
+   "輸出保留了連結與 `.devcontainer/devcontainer.json` 路徑，也沒有說教、口語截短、缺主詞或捏造事實的問題。因果關係用了「所以」連接，步驟用「先……接著……」交代順序，讀起來通順，適合直接放進教學文章。\n\nPASS",
+   "輸出保留了連結和 `.devcontainer/devcontainer.json` 路徑，也沒有捏造事實。第一段用「所以」交代因果，語氣書面，沒有說教或恭維，也沒有口語截短的詞。第二段把「因此」改成「接著」，因果關係稍弱，但句意清楚，不算明顯問題。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "ui-colon-label-item-descriptions",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出保留了四種加工的名稱與「名稱｜說明」格式，事實也都在：口味的三項內容、黏著與黏彈、擴散到怪與隊友、耐久、修理與賣價。沒有教育式或恭維的句子，用字也不過度口語或截短，句子主詞完整，沒有捏造內容或範圍聲明。\n\nPASS",
+   "輸出保留了四項加工的所有事實（口味、黏著與黏彈、擴散到怪與隊友、耐久、修理與賣價），名稱與格式也沒變。用詞書面、不口語，沒有指導或恭維的句子，也沒有捏造的內容。「修理費用變便宜」只是把「修理便宜」說得更完整，不算問題。\n\nPASS",
+   "輸出沒有教育讀者或裝熟的句子，用詞也不過度口語或截短。四種加工的事實都保留了：口味、黏著、擴散、耐久、修理和賣價，沒有捏造內容。「名稱｜說明」的格式維持原樣，句子也保留助詞與連接詞。評分條件中的其他項目（標題寫法、文章開頭、範圍聲明）不適用於這份輸出。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "ui-error-messages-missing-please",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出保留了四則訊息、原順序與一行一則，並補上「請」與完整主詞、受詞（「這個房間設有密碼」「操作沒有成功」），沒有教育、口語截短、捏造或改動事實的問題，也符合平實直接、一則只講一件事的規則。\n\nPASS",
+   "輸出四則訊息順序保留、各為一行，句子完整並補上「請」與主詞（如「這個房間設有密碼」），語氣平實，沒有說教、口語截短、捏造或改動事實的問題。「操作沒有成功」只是補足主詞，屬合理潤飾。\n\nPASS",
+   "輸出保留了四則訊息的順序與一行一則的格式，句子補上「請」與完整主詞、受詞，語氣平實，沒有道歉或口語化。「這個房間設有密碼」「操作沒有成功」只是補足主詞，並未改動原意或捏造事實，也沒有說教、截短詞或其他明顯問題。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "ui-status-chip-terse-comparison",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出把縮寫展開成完整詞語（「自然回血變快、移動變慢、跳得較低」），符合專案規則與實際效果，標籤仍短、一個標籤只講一件事，沒有說教、口語縮寫、缺主詞或捏造的內容。\n\nPASS",
+   "輸出把縮寫的「回血快、跑跳差」展開成「自然回血變快、移動變慢、跳得較低」，與狀態的實際效果一致，詞語完整、沒有口語截短，也沒有說明句、捏造事實或多餘內容。標籤仍然簡短，只列出效果，符合規則。\n\nPASS",
+   "輸出把「回血快、跑跳差」展開為完整詞語，「自然回血變快、移動變慢、跳得較低」，符合規則且與實際效果一致；仍是簡短標籤，無說明句、口語縮寫或捏造事實。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "untested-scenario-disclaimer",
+  "author": true,
+  "regex": false,
+  "rubric": false,
+  "pass": false,
+  "why": [
+   "輸出保留了「我沒有實測」這類範圍聲明，符合第 6 項的明顯問題。另外，「我的兩個專案各放一份」沒寫出是誰放了什麼，也符合第 3 項列出的例子。\n\nFAIL",
+   "輸出保留了「portable 版的接法是照官方文件整理的，我沒有實測」這類範圍聲明，也寫進了作者沒做過的 portable 版情境，符合第 6 條的 FAIL 條件。\n\nFAIL",
+   "輸出保留了「我沒有實測」這類範圍聲明，也留著作者沒做過的 portable 版情境，違反第 6 條。另外「我的兩個專案各放一份」沒有寫出放的是什麼，也有第 3 條的疑慮。\n\nFAIL"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "untranslated-ui-option-in-parens",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出保留了原任務要求的所有事實：`enable_prompt_enhancer` 未翻譯、開啟後會擴寫成詳細的英文描述並改寫框內內容、預設關閉、右下角的「Prompt upsampler is on」可不理會，以及按「執行」產出開頭那張貼文。句子主詞和情境都完整，沒有說教、恭維或範圍聲明。「先看一下」、「維持關閉就好」略偏口語，但不影響放進文章。\n\nPASS",
+   "輸出保留了所有要求的事實：開關名稱 `enable_prompt_enhancer`、沒有翻譯、開啟後會擴寫成英文描述並改寫框內容、預設關閉、右下角「Prompt upsampler is on」不用理會，也保留了按「執行」產出貼文的收尾。語氣是教學文章常見的操作說明，沒有說教、恭維或過度口語，主詞與因果交代也完整，沒有標題或開頭問題，也沒有多出的情境或範圍聲明。\n\nPASS",
+   "輸出保留了任務要求的所有事實：開關名稱未翻譯、開啟後會擴寫成詳細的英文描述並改寫框內容、預設關閉、右下角「Prompt upsampler is on」的說明與實際預設不符、可不理會，以及最後的「執行」和開頭那張貼文。文中沒有說教或恭維的句子，沒有截短的口語詞，沒有缺主詞的句子，也沒有捏造事實。「維持關閉就好」和「不用理會」只是輕微的口語，不影響放進文章。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "wiki-bullet-aphorism-tail",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出只刪掉第三條末句「也就是白天快、晚上深」，符合 wiki「不再收成一句總結」的規則。所有 `{...}` 占位符、`:entry[...]` 連結與數字事實都完整保留，也沒有教導語氣、口語截短、缺主詞或捏造內容。\n\nPASS",
+   "輸出刪掉了原文的總結句「也就是白天快、晚上深」，這符合 wiki 規則（前一句已說明的道理不再收成總結）。所有占位符與 :entry 連結都原樣保留，沒有口語截短、缺主詞、教導語氣、捏造或範圍聲明等問題。\n\nPASS",
+   "輸出只刪掉了「也就是白天快、晚上深」這句總結，符合 wiki 規則「前一句已說明的道理不再收成總結」。其餘項目的事實、數字占位符（{proof.peak}、{proof.night}、{proof.nightValue}、{proof.nightRatio}、{proof.fridge}、{proof.offTray}）與 :entry[...] 都原樣保留，沒有教育語氣、口語截短、缺主詞或捏造內容。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "wiki-claim-left-to-discover",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出保留了所有占位符和數字，沒有指導讀者或口語截短的問題，句子的主詞和受詞也完整。它把「由玩家自己發現」改寫成指向表格與條目頁，符合專案規則和頁面事實，也沒有捏造內容。\n\nPASS",
+   "輸出保留了所有占位符與數字，也保留了原文的事實：冷卻縮短、無冷卻招式改為增加傷害、發現卡與烘焙篇的記錄方式。它把「由玩家自己發現」改成指向上方表格與條目頁，這符合頁面事實，沒有捏造內容。句子主詞和動作完整，語氣客觀，沒有說教、口語化或範圍聲明，也沒有不當的標題或開頭。\n\nPASS",
+   "輸出保留了所有占位符和數字，沒有說教、口語或捏造的內容。它把「由玩家自己發現」改成指向上方表格與條目頁，符合頁面事實。每段句子都有主詞、動作和受詞，沒有不通順之處。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "wiki-link-note-points-elsewhere",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出只刪掉第一項的編輯內部語言「金幣的來源見那一頁」，其餘項目、連結與事實都保持原樣，也沒有新增說教、口語、缺主詞或捏造的內容，所以沒有觸發任何 FAIL 條件。\n\nPASS",
+   "輸出只刪掉第一項裡「金幣的來源見那一頁」這句編輯內部語言，其餘各項原樣保留，沒有教育讀者、口語截短、缺主詞或捏造事實的問題，連結與事實也都還在。\n\nPASS",
+   "輸出只改了第一項，刪掉「金幣的來源見那一頁」這類編輯內部語言，其他項目保持原樣。不過第三項「黃金酵母祝福要用黃金酵母，成就是黃金酵母的來源之一」與第四項都是在講黃金酵母，但原規則只要求改有問題的項目，且這兩項沒有明顯違反評分條件的問題；沒有教導語氣、口語截短、缺主詞、捏造事實或刪改連結的情形。\n\nPASS"
+  ]
+ },
+ {
+  "set": "experiments/2026-11-05-rewrite-review-r2/outputs",
+  "case": "wrong-result-before-steps",
+  "author": true,
+  "regex": true,
+  "rubric": true,
+  "pass": true,
+  "why": [
+   "輸出保留了所有事實與數字（1024、1088×1456、約七成、五個框、步驟與 1088/1456），圖說以〔截圖：……〕保留，沒有指導讀者或恭維的句子，用詞書面，標題為名詞式「調整畫布比例」，也沒有捏造或加入範圍聲明。原文「畫布的比例看的是…」改成「這個節點的畫布比例看自己的…」只是用詞差異，且「五個框」「飲品照片拼貼」等細節都在，主詞與因果關係也完整。\n\nPASS",
+   "輸出保留了原文的所有事實與數字（3:4、1024、1088 × 1456、約七成、飲品拼貼、亂碼、三個步驟），沒有說教、口語化或缺主詞的句子。第一張介面截圖屬於錯誤狀態，任務允許刪除，第二張則改成〔截圖：……〕圖說。\n\nPASS",
+   "輸出保留了原文所有事實、數字和步驟，包括 3:4、1024、1088 × 1456、五個框、約七成和三個拆線步驟。第一張錯誤狀態的介面截圖依任務刪掉，第二張換成依內文寫成的圖說，沒有捏造新事實。沒有教育或恭維的句子，也沒有口語截短或缺主詞的問題，標題維持原樣。開頭省略「解析度選擇器」只是小處，不影響閱讀。\n\nPASS"
+  ]
+ }
+]
