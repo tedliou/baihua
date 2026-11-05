@@ -2,14 +2,14 @@
 
 [正體中文](README.md)
 
-baihua (白話, "plain speech") helps Claude write Traditional Chinese that reads naturally to Taiwanese readers. The `zh-tw-prose` skill loads when Claude writes or edits articles, docs, UI copy, announcements and PR descriptions in zh-TW. It removes AI-flavoured phrasing, translationese and Mainland Chinese terms, keeps sentences complete, and puts the answer first.
+baihua (白話, "plain speech") helps Claude write Traditional Chinese that reads naturally to Taiwanese readers. The `zh-tw-prose` skill loads when Claude writes or edits technical articles, reference docs and UI text in zh-TW. It removes AI-flavoured phrasing, translationese and Mainland Chinese terms, keeps sentences complete, and puts the answer first.
 
 The skill itself is written in Chinese, because it is read by Claude while writing Chinese. This page is a short English summary.
 
 ## What is inside
 
 - 10 core rules, each with its reason, so Claude can handle cases the rules do not cover.
-- 6 registers: technical articles, reference docs, UI text, work reports, social posts, formal notices.
+- 3 registers: technical articles (including technical blogs), reference docs and UI text.
 - 25 AI-writing patterns and 10 translationese patterns. Each has a before/after example and a "keep it when" boundary, so good text is not over-edited.
 - A Taiwan usage table and `check.py`, a standard-library Python linter for terms, punctuation and CJK–Latin spacing.
 - `zh-tw-reviewer`, a read-only reviewer subagent with a clean context.
@@ -29,9 +29,11 @@ claude.ai: download `zh-tw-prose.zip` from [Releases](https://github.com/tedliou
 
 Claude API: upload the `skills/zh-tw-prose` folder through the Skills API.
 
+In Claude Code, run `/zh-tw-prose` and then describe the text to write or edit. Other skills that produce Traditional Chinese text can name it in their instructions, for example "use the zh-tw-prose skill for UI text".
+
 ## Evals
 
-Tests run with `claude plugin eval` in four tiers, so day-to-day changes only run the cases they touch. There are 10 fixed behaviour cases (5 of them check that good text is left alone), 16 trigger cases, and a bank of 35 cases, mostly taken from real edits, from which 8 are sampled before each release. See [evals/README.md](evals/README.md).
+Tests run with `claude plugin eval` in four tiers, so day-to-day changes only run the cases they touch. Each case is text that obviously reads as AI-written, and checks whether the skill rewrites it so it reads as human-written. Most cases come from real edits. See [evals/README.md](evals/README.md).
 
 ## Limits
 

@@ -1,0 +1,14 @@
+---
+description: "fix-translationese"
+tags: [rewrite-review]
+max_turns: 8
+allowed_tools: [Read, Glob, Grep, Skill]
+---
+
+使用 zh-tw-prose skill。
+
+這段技術文件讀起來像翻譯稿，幫我改成自然的台灣正體中文：
+
+在對設定檔進行修改之後，系統將會針對所有的服務作出重新啟動的動作。這個機制的引入使得設定的變更能夠被即時地套用。對於需要保留連線的服務，我們可以通過加上一個 `--graceful` 參數的方式來避免連線的中斷。
+
+只輸出成品本身，不要加任何說明、前言或改了什麼的清單。

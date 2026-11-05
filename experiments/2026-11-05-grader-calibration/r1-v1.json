@@ -1,0 +1,596 @@
+{
+ "aphorism-closing": {
+  "author": true,
+  "graders": {
+   "no-verdict-no-repeat": {
+    "pass": false,
+    "why": "輸出仍以「分工很清楚」開頭，這是條件明確要求刪除的評語式開頭。雖然四個指令已移除、事實也保留，但開頭未改，不符合通過條件。\n\nFAIL"
+   }
+  },
+  "all_pass": false
+ },
+ "argumentative-section-flow": {
+  "author": true,
+  "graders": {
+   "author-standard": {
+    "pass": false,
+    "why": "輸出的結尾保留了「要讓品名固定在照片下方、價格固定在右下角，就要改用框選位置的範本」，這句把讀者推向下一節，違反條件。開頭的「最簡單的做法是打開…」也還帶著原文「先試最簡單的做法」的演進式口吻，沒有改成直述讀者打開範本、寫 Prompt、得到結果的寫法。\n\nFAIL"
+   },
+   "keeps-enhancer": {
+    "pass": true,
+    "why": ""
+   },
+   "keeps-simplified": {
+    "pass": true,
+    "why": ""
+   },
+   "keeps-wrong-glyph": {
+    "pass": true,
+    "why": ""
+   },
+   "no-progression": {
+    "pass": false,
+    "why": ""
+   }
+  },
+  "all_pass": false
+ },
+ "audience-sentence-in-summary": {
+  "author": true,
+  "graders": {
+   "no-audience-no-unverified-claim": {
+    "pass": false,
+    "why": "輸出第一句仍是「這組 Skill 適合使用 Claude Code 與 GitHub Issues，並希望主流程一路接下去的人」，推薦句沒有刪除，也沒有改成具體條件（例如只支援 Claude Code 與 GitHub Issues）。「省下時間與額度」已改成審查次數的數字，其他事實也都保留，但推薦句仍在，不符合條件。\n\nFAIL"
+   }
+  },
+  "all_pass": false
+ },
+ "closing-advice-after-measure": {
+  "author": true,
+  "graders": {
+   "facts-only": {
+    "pass": false,
+    "why": "輸出仍保留「這樣的速度可以用，但明顯比較慢，比較適合先在筆電上試效果」，這句評價與建議沒有刪除，而條件要求刪掉它。其他事實與連結雖然都在，但這一點已不符合。\n\nFAIL"
+   }
+  },
+  "all_pass": false
+ },
+ "comma-chained-summary": {
+  "author": false,
+  "graders": {
+   "author-standard": {
+    "pass": false,
+    "why": "輸出的最後一句仍寫「字都寫對」這種口語說法，也仍是「，字都寫對，換一個隨機種子重產，版面也和原本一樣」這樣用逗號堆疊的短分句，沒有寫出前後的關係，因此不符合條件。輸出末尾還附了說明文字，不過評分只依條件判斷。\n\nFAIL"
+   },
+   "keeps-seed": {
+    "pass": true,
+    "why": ""
+   },
+   "keeps-zh-tw": {
+    "pass": true,
+    "why": ""
+   },
+   "no-colloquial": {
+    "pass": false,
+    "why": ""
+   }
+  },
+  "all_pass": false
+ },
+ "comma-chopped-lede": {
+  "author": true,
+  "graders": {
+   "fewer-commas": {
+    "pass": false,
+    "why": "輸出把原文第一句拆成「Jev 是 TypeSafe 的決策模型。」和一個後續長句，冒號已經去掉。但後續長句仍用「請求，內容是……題目，回傳……機率，不會產生文字」串了 3 個逗號，逗號數量沒有減少，也沒有合併成連貫的句子，仍是清單式的短句串接。\n\nFAIL"
+   }
+  },
+  "all_pass": false
+ },
+ "cute-tilde-transition": {
+  "author": true,
+  "graders": {
+   "no-cute-tone": {
+    "pass": false,
+    "why": "輸出保留了 run.bat、update.bat 和安裝完成的事實，波浪號也已移除。但結尾多了「先從容易的部分入手」，這是把「先輕鬆點」換成另一句安撫讀者的說法，條件明確禁止。結尾應該在「從最簡單的彩色貼圖生成開始教學」就收住。\n\nFAIL"
+   },
+   "no-tilde": {
+    "pass": true,
+    "why": ""
+   }
+  },
+  "all_pass": false
+ },
+ "denial-before-doc-quote": {
+  "author": false,
+  "graders": {
+   "no-denial-keeps-facts": {
+    "pass": false,
+    "why": "輸出仍保留了「這裡先不要把它想成背景畫面設定」這句否定句，條件明確要求這類否定句必須消失，所以不符合。其他部分（路徑、連結、兩種行為、「講得很直接」改為「說明得很明確」）雖然大致符合，但「說明得很明確」仍是同類評價詞，也不通過。\n\nFAIL"
+   }
+  },
+  "all_pass": false
+ },
+ "filename-in-title-summary": {
+  "author": false,
+  "graders": {
+   "no-filenames": {
+    "pass": true,
+    "why": ""
+   },
+   "reader-problem": {
+    "pass": false,
+    "why": "標題點出 ComfyUI，冒號後寫出讀者得到的結果（多套讀同一份模型、不必每套各下載一次），沒有出現設定檔名或參數。開頭從每套各存一份、硬碟被吃掉的情況，寫到集中放共用資料夾的解法方向；唯一的疑慮是「一個檔案動輒數 GB，重複幾份，硬碟空間就被吃掉好幾倍」加入了原文沒有的數字描述，屬於原文未提供的經驗與數字，依條件「加入原文沒有的數字、功能與經驗」應判為 FAIL。\n\nFAIL"
+   }
+  },
+  "all_pass": false
+ },
+ "fix-translationese": {
+  "author": true,
+  "graders": {
+   "keeps-graceful": {
+    "pass": true,
+    "why": ""
+   },
+   "natural-and-faithful": {
+    "pass": true,
+    "why": "輸出以系統為主詞、用「重新啟動」「生效」「加上」「避免」等直接動詞，沒有明顯翻譯腔，三件事（修改設定檔後所有服務重啟、變更立即生效、加 `--graceful` 避免連線中斷）都保留，也沒有新增事實。\n\nPASS"
+   },
+   "no-causative": {
+    "pass": true,
+    "why": ""
+   },
+   "no-dummy-verbs": {
+    "pass": true,
+    "why": ""
+   },
+   "no-slop-phrases": {
+    "pass": true,
+    "why": ""
+   },
+   "no-tongguo": {
+    "pass": true,
+    "why": ""
+   }
+  },
+  "all_pass": true
+ },
+ "flattering-aside": {
+  "author": false,
+  "graders": {
+   "no-clever-you": {
+    "pass": true,
+    "why": ""
+   },
+   "no-flattery": {
+    "pass": true,
+    "why": "輸出刪除了「聰明的你會發現」的恭維與預告，直接陳述「生成出來的貼圖都不是無縫圖」，並保留所有事實：RTX 3070、約 2.8 秒、貼圖非無縫、後續會解決、先快速走一遍匯入 Unity 場景的流程。沒有加入原文沒有的事實，第一段只是小修措辭（去掉「約……左右」重複）。\n\nPASS"
+   }
+  },
+  "all_pass": true
+ },
+ "jar-swap-steps-and-worries": {
+  "author": false,
+  "graders": {
+   "author-standard": {
+    "pass": false,
+    "why": "輸出仍寫「Paper 發現世界需要轉換」，這正是條件明確禁止的寫法，應直接寫 Paper 會自動轉換世界。其他部分（相同版本、30 秒、三個維度、之後不再出現警告、以 `Done` 為完成訊號、已備份所以不用中斷）都符合。\n\nFAIL"
+   },
+   "keeps-30s": {
+    "pass": true,
+    "why": ""
+   },
+   "keeps-done": {
+    "pass": true,
+    "why": ""
+   },
+   "keeps-start-cmd": {
+    "pass": true,
+    "why": ""
+   },
+   "no-tool-discovers": {
+    "pass": false,
+    "why": ""
+   }
+  },
+  "all_pass": false
+ },
+ "lecture-lead-in": {
+  "author": false,
+  "graders": {
+   "no-lecture-keeps-bullets": {
+    "pass": false,
+    "why": "輸出的引導句與原文完全相同，仍然是「分清楚它們才用得好 Upscaler」這類說教，沒有改成直接說明接下來是什麼，違反 PASS 條件的核心要求。清單事實雖然都保留，但引導句未修正。\n\nFAIL"
+   }
+  },
+  "all_pass": false
+ },
+ "lecturing-warning-dns": {
+  "author": true,
+  "graders": {
+   "no-semicolon-no-scolding": {
+    "pass": false,
+    "why": "輸出沒有分號，驗證步驟與失敗處理分成不同句子，事實也都保留。但結尾「不要繼續更動 IP 與閘道設定」仍是禁止式的警告口氣，等同「不要亂改」，沒有改成中性的做法說明（例如「把設定恢復成自動取得」）。另外「請立刻」也加重了語氣。\n\nFAIL"
+   }
+  },
+  "all_pass": false
+ },
+ "lede-absolute-claims": {
+  "author": true,
+  "graders": {
+   "author-standard": {
+    "pass": false,
+    "why": "輸出幾乎照搬原文的順序，開頭仍先講「在 ComfyUI 用 MOSS-Image 產圖時，字直接寫進 Prompt」，沒有先交代讀者的問題（做貼文或海報時文字要放在固定位置）。結果句也保留了「每次產出的版面都不一樣」和「每張的字都寫對」這類絕對又口語的說法，兩項 PASS 條件都沒達到。三種圖和換隨機種子位置不變等事實有保留，也沒有新增數字，但這不足以通過。\n\nFAIL"
+   },
+   "no-colloquial": {
+    "pass": false,
+    "why": ""
+   }
+  },
+  "all_pass": false
+ },
+ "lede-rules-not-enough-compressed": {
+  "author": false,
+  "graders": {
+   "author-standard": {
+    "pass": true,
+    "why": "第一段先交代讓 Agent 自己 commit 與推送、不想讓它直接推送 `main` 的情境，再說明只寫規則不夠的原因，接著寫 hook 在指令執行前檢查、判定擋下就不執行。判斷句都有主詞、動作與後果。第二段保留私有 repo、付費方案連結、免費組織帳號與 draft → PR → main 的流程，權限模式、子代理也都保留，沒有加入原文沒有的功能。手動推送不受影響的說明放在第一段，沒有放在第二段，這點與條件的字面順序略有出入，但開頭兩段合起來已涵蓋。\n\nPASS"
+   },
+   "full-words": {
+    "pass": false,
+    "why": ""
+   },
+   "keeps-force-push": {
+    "pass": true,
+    "why": ""
+   },
+   "keeps-github-link": {
+    "pass": true,
+    "why": ""
+   },
+   "keeps-paid-plan": {
+    "pass": true,
+    "why": ""
+   }
+  },
+  "all_pass": false
+ },
+ "lede-shortest-path-spec-dump": {
+  "author": false,
+  "graders": {
+   "author-standard": {
+    "pass": false,
+    "why": "輸出未通過：summary 與第一段都仍寫了 `comfy install` 和 `claude mcp add`，而條件明確禁止在這兩處列出安裝指令。第一段也仍用「只需要三步」這種步驟數說法來鋪陳。\n\nFAIL"
+   },
+   "no-shortest": {
+    "pass": true,
+    "why": ""
+   }
+  },
+  "all_pass": false
+ },
+ "lede-starts-with-constraint": {
+  "author": true,
+  "graders": {
+   "author-standard": {
+    "pass": false,
+    "why": "輸出第一句就以「Spigot 伺服器換成 Paper，世界和外掛的資料都能完整保留」開場，沒有先交代 Paper 是什麼、為何值得換；第一段也仍描述實驗設計（標記方塊、vip 群組、LuckPerms、EssentialsX），並且沒有提到官方網站列出的「光照引擎、漏斗與實體」效能最佳化，還把結論放在限制之前。這些都違反條件。\n\nFAIL"
+   },
+   "keeps-26-1": {
+    "pass": true,
+    "why": ""
+   },
+   "keeps-drop-in": {
+    "pass": true,
+    "why": ""
+   },
+   "keeps-migration-link": {
+    "pass": true,
+    "why": ""
+   }
+  },
+  "all_pass": false
+ },
+ "limitation-scope-contrast": {
+  "author": false,
+  "graders": {
+   "author-standard": {
+    "pass": true,
+    "why": "輸出保留了三種擋不到的寫法：`bash -c` 包在字串裡、`env git` 或完整路徑呼叫 git、`$(...)` 裡的指令。原因也有寫出，就是腳本不會拆開檢查這些寫法。Agent 改腳本那句有條件（「一旦改掉它」）和後果（「下一次檢查就跟著失效」），是完整句。範圍說明保留，也沒有加入原文沒有的繞過方式。\n\nPASS"
+   },
+   "keeps-bash-c": {
+    "pass": true,
+    "why": ""
+   },
+   "keeps-env-git": {
+    "pass": true,
+    "why": ""
+   },
+   "keeps-subshell": {
+    "pass": true,
+    "why": ""
+   },
+   "no-new-bypass": {
+    "pass": true,
+    "why": ""
+   }
+  },
+  "all_pass": true
+ },
+ "overpromising-title": {
+  "author": false,
+  "graders": {
+   "claim-matches-body": {
+    "pass": true,
+    "why": "新標題移除了「放心」「不會搞爛電腦」等過度保證，改成「開啟 Full Access 前先確認掛載內容」，與正文的風險說明一致，並保留 Dev Containers、AI Agent、容器、Full Access 這些主題。標題為單行，約 36 字元，沒有加入正文沒有的功能或承諾；字數略貼近 35 字上限，但屬「大約」範圍內。\n\nPASS"
+   }
+  },
+  "all_pass": true
+ },
+ "rewrite-ai-paragraph": {
+  "author": true,
+  "graders": {
+   "keeps-20": {
+    "pass": true,
+    "why": ""
+   },
+   "keeps-90": {
+    "pass": true,
+    "why": ""
+   },
+   "no-false-contrast": {
+    "pass": true,
+    "why": ""
+   },
+   "no-slop-phrases": {
+    "pass": true,
+    "why": ""
+   },
+   "no-synonym-swap": {
+    "pass": true,
+    "why": ""
+   },
+   "rewritten-not-reworded": {
+    "pass": false,
+    "why": "輸出刪掉了空泛的評價和套話，保留了 90 秒降到 20 秒，「等待時間變短」的說法也在允許範圍內。但第二句加了原文沒有的情境：「以前每次提交都要從頭編譯所有模組，現在只重新建置有變動的部分，其餘直接取用快取」。這是編造的先前做法和實作細節，不是由原文數字算出來的，也不是把「更專注」寫具體。同樣地，「每次推送後停下來等結果」也補了原文沒有的使用情境。\n\nFAIL"
+   }
+  },
+  "all_pass": false
+ },
+ "telegraphic-article-sentences": {
+  "author": true,
+  "graders": {
+   "author-standard": {
+    "pass": false,
+    "why": "輸出基本上原樣保留原文，只把〔圖〕換成〔流程圖〕。結束碼 0 一句、`bypassPermissions` 一句、deny 規則一句仍是壓縮寫法（例如「結束碼 0 只代表 hook 不擋」沒寫出不擋的對象與後果，「原因見」也沒改成完整句），大部分壓縮句都沒有補齊。\n\nFAIL"
+   },
+   "keeps-bypass": {
+    "pass": true,
+    "why": ""
+   },
+   "keeps-guide-link": {
+    "pass": true,
+    "why": ""
+   },
+   "keeps-plus-main": {
+    "pass": true,
+    "why": ""
+   },
+   "keeps-stderr": {
+    "pass": true,
+    "why": ""
+   }
+  },
+  "all_pass": false
+ },
+ "title-dated-performance-claim": {
+  "author": true,
+  "graders": {
+   "author-standard": {
+    "pass": true,
+    "why": "冒號前保留了 Minecraft、Spigot 與 Paper，冒號後寫的是照官方文件遷移、保留世界、LuckPerms 群組與外掛，屬於讀者在意的任務與資料保留結果，沒有再以效能當賣點。沒有出現「效能最佳化」「更快」「更強」之類評價，也沒有版本號或資料夾名稱。\n\nPASS"
+   },
+   "no-performance-claim": {
+    "pass": true,
+    "why": ""
+   }
+  },
+  "all_pass": true
+ },
+ "translationese-sensitive-to": {
+  "author": true,
+  "graders": {
+   "direct-verbs": {
+    "pass": false,
+    "why": "輸出仍保留「由於 Android 專案對……很敏感」的「由於……對……」結構，也仍是「發現它提供……因此可以編輯」的句型，只把「他」換成「它」，工具依然由代名詞指稱，沒有改成直接的動詞句。\n\nFAIL"
+   }
+  },
+  "all_pass": false
+ },
+ "ui-colon-label-item-descriptions": {
+  "author": true,
+  "graders": {
+   "colon-labels-removed": {
+    "pass": false,
+    "why": "輸出四行都保留且名稱不變。淋醬、撒粉、刷蛋液三行雖然把冒號改成逗號，但仍保留「附魔「黏著」」「附魔「擴散」」「附魔「亮面」」這個標籤內容，只是換了標點，等於標籤還在畫面上，違反規則。其餘效果事實皆完整保留，也沒有新增效果。\n\nFAIL"
+   },
+   "keeps-spread": {
+    "pass": true,
+    "why": ""
+   },
+   "keeps-sticky": {
+    "pass": true,
+    "why": ""
+   },
+   "no-enchant-label": {
+    "pass": false,
+    "why": ""
+   }
+  },
+  "all_pass": false
+ },
+ "ui-error-messages-missing-please": {
+  "author": true,
+  "graders": {
+   "complete-sentences": {
+    "pass": true,
+    "why": "輸出為四行，順序不變，每則都補上「請」並使用完整句子，沒有道歉或裝可愛，也沒有新增原因或步驟。四則的事實皆保留：世界已封存→取消封存、找不到房間→檢查代碼、房間有密碼→先輸入、沒有成功→再試一次。「在房間上輸入密碼」雖稍微展開，但仍是「在上面輸入」的同一意思，且仍是一件事。\n\nPASS"
+   },
+   "keeps-archive": {
+    "pass": true,
+    "why": ""
+   },
+   "keeps-room-code": {
+    "pass": true,
+    "why": ""
+   }
+  },
+  "all_pass": true
+ },
+ "ui-status-chip-terse-comparison": {
+  "author": true,
+  "graders": {
+   "chip-complete-words": {
+    "pass": true,
+    "why": "輸出保留「過飽」開頭的單行短標籤，把兩個效果補成完整說法：「自然回血變快」「移動變慢」「跳躍變低」，方向都正確（回血更快、移動更慢、跳得更低），與實際效果相符。沒有加入數字、emoji、建議或多句說明，仍是一個簡短標籤。\n\nPASS"
+   },
+   "keeps-heal": {
+    "pass": true,
+    "why": ""
+   },
+   "keeps-state-name": {
+    "pass": true,
+    "why": ""
+   }
+  },
+  "all_pass": true
+ },
+ "untested-scenario-disclaimer": {
+  "author": false,
+  "graders": {
+   "deleted-not-hedged": {
+    "pass": true,
+    "why": "輸出完全沒有提到 portable 版、其他安裝方式或官方文件，也沒有任何說明作者沒測過什麼的句子；設定檔位置與未實測的聲明都已整句刪除，且沒有改寫成推論或替代的範圍說法。\n\nPASS"
+   },
+   "facts-kept": {
+    "pass": true,
+    "why": "輸出保留了條件列出的所有事實：`main.py` 旁的 `extra_model_paths.yaml`、設定檔內容（共用資料夾路徑與各類模型子資料夾）、兩個專案各一份且內容相同、新增模型類型時兩份都要改、以及 MOSS-Image 與 Qwen-Image 在硬碟上各只存一份。輸出沒有加入原文沒有的數字、步驟、功能或使用經驗。portable 版的內容雖然被省略，但條件並未要求保留。\n\nPASS"
+   },
+   "no-untested": {
+    "pass": true,
+    "why": ""
+   }
+  },
+  "all_pass": true
+ },
+ "untranslated-ui-option-in-parens": {
+  "author": true,
+  "graders": {
+   "author-standard": {
+    "pass": true,
+    "why": "輸出以原字「enable_prompt_enhancer」稱呼開關，沒有自創中文名或括號；說明了開啟後會把 Prompt 擴寫成詳細英文描述；並保留了範本預設關閉、說明提到開啟後會改寫框的內容、維持關閉、「Prompt upsampler is on」與實際預設不同不用理會、按「執行」產出開頭貼文等事實，也沒有加入原文沒有的設定。\n\nPASS"
+   },
+   "keeps-option": {
+    "pass": true,
+    "why": ""
+   },
+   "keeps-upsampler": {
+    "pass": true,
+    "why": ""
+   },
+   "no-invented-name": {
+    "pass": true,
+    "why": ""
+   }
+  },
+  "all_pass": true
+ },
+ "wiki-bullet-aphorism-tail": {
+  "author": true,
+  "graders": {
+   "keeps-night-ratio": {
+    "pass": true,
+    "why": ""
+   },
+   "keeps-off-tray": {
+    "pass": true,
+    "why": ""
+   },
+   "no-tail-slogan": {
+    "pass": true,
+    "why": ""
+   },
+   "tail-removed": {
+    "pass": true,
+    "why": "第三項已刪除「也就是白天快、晚上深」，且 {proof.night}、{proof.nightValue}、{proof.nightRatio} 三個占位符與因果關係都保留；其餘四項與原文相同，仍為五項條列。\n\nPASS"
+   }
+  },
+  "all_pass": true
+ },
+ "wiki-claim-left-to-discover": {
+  "author": true,
+  "graders": {
+   "discover-claim-dropped": {
+    "pass": true,
+    "why": "輸出已刪掉「由玩家自己發現」這句，改成指向上方表格與條目頁的說明。五個占位符都原樣保留，冷卻縮短、無冷卻招式改增傷害、招式的發現卡、割紋記進烘焙篇這些事實也都還在，沒有新增機制。\n\nPASS"
+   },
+   "keeps-discovery-card": {
+    "pass": true,
+    "why": ""
+   },
+   "keeps-masterup": {
+    "pass": true,
+    "why": ""
+   },
+   "no-discover-claim": {
+    "pass": true,
+    "why": ""
+   }
+  },
+  "all_pass": true
+ },
+ "wiki-link-note-points-elsewhere": {
+  "author": true,
+  "graders": {
+   "keeps-obsidian-link": {
+    "pass": true,
+    "why": ""
+   },
+   "no-see-that-page": {
+    "pass": true,
+    "why": ""
+   },
+   "pointer-removed-rest-kept": {
+    "pass": true,
+    "why": "第一項刪掉了「金幣的來源見那一頁」這句指路，保留「升級的價錢全部用金幣支付」；其餘四項的連結、內容與順序都與原文相同，仍是五項條列。\n\nPASS"
+   }
+  },
+  "all_pass": true
+ },
+ "wrong-result-before-steps": {
+  "author": true,
+  "graders": {
+   "author-standard": {
+    "pass": false,
+    "why": "輸出開頭兩段仍先描述問題：先說畫布仍是正方形，接著用一整段說明錯誤的產圖結果（框擠在上方約七成、拼貼、亂碼），之後才列出拆線步驟。雖然第一段提到要先拆線，但操作步驟排在錯誤描述之後，不符合「先寫讀者要做的事」的要求。數值與步驟本身都有保留，沒有新增操作，但順序不符。\n\nFAIL"
+   },
+   "keeps-1088": {
+    "pass": true,
+    "why": ""
+   },
+   "keeps-1456": {
+    "pass": true,
+    "why": ""
+   },
+   "keeps-70pct": {
+    "pass": true,
+    "why": ""
+   },
+   "keeps-esc": {
+    "pass": true,
+    "why": ""
+   }
+  },
+  "all_pass": false
+ }
+}

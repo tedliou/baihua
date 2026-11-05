@@ -1,0 +1,8 @@
+{
+  "comment": "直接陳述",
+  "edited": "## 換成 Paper 並啟動\n\n到 [Paper 下載頁](https://papermc.io/downloads/paper)下載和 Spigot 相同 Minecraft 版本的 Paper，再放進伺服器資料夾，並照遷移文件的做法，把檔名改成啟動指令裡的 jar 檔名。例如 `start.bat` 啟動的是 `spigot-26.3.jar`，就先刪掉原本的 Spigot jar，再把 Paper 的檔案改成這個名字，`start.bat` 不用變更。\n\n照原本的方式啟動伺服器。Paper 會自動轉換世界，並印出這段警告並等 30 秒：\n\n〔ALERT 警告〕\n\n前一節已經備份，所以不用中斷。30 秒後 Paper 會轉換三個維度的資料夾，主控台出現 `Done` 就表示啟動完成。之後再啟動不會出現這段警告。",
+  "item": "v-A3",
+  "round": "rw1",
+  "savedAt": "2026-11-04T12:35:13.383Z",
+  "verdict": "fail"
+}

@@ -1,0 +1,1 @@
+用 VS Code Dev Containers 在容器裡執行 AI Agent，並開啟 Full Access

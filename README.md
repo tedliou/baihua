@@ -2,7 +2,7 @@
 
 [English](README.en.md)
 
-讓 Claude 寫出台灣讀者讀得順的正體中文。`zh-tw-prose` 是一個 skill，也就是 Claude 在需要時才載入的一組指示。Claude 寫文章、文件、介面文案、公告與 PR 時會載入它，避開 AI 腔、翻譯腔與對岸用語，把句子寫完整、先給答案。
+讓 Claude 寫出台灣讀者讀得順的正體中文。`zh-tw-prose` 是一個 skill，也就是 Claude 在需要時才載入的一組指示。Claude 寫技術文章、參考文件與介面文字時會載入它，避開 AI 腔、翻譯腔與對岸用語，把句子寫完整、先給答案。
 
 ## 改寫前後
 
@@ -33,7 +33,7 @@ AI 腔，改寫前：
 ## 功能
 
 - 10 條核心規則，每條附理由，讓 Claude 在規則沒寫到的情況下也能判斷。
-- 6 種語域：技術文章、參考文件、介面文字、工作報告、社群貼文、正式文件。
+- 3 種語域：技術文章（含技術部落格）、參考文件、介面文字。
 - 25 個 AI 腔模式與 10 個翻譯腔模式，每個都寫明理由、改法、前後例，以及什麼情況要保留，避免把好文字改壞。
 - 台灣用語對照表，以及只用 Python 標準函式庫的檢查腳本 `check.py`。
 - 審稿子代理 `zh-tw-reviewer`，以沒看過寫作過程的角度讀全文。
@@ -71,9 +71,9 @@ Windows 用 `pwsh scripts/link.ps1`。腳本把 skill 連結到 `~/.claude/skill
 
 ## 使用
 
-不需要特別指令。請 Claude 寫或改中文文章、README、錯誤訊息、公告時，skill 會自動載入。也可以用 `/zh-tw-prose` 直接呼叫。
+在 Claude Code 輸入 `/zh-tw-prose` 呼叫，再交代要寫或改的文字。
 
-一般問答、簡體中文、英文寫作與寫程式時不會載入。想讓平常的對話回覆也照同樣原則寫，把 [snippets/claude-md.md](snippets/claude-md.md) 的片段貼進 `CLAUDE.md`。這段不含空白約 380 字，每個 session 都會載入。
+其他 skill 要產出正體中文文字時，在指示裡寫明使用這個 skill，例如「寫介面文字時，使用 zh-tw-prose skill」。想讓平常的對話回覆也照同樣原則寫，把 [snippets/claude-md.md](snippets/claude-md.md) 的片段貼進 `CLAUDE.md`。這段不含空白約 380 字，每個 session 都會載入。
 
 檢查腳本也可以單獨用，需要 Python 3.9 以上，不必安裝其他套件：
 
@@ -99,7 +99,7 @@ python skills/zh-tw-prose/scripts/check.py README.md --glossary GLOSSARY.md
 
 ## 測試
 
-用 `claude plugin eval` 測試，分成四層，平常只跑和改動有關的題目。固定題 10 題，其中 5 題專門檢查過度改寫，例如讀者真的有誤解時的更正句、服務條款的法律用語、真正並列的清單。另有 16 題觸發題，確認該載入時載入、不該載入時不載入。發 release 前再從 35 題的題庫抽考 8 題，題庫大多取自真實的改稿案例。做法與結果見 [evals/README.md](evals/README.md)。
+用 `claude plugin eval` 測試，分成四層，平常只跑和改動有關的題目。題庫的每一題都是明顯是 AI 寫的文字，測 skill 能不能改成像人寫的，題目大多取自真實的改稿案例。做法與結果見 [evals/README.md](evals/README.md)。
 
 ## 限制
 

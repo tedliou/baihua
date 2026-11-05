@@ -1,0 +1,1 @@
+VS Code 搭配 uv 時，uv 管 Python 版本、`.venv` 與套件，VS Code 只需要指向專案內的 `.venv`。建立專案用 `uv init --python 版本號`，加套件用 `uv add`，執行用 `uv run`，換電腦用 `uv sync`。只要 `pyproject.toml`、`uv.lock` 與 `.python-version` 跟著專案走，環境就能在任何一台電腦重建。

@@ -1,0 +1,3 @@
+summary: "Spigot 伺服器換成 Paper，世界、外掛和權限群組都能完整搬過去。從 Minecraft 26.1 起，Spigot 把地獄與終界存在和原版不同的資料夾，要先搬回原版的位置，再換上 Paper。"
+
+Spigot 伺服器換成 Paper，世界和外掛的資料都能完整保留。從 Minecraft 26.1 起，Spigot 把地獄與終界存在和原版不同的資料夾，所以要先備份，把這兩個維度搬回原版的位置，再換上 Paper 的 jar 檔，[Paper 的遷移文件](https://docs.papermc.io/paper/migration)也寫明 Spigot 已經不能直接遷移。Paper 是 Spigot 的[直接替代品](https://docs.papermc.io/paper/getting-started/)，外掛不用修改。我在裝了 LuckPerms 和 EssentialsX 的 Spigot 伺服器上，於主世界、地獄與終界各放一塊標記方塊，並在 LuckPerms 建立 vip 群組。換成 Paper 之後，三塊方塊、vip 群組和兩個外掛都還在。

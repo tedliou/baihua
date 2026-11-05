@@ -1,0 +1,3 @@
+框填好後，下一步是按「執行」。執行前先看「Text to Image (MOSS-Image)」節點上的 enable_prompt_enhancer 開關。這個開關在正體中文介面裡沒有翻譯，畫面上顯示的就是 enable_prompt_enhancer。開啟後，產圖前會先把 Prompt 擴寫成一段詳細的英文描述，範本的說明也提到，這會改寫框的內容。範本預設是關閉的，維持關閉就好。
+
+畫面右下另一則說明寫著「Prompt upsampler is on」，和實際的預設不同，不用理會。按「執行」，就會產出開頭那張貼文。

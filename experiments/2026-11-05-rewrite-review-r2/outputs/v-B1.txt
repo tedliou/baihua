@@ -1,0 +1,5 @@
+summary: "寫給 Agent 看的規則只是提醒，Agent 判斷錯時，仍可能直接推送 main 或 force-push。Claude Code 的 PreToolUse hook 會在工具執行前先跑檢查腳本，腳本回答擋下，指令就不會執行，權限模式與子代理也一樣。"
+
+讓 Claude Code 的 Agent 自己 commit 與推送時，最怕它直接推送 `main`。把「只在開發分支工作」寫進給 Agent 的規則並不夠，那只是提醒，Agent 判斷錯時照樣會執行。Claude Code 的 PreToolUse hook 會在每次執行指令前先跑一支檢查腳本，腳本回答擋下，這次指令就不會執行，不受權限模式影響，子代理也一樣。hook 只檢查 Claude Code 透過 Bash 與 PowerShell 工具執行的指令，人在終端機手動推送不受影響。
+
+本站的原始碼放在 GitHub 的私有 repo，平常在 `draft` 分支開發，再開 PR 合併到 `main`。[私有 repo 的分支保護需要付費方案](https://docs.github.com/en/get-started/learning-about-github/githubs-plans)，我用的免費組織帳號開不了，當時只能把規則寫給 Agent 看，後來改用 hook 在指令執行前檢查。

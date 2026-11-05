@@ -4,14 +4,16 @@
 
 ## 範圍
 
+skill 處理三種文字：技術文章（含技術部落格）、參考文件與介面文字。這些文字的目的是傳達資訊、讓讀者完成事情，所以規則用同一個標準判斷 AI 腔：沒有傳達資訊的寫法就是多餘的。規則只寫這三種文字怎麼寫，不列舉其他文類。
+
 skill 只決定句子怎麼寫：句法、語氣、用詞、標點與段落組織。要寫什麼內容、術語叫什麼、畫面怎麼排，交給使用者、專案文件與其他 skill。這個切分讓它可以和介面設計、遊戲文案、技術文件等領域 skill 同時使用，不會互相搶決定權。
 
 ## 三層結構
 
 ```
-SKILL.md            核心規則、語域要點、檢查清單，觸發時載入
+SKILL.md            核心規則、語域要點、檢查清單，呼叫時載入
 references/         依需要讀取
-  registers/*.md    六種語域的寫法
+  registers/*.md    三種語域的寫法
   patterns.md       AI 腔模式 P01–P25
   translationese.md 翻譯腔 T01–T10
   taiwan-usage.md   台灣用語對照，check.py 也讀這張表
@@ -24,14 +26,26 @@ scripts/check.py    機械檢查
 
 上面是 `skills/zh-tw-prose/` 的內容，也就是上傳到 claude.ai 的部分。repo 根目錄另有審稿子代理 `agents/`、常駐片段 `snippets/` 與測試案例 `evals/`，它們不在 skill 資料夾裡。
 
-SKILL.md 控制在 5,000 token 以內（2026-11-03 約 4,990），因為 Claude Code 在對話壓縮後只保留每個 skill 的前 5,000 token（token 是模型計算文字長度的單位，見 [Claude Code skills 文件](https://code.claude.com/docs/en/skills)）。量法：用 `claude -p --output-format json` 分別在附加與不附加 SKILL.md 的情況下送同一句話，兩次 input token 的差就是 SKILL.md 的長度。
+SKILL.md 控制在 5,000 token 以內（2026-11-05 約 4,870），因為 Claude Code 在對話壓縮後只保留每個 skill 的前 5,000 token（token 是模型計算文字長度的單位，見 [Claude Code skills 文件](https://code.claude.com/docs/en/skills)）。量法：用 `claude -p --output-format json` 分別在附加與不附加 SKILL.md 的情況下送同一句話，兩次 input token 的差就是 SKILL.md 的長度。
 
-哪些內容放 SKILL.md，依「作答當下會不會用到」決定。2026-10-28 的 eval 檢查了 20 次潤稿與改寫：每次都有載入 skill，但沒有一次讀過 references，模型載入 skill 後就直接作答。所以改稿時每一句都要對照的東西放在 SKILL.md：
+### 讓模型真的讀到語域檔案
+
+官方沒有保證模型一定會讀 SKILL.md 指向的檔案。[官方最佳實踐](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)的建議是：觀察 Claude 實際讀了哪些檔案，把常用的內容搬回 SKILL.md，寫明每個參考檔該在什麼時候讀，工作流程用檢查清單。Claude Code 另有在呼叫時注入檔案內容的 `!` 語法，但 claude.ai 不支援，也無法依文章內容選語域，所以沒有採用。
+
+本專案照官方建議做了三件事，並用 eval 記錄讀了語域檔案的題目比例（`eval.py` 每次執行會寫進 `outputs/_reads.json`）：
+
+| 版本 | 做法 | 讀了語域檔案 |
+| --- | --- | --- |
+| 2026-11-05 之前 | 語域段落寫「寫或改寫文章、文件，即使只有一段，先讀對應的檔案」 | 7/33 |
+| `9b22964` | 改稿步驟 1 也寫「先讀全文與對應的語域檔案，只改一段也要讀」 | 23/33 |
+| `779ffa4` | 寫明動手前用 Read 讀、為什麼要讀（表裡只是摘要，沒讀就會漏掉規則）。寫作流程加上交稿前的確認清單，技術文章最常用的規則搬進語域表 | 33/33 |
+
+哪些內容放 SKILL.md，依「作答當下會不會用到」決定：
 
 - 檢查清單：每一類問題的常見寫法、處理方式與保留條件，各一行。
-- 語域表：每種語域最重要的兩三條規則。
+- 語域表：每種語域最重要的規則，技術文章包括開頭的順序與標題寫法。
 
-references 放完整說明、前後例與長文才需要的細節，例如文章的開頭與結構、介面文字的各種元件。SKILL.md 寫明寫整篇文章或整份文件時才讀這些檔案。
+references 放完整說明、前後例與細節，例如文章的內容取捨、術語、介面文字的各種元件。
 
 SKILL.md 直接連到每一個 references 檔，Claude 從 SKILL.md 一步就能找到需要的檔案。references 之間也有幾處互相指引，例如 patterns.md 指向 translationese.md，但被指到的檔案都能從 SKILL.md 直接找到，不依賴這些連結。
 
@@ -71,9 +85,9 @@ SKILL.md 直接連到每一個 references 檔，Claude 從 SKILL.md 一步就能
 
 AI 腔片語在 check.py 裡只是 warning。同一個片語在不同語境可能是對的，硬性禁止會誤傷。
 
-## 觸發範圍
+## 呼叫方式
 
-description 列出會用到的文字類型，也列出不使用的情況：一般問答、簡體中文或給中國大陸讀者的文字、英文寫作與英譯、寫程式（含程式碼註解）、版面設計。排除一般問答是刻意的選擇，因為每次中文對話都載入 skill 會浪費 context。想讓對話回覆也套用原則的人，可以把 repo 根目錄的 `snippets/claude-md.md` 貼進 CLAUDE.md。
+使用者用 `/zh-tw-prose` 直接呼叫，其他 skill 在指示裡寫明使用 zh-tw-prose。description 只寫這個 skill 處理哪些文字，不另外為自動觸發設計，也不列不處理的情況。想讓對話回覆也套用原則的人，可以把 repo 根目錄的 `snippets/claude-md.md` 貼進 CLAUDE.md。
 
 ## 可攜性
 
@@ -84,7 +98,6 @@ description 控制在 200 字元以內。Agent Skills 規格的上限是 1,024 �
 ## 修改與驗證
 
 - 改 `taiwan-usage.md`：check.py 執行時直接讀這張表，不需要改程式。「檢查」欄為「是」的列才會被標出，「例外」欄列出包含該字串但正確的詞。改完跑 `python -m unittest discover -s tests`。
-- 改 SKILL.md 或 references：跑行為 eval，比較修改前後的分數。
-- 改 description：跑觸發 eval，確認該載入時載入、不該載入時不載入。
+- 改 SKILL.md 或 references：用 `scripts/eval.py` 跑和改動有關的題目，看分數與 `outputs/` 裡的輸出。發 release 前跑全部題目，輸出交給作者審閱。
 
 eval 是用 `claude plugin eval` 實際呼叫模型的測試，案例、跑法與最新結果見 [evals/README.md](../evals/README.md)。

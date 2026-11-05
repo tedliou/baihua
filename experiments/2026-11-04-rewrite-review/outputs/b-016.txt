@@ -1,0 +1,1 @@
+用 Dev Containers 把 AI Agent 放進容器，開啟 Full Access 前先確認掛載內容

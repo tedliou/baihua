@@ -1,0 +1,1 @@
+uv 負責管理 Python 版本、`.venv` 與套件，VS Code 只需要指向專案內的 `.venv`。只要 `pyproject.toml`、`uv.lock` 與 `.python-version` 跟著專案走，換電腦後執行 `uv sync`，就能重建一樣的環境。

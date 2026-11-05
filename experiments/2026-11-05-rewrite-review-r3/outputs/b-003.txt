@@ -1,0 +1,1 @@
+在 RTX 3050 Laptop（4 GB VRAM）上用 TensorRT 實測，速度為 5.8 fps，每格處理時間的 p50 為 163 ms，p95 為 168 ms。p95 表示 95% 的影格會在這個時間內完成。同樣是 512×384 加 Upscaler，RTX 3070 在 60% 功率上限下的 p50 為 26.6 ms，筆電約慢 6 倍。這樣的速度可以使用，但明顯比較慢，適合先在筆電上試效果。那台筆電的 Engine 建置時間沒有量到，完整紀錄在 [GitHub issue #28](https://github.com/example/tool/issues/28)。

@@ -1,0 +1,1 @@
+框填好之後，直接按「執行」就可以。「Text to Image (MOSS-Image)」節點上有個 enable_prompt_enhancer 開關，ComfyUI 的正體中文介面沒有翻譯它，畫面上顯示的就是 enable_prompt_enhancer。開啟後，產圖前會先把 Prompt 擴寫成一段詳細的英文描述。範本預設是關閉的，範本裡的說明也提到，開啟後會改寫框的內容，所以維持關閉就好。畫面右下角另一則說明寫著「Prompt upsampler is on」，和實際的預設不同，不用理會。按下「執行」，就會產出開頭那張貼文。

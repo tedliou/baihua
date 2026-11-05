@@ -1,0 +1,1 @@
+這組 Skill 適合使用 Claude Code 與 GitHub Issues，並希望主流程一路接下去的人。最大的取捨在審查：只有容易擴散錯誤的 checkpoint 工單會先審，其餘集中在開 PR 前審一次，審查次數因此從每張工單一次，減為 checkpoint 數量加一次。實作預設由主 Session 用同一個 Context 完成，只有 spec 很長時，才把工單全部派給 Subagent。

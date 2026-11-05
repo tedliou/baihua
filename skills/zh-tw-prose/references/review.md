@@ -15,7 +15,7 @@
 
 稿件：<路徑或全文>
 讀者：<誰、要完成什麼>
-語域：<技術文章、參考文件、介面文字、工作報告、社群貼文、正式文件之一>
+語域：<技術文章、參考文件、介面文字之一>
 專案文風檔與用詞表：<路徑，沒有就寫「無」>
 
 先讀 zh-tw-prose skill 的 SKILL.md、patterns.md、translationese.md、taiwan-usage.md、

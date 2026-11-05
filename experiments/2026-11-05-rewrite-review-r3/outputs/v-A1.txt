@@ -1,0 +1,3 @@
+summary: "Paper 是 Spigot 的直接替代品，外掛不用修改。Minecraft 26.1 起，Spigot 把地獄與終界存在和原版不同的資料夾，換成 Paper 之前要先搬回原版的位置，世界、權限群組和外掛設定就不會遺失。"
+
+從 Spigot 換成 Paper，世界與外掛的資料都能保留，前提是先處理地獄與終界。Minecraft 26.1 起，Spigot 把這兩個維度存在和原版不同的資料夾，[Paper 的遷移文件](https://docs.papermc.io/paper/migration)也寫明 Spigot 已經不能直接遷移，所以要先把它們搬回原版的位置，再換上 Paper。Paper 在[官方文件](https://docs.papermc.io/paper/getting-started/)裡是 Spigot 的直接替代品，外掛不用修改。我在一個裝了 LuckPerms 與 EssentialsX 的 Spigot 伺服器上實測，換成 Paper 後，三個維度各放的標記方塊、LuckPerms 建立的 vip 群組和兩個外掛都保留下來。
