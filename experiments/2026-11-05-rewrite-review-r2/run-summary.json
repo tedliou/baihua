@@ -1,0 +1,249 @@
+[
+ {
+  "item": "b-001",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [],
+  "error": null,
+  "chars": 210
+ },
+ {
+  "item": "b-002",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [],
+  "error": null,
+  "chars": 240
+ },
+ {
+  "item": "b-003",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [],
+  "error": null,
+  "chars": 294
+ },
+ {
+  "item": "b-004",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [],
+  "error": null,
+  "chars": 367
+ },
+ {
+  "item": "b-005",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [],
+  "error": null,
+  "chars": 68
+ },
+ {
+  "item": "b-006",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [],
+  "error": null,
+  "chars": 77
+ },
+ {
+  "item": "b-007",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [],
+  "error": null,
+  "chars": 333
+ },
+ {
+  "item": "b-008",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [],
+  "error": null,
+  "chars": 132
+ },
+ {
+  "item": "b-009",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [],
+  "error": null,
+  "chars": 72
+ },
+ {
+  "item": "b-016",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [],
+  "error": null,
+  "chars": 56
+ },
+ {
+  "item": "b-017",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [],
+  "error": null,
+  "chars": 131
+ },
+ {
+  "item": "b-018",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [],
+  "error": null,
+  "chars": 60
+ },
+ {
+  "item": "b-019",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [],
+  "error": null,
+  "chars": 280
+ },
+ {
+  "item": "b-020",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [],
+  "error": null,
+  "chars": 389
+ },
+ {
+  "item": "b-021",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [],
+  "error": null,
+  "chars": 139
+ },
+ {
+  "item": "b-022",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [],
+  "error": null,
+  "chars": 112
+ },
+ {
+  "item": "b-023",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [],
+  "error": null,
+  "chars": 137
+ },
+ {
+  "item": "b-024",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [],
+  "error": null,
+  "chars": 276
+ },
+ {
+  "item": "b-025",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [
+   "references/registers/ui.md"
+  ],
+  "error": null,
+  "chars": 19
+ },
+ {
+  "item": "b-026",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [],
+  "error": null,
+  "chars": 258
+ },
+ {
+  "item": "b-027",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [],
+  "error": null,
+  "chars": 255
+ },
+ {
+  "item": "v-A1",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [
+   "references/registers/article.md"
+  ],
+  "error": null,
+  "chars": 516
+ },
+ {
+  "item": "v-A2",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [],
+  "error": null,
+  "chars": 54
+ },
+ {
+  "item": "v-A3",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [
+   "references/registers/article.md"
+  ],
+  "error": null,
+  "chars": 412
+ },
+ {
+  "item": "v-B1",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [
+   "references/registers/article.md"
+  ],
+  "error": null,
+  "chars": 595
+ },
+ {
+  "item": "v-B2",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [],
+  "error": null,
+  "chars": 506
+ },
+ {
+  "item": "v-B3",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [],
+  "error": null,
+  "chars": 181
+ },
+ {
+  "item": "v-C1",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [
+   "references/registers/article.md"
+  ],
+  "error": null,
+  "chars": 480
+ },
+ {
+  "item": "v-C2",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [],
+  "error": null,
+  "chars": 528
+ },
+ {
+  "item": "v-C3",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [],
+  "error": null,
+  "chars": 171
+ },
+ {
+  "item": "v-C4",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [
+   "references/registers/article.md"
+  ],
+  "error": null,
+  "chars": 242
+ },
+ {
+  "item": "v-C5",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [
+   "references/registers/article.md"
+  ],
+  "error": null,
+  "chars": 242
+ },
+ {
+  "item": "v-E1",
+  "skill": "baihua:zh-tw-prose",
+  "reads": [
+   "references/registers/article.md"
+  ],
+  "error": null,
+  "chars": 479
+ }
+]

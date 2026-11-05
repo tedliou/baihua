@@ -1,0 +1,3 @@
+comfy-cli 安裝的 ComfyUI 會在 `main.py` 旁放一份 `extra_model_paths.yaml`，裡面寫共用資料夾的路徑，以及各類模型的子資料夾。我的兩個專案各放一份，內容相同，所以之後新增模型類型時，兩份設定檔都要改。portable 版的設定檔放在 `ComfyUI_windows_portable\ComfyUI`，官方文件說明的位置也在這一層。
+
+兩個 ComfyUI 專案改讀共用資料夾後，MOSS-Image 與 Qwen-Image 在硬碟上各只存一份。portable 版的接法是照官方文件整理的，我沒有實測。

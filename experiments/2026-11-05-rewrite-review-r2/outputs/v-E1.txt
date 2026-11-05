@@ -1,0 +1,7 @@
+summary: "Claude Code 接上 Comfy-Org 官方的 comfy-mcp 後，就能用對話在自己的電腦上啟動 ComfyUI、下載模型並執行 workflow。需要看 workflow 或手動調整時，再用瀏覽器或 Comfy Desktop 打開 Claude Code 改過的版本。"
+
+ComfyUI 是把模型、提示詞與取樣步驟接成節點流程（workflow）來產圖的工具。要讓 Claude Code 在自己的電腦上用它產圖，做法是把 Comfy-Org 官方的 comfy-mcp 註冊給 Claude Code。之後啟動 ComfyUI、下載模型、套用範本與執行 workflow 都能用對話完成，想看 workflow 或手動調整時，再用瀏覽器或 Comfy Desktop 打開。
+
+我在 Windows 11 與 8 GB 顯示記憶體的 RTX 3070 上從零做了一次，不寫設定檔，也不設環境變數，最後只靠 Prompt 讓 Claude Code 產出這張 1024 × 1024 的 logo：
+
+〔logo 圖〕
