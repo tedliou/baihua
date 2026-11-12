@@ -84,6 +84,9 @@
     "ui-status-chip-terse-comparison": {
       "with": 1
     },
+    "unseen-source-comparison": {
+      "with": 1
+    },
     "untested-scenario-disclaimer": {
       "with": 0.625
     },

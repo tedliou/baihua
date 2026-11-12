@@ -94,6 +94,11 @@ class HintTest(unittest.TestCase):
         self.assertIn(("warning", "ai-P02"), found)
         self.assertFalse(any(level == "error" for level, _ in found))
 
+    def test_unseen_source_is_warning(self):
+        found = rules("照舊教學加上這個設定就好。")
+        self.assertIn(("warning", "ai-P12"), found)
+        self.assertEqual(rules("照 StreamDiffusion 的安裝教學常會卡在編譯這一步。"), [])
+
     def test_hints_can_be_disabled(self):
         self.assertEqual(rules("綜上所述，這樣設定就好。", hints=False), [])
 
