@@ -1,7 +1,7 @@
 {
   "model": "sonnet",
-  "claudeVersion": "2.1.318",
-  "updated": "2026-11-05",
+  "claudeVersion": "2.1.309",
+  "updated": "2026-11-13",
   "cases": {
     "aphorism-closing": {
       "with": 0.571
@@ -35,6 +35,9 @@
     },
     "flattering-aside": {
       "with": 1
+    },
+    "fronted-whether-clause": {
+      "with": 0.85
     },
     "jar-swap-steps-and-worries": {
       "with": 0.727

@@ -60,7 +60,7 @@ class SkillTest(unittest.TestCase):
         self.check_patterns(REFS / "patterns.md", "P", 25)
 
     def test_translationese(self):
-        self.check_patterns(REFS / "translationese.md", "T", 10)
+        self.check_patterns(REFS / "translationese.md", "T", 11)
 
 
 class CaseFormatTest(unittest.TestCase):
