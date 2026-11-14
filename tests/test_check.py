@@ -99,6 +99,17 @@ class HintTest(unittest.TestCase):
         self.assertIn(("warning", "ai-P12"), found)
         self.assertEqual(rules("照 StreamDiffusion 的安裝教學常會卡在編譯這一步。"), [])
 
+    def test_setup_sentence_is_warning(self):
+        self.assertIn(("warning", "ai-P26"), rules("要等快取過期，瀏覽器才會載入新版頁面。"))
+        self.assertIn(("warning", "ai-P26"), rules("設定還在不在，要看它寫在哪裡。"))
+        self.assertEqual(rules("重新啟動後，設定才會生效。"), [])
+
+    def test_stacked_conjunction_is_warning(self):
+        self.assertIn(("warning", "ai-P27"), rules("因為檔案越長，模型越容易漏掉規則。因此其他規則維持原樣。"))
+        self.assertIn(("warning", "ai-P27"), rules("登入後會同步設定，而外掛也不用重新安裝。"))
+        self.assertEqual(rules("舊版把設定存在本機，而新版存在雲端。"), [])
+        self.assertEqual(rules("由於檔案很長，因此要分段讀取。"), [])
+
     def test_hints_can_be_disabled(self):
         self.assertEqual(rules("綜上所述，這樣設定就好。", hints=False), [])
 

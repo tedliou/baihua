@@ -9,6 +9,8 @@ eval 只測一件事：給 skill 一段明顯是 AI 寫的文字，它能不能�
 - 21 題取自過去的改稿案例，涵蓋技術文章、wiki、技術文件與遊戲介面字串。
 - 12 題取自作者部落格 vervecode.dev 的改稿紀錄：AI 寫的初稿，經作者要求大改後發佈。這 12 題的 `reference.md` 放作者發佈的版本，給人對照，不會送給模型，也不參與評分。
 
+之後隨規則加入的題目：0.4.1 加 2 題（`unseen-source-comparison`、`fronted-whether-clause`），0.4.2 加 3 題（`setup-sentence-before-result`、`conjunctions-dropped`、`conjunctions-overcorrected`，取自 vervecode.dev 並附作者發佈的版本），共 38 題。
+
 每題的標籤：
 
 - 類別，三選一：`ai-flavor`（AI 腔）、`translationese`（翻譯腔）、`core-rule`（核心規則）。
@@ -66,18 +68,29 @@ python scripts/eval.py L2 --dry-run         # 只列出會跑哪些題目，不�
 
 ## 基準分數
 
-2026-11-14 重建，版本 0.4.1，Claude Code 2.1.325，產生與評審都用 Sonnet，每題跑 1 次，費用約 3.04 美元。各題分數存在 `evals/baseline.json`。
+2026-11-15 重建，版本 0.4.2，Claude Code 2.1.325，產生與評審都用 Sonnet，每題跑 1 次，費用約 3.26 美元。各題分數存在 `evals/baseline.json`。
 
 | 組別 | 題數 | 平均分數 | 全部評分項通過 |
 | --- | --- | --- | --- |
-| AI 腔 | 21 | 0.87 | 13 |
+| AI 腔 | 22 | 0.83 | 12 |
 | 翻譯腔 | 3 | 1.00 | 3 |
-| 核心規則 | 11 | 0.85 | 6 |
-| 來源：過去的改稿案例 | 21 | 0.89 | 15 |
-| 來源：vervecode.dev | 12 | 0.82 | 5 |
-| 0.4.1 新增 | 2 | 1.00 | 2 |
-| 全部 | 35 | 0.87 | 22 |
+| 核心規則 | 13 | 0.83 | 7 |
+| 來源：過去的改稿案例 | 21 | 0.87 | 14 |
+| 來源：vervecode.dev | 12 | 0.80 | 5 |
+| 0.4.1 新增 | 2 | 0.85 | 1 |
+| 0.4.2 新增 | 3 | 0.89 | 2 |
+| 全部 | 38 | 0.85 | 22 |
 
-35 題都讀了語域檔案。和 0.4.0 的基準相比，平均下降 0.019，沒有超過退化門檻。單題下降 0.17 以上的 4 題各重跑 3 次：`rewrite-ai-paragraph` 與 `wiki-claim-left-to-discover` 回到 1 與 0.9。`filename-in-title-summary` 與 `title-dated-performance-claim` 平均都是 0.75，同樣兩題用 0.4.0 各跑 3 次是 0.875 與 0.75，差在共用評分表的評審票數，不是 0.4.1 的改動造成的。
+38 題都讀了語域檔案，沒有一題讀 `patterns.md` 或 `translationese.md`。和 0.4.1 的基準相比，35 題平均下降 0.032，略超過退化門檻，所以把單題下降較多的題目各跑 3 次，再用 0.4.1 跑同樣的題目對照：
 
-共用評分表判不通過的題目，0.4.0 時看過輸出後大致分成兩類：一類是 skill 確實留下了作者退回過的寫法，例如 `denial-before-doc-quote` 的「這裡先不要把它想成……」，這類題目在不同次執行之間時好時壞。另一類是評分偏嚴，例如 `aphorism-closing` 的輸出已經沒有問題。0.4.1 沒有逐題重看輸出。
+| 題目 | 0.4.2，3 次平均 | 0.4.1，3 次平均 |
+| --- | --- | --- |
+| `overpromising-title` | 0.714 | 0.714 |
+| `untested-scenario-disclaimer` | 0.625 | 0.625 |
+| `lecturing-warning-dns` | 0.857 | 0.857 |
+| `lede-rules-not-enough-compressed` | 0.97 | 0.758 |
+| `unseen-source-comparison` | 1 | 1 |
+
+兩個版本的分數相同或 0.4.2 較高，下降來自單次執行時共用評分表的票數，基準仍照每題 1 次的做法寫入。這幾題的基準分數因此可能偏高或偏低，比較時要留意。
+
+共用評分表判不通過的題目，0.4.0 時看過輸出後大致分成兩類：一類是 skill 確實留下了作者退回過的寫法，例如 `denial-before-doc-quote` 的「這裡先不要把它想成……」，這類題目在不同次執行之間時好時壞。另一類是評分偏嚴，例如 `aphorism-closing` 的輸出已經沒有問題。之後的版本沒有逐題重看輸出。

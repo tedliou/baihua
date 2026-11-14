@@ -10,7 +10,7 @@ The skill itself is written in Chinese, because it is read by Claude while writi
 
 - 10 core rules, each with its reason, so Claude can handle cases the rules do not cover.
 - 3 registers: technical articles (including technical blogs), reference docs and UI text.
-- 25 AI-writing patterns and 10 translationese patterns. Each has a before/after example and a "keep it when" boundary, so good text is not over-edited.
+- 27 AI-writing patterns and 11 translationese patterns. Each has a before/after example and a "keep it when" boundary, so good text is not over-edited.
 - A Taiwan usage table and `check.py`, a standard-library Python linter for terms, punctuation and CJK–Latin spacing.
 - `zh-tw-reviewer`, a read-only reviewer subagent with a clean context.
 

@@ -57,7 +57,7 @@ class SkillTest(unittest.TestCase):
                 self.assertLess(labels.index("前"), labels.index("後"))
 
     def test_patterns(self):
-        self.check_patterns(REFS / "patterns.md", "P", 25)
+        self.check_patterns(REFS / "patterns.md", "P", 27)
 
     def test_translationese(self):
         self.check_patterns(REFS / "translationese.md", "T", 11)
