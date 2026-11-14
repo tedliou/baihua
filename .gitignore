@@ -7,3 +7,4 @@ dist/
 .DS_Store
 eval-run/
 experiments/*/empty/
+experiments/*/work/
