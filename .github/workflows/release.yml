@@ -3,16 +3,6 @@ name: release
 on:
   push:
     tags: ["v*"]
-  # 不能推送 tag 的環境（例如雲端的 Claude Code）從 Actions 手動觸發：
-  # 在 target 指定的 commit 建立 tag 與 release。
-  workflow_dispatch:
-    inputs:
-      tag:
-        description: "要建立的 tag，例如 v0.4.2"
-        required: true
-      target:
-        description: "tag 指向的 commit SHA，留空時用觸發時的分支最新 commit"
-        required: false
 
 permissions:
   contents: write
@@ -20,17 +10,12 @@ permissions:
 jobs:
   zip:
     runs-on: ubuntu-26.04
-    env:
-      TAG: ${{ inputs.tag || github.ref_name }}
-      TARGET: ${{ inputs.target || github.sha }}
     steps:
       - uses: actions/checkout@v7
-        with:
-          ref: ${{ inputs.target || github.sha }}
       - name: Check the tag matches the plugin version
         run: |
           version=$(python3 -c "import json; print(json.load(open('.claude-plugin/plugin.json'))['version'])")
-          test "$TAG" = "v$version" || { echo "tag $TAG 和 plugin.json 的版本 $version 不符"; exit 1; }
+          test "$GITHUB_REF_NAME" = "v$version" || { echo "tag $GITHUB_REF_NAME 和 plugin.json 的版本 $version 不符"; exit 1; }
       - name: Build the skill zip for claude.ai upload
         run: |
           mkdir -p dist
@@ -40,5 +25,5 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "$TAG" dist/zh-tw-prose.zip --target "$TARGET" \
-            --title "$TAG" --notes "見 CHANGELOG.md。claude.ai 使用者下載 zh-tw-prose.zip，在「設定 → 功能 → Skills」上傳。"
+          gh release create "$GITHUB_REF_NAME" dist/zh-tw-prose.zip \
+            --title "$GITHUB_REF_NAME" --notes "見 CHANGELOG.md。claude.ai 使用者下載 zh-tw-prose.zip，在「設定 → 功能 → Skills」上傳。"
