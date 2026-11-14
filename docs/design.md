@@ -14,8 +14,8 @@ skill 只決定句子怎麼寫：句法、語氣、用詞、標點與段落組�
 SKILL.md            核心規則、語域要點、檢查清單，呼叫時載入
 references/         依需要讀取
   registers/*.md    三種語域的寫法
-  patterns.md       AI 腔模式 P01–P25
-  translationese.md 翻譯腔 T01–T10
+  patterns.md       AI 腔模式 P01–P27
+  translationese.md 翻譯腔 T01–T11
   taiwan-usage.md   台灣用語對照，check.py 也讀這張表
   punctuation.md    標點與空格
   integrity.md      內容誠實
@@ -26,7 +26,7 @@ scripts/check.py    機械檢查
 
 上面是 `skills/zh-tw-prose/` 的內容，也就是上傳到 claude.ai 的部分。repo 根目錄另有審稿子代理 `agents/`、常駐片段 `snippets/` 與測試案例 `evals/`，它們不在 skill 資料夾裡。
 
-SKILL.md 控制在 5,000 token 以內（2026-11-05 約 4,870），因為 Claude Code 在對話壓縮後只保留每個 skill 的前 5,000 token（token 是模型計算文字長度的單位，見 [Claude Code skills 文件](https://code.claude.com/docs/en/skills)）。量法：用 `claude -p --output-format json` 分別在附加與不附加 SKILL.md 的情況下送同一句話，兩次 input token 的差就是 SKILL.md 的長度。
+SKILL.md 控制在 5,000 token 以內（0.4.2 約 4,910），因為 Claude Code 在對話壓縮後只保留每個 skill 的前 5,000 token（token 是模型計算文字長度的單位，見 [Claude Code skills 文件](https://code.claude.com/docs/en/skills)）。量法：用 `claude -p --output-format json` 分別在附加與不附加 SKILL.md 的情況下送同一句話，兩次 input token 的差就是 SKILL.md 的長度。0.4.1 加了一列檢查清單後量到約 4,990，0.4.2 為了放進連接詞的新規則，合併檢查清單裡同一個原則的列，並刪掉和其他段落重複的句子。之後新增規則也先找能合併或改寫的既有條文，不直接加一列。
 
 ### 讓模型真的讀到語域檔案
 
@@ -51,7 +51,7 @@ SKILL.md 直接連到每一個 references 檔，Claude 從 SKILL.md 一步就能
 
 ## 句子的組法
 
-核心規則與檢查清單處理用詞與語氣，「中文句子的組法」處理句子的骨架：主詞何時省略、分句的順序、連接詞與名詞前修飾的長度。研究顯示模型的中文和英譯中的文字一樣，代名詞、連接詞與「名詞＋的」修飾都比母語中文多，這些是句法層次的偏差，換詞改不掉。這一節用正面的「怎麼寫」表述，不列禁止的說法，理由與文獻見 [theory.md](theory.md)，實驗見 `experiments/2026-10-30-syntax/`。
+核心規則與檢查清單處理用詞與語氣，「中文句子的組法」處理句子的骨架：主詞何時省略、分句的順序、連接詞要寫到什麼程度，以及名詞前修飾的長度。研究顯示模型的中文和英譯中的文字一樣，代名詞、連接詞與「名詞＋的」修飾都比母語中文多，這些是句法層次的偏差，換詞改不掉。這一節用正面的「怎麼寫」表述，不列禁止的說法，理由與文獻見 [theory.md](theory.md)，實驗見 `experiments/2026-10-30-syntax/`。
 
 ## 規則的寫法
 
