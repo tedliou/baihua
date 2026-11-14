@@ -108,6 +108,7 @@ class HintTest(unittest.TestCase):
         self.assertIn(("warning", "ai-P27"), rules("因為檔案越長，模型越容易漏掉規則。因此其他規則維持原樣。"))
         self.assertIn(("warning", "ai-P27"), rules("登入後會同步設定，而外掛也不用重新安裝。"))
         self.assertEqual(rules("舊版把設定存在本機，而新版存在雲端。"), [])
+        self.assertEqual(rules("由於檔案很長，因此要分段讀取。"), [])
 
     def test_hints_can_be_disabled(self):
         self.assertEqual(rules("綜上所述，這樣設定就好。", hints=False), [])

@@ -26,7 +26,7 @@ scripts/check.py    機械檢查
 
 上面是 `skills/zh-tw-prose/` 的內容，也就是上傳到 claude.ai 的部分。repo 根目錄另有審稿子代理 `agents/`、常駐片段 `snippets/` 與測試案例 `evals/`，它們不在 skill 資料夾裡。
 
-SKILL.md 控制在 5,000 token 以內（0.4.2 約 4,960），因為 Claude Code 在對話壓縮後只保留每個 skill 的前 5,000 token（token 是模型計算文字長度的單位，見 [Claude Code skills 文件](https://code.claude.com/docs/en/skills)）。量法：用 `claude -p --output-format json` 分別在附加與不附加 SKILL.md 的情況下送同一句話，兩次 input token 的差就是 SKILL.md 的長度。0.4.1 加了一列檢查清單後量到約 4,990，0.4.2 為了放進連接詞的新規則，合併檢查清單裡同一個原則的列，並刪掉和其他段落重複的句子。之後新增規則也先找能合併或改寫的既有條文，不直接加一列。
+SKILL.md 控制在 5,000 token 以內（0.4.2 約 4,980），因為 Claude Code 在對話壓縮後只保留每個 skill 的前 5,000 token（token 是模型計算文字長度的單位，見 [Claude Code skills 文件](https://code.claude.com/docs/en/skills)）。量法：用 `claude -p --output-format json` 分別在附加與不附加 SKILL.md 的情況下送同一句話，兩次 input token 的差就是 SKILL.md 的長度。0.4.1 加了一列檢查清單後量到約 4,990，0.4.2 為了放進連接詞的新規則，合併檢查清單裡同一個原則的列，並刪掉和其他段落重複的句子。之後新增規則也先找能合併或改寫的既有條文，不直接加一列。
 
 ### 讓模型真的讀到語域檔案
 
