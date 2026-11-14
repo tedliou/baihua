@@ -4,6 +4,14 @@
 
 ## [未發佈]
 
+### 修改
+
+- `check.py` 的最低支援版本從 Python 3.9 改成 3.11。3.9 與 3.10 都已停止維護，GitHub 的 Ubuntu 26.04 runner 也不再提供 3.9。CI 改用 Ubuntu 26.04，測試 Python 3.11 與 3.15，actions 升到支援 Node 24 的 v7。
+
+### 新增
+
+- `experiments/2026-11-03-review/`：0.4.0 收斂範圍所依據的單份審閱第一輪，原本只在 `experiment/single-review` 分支上，CHANGELOG 引用的資料夾在 main 找不到。
+
 ## [0.4.0] - 2026-11-05
 
 ### 修改
