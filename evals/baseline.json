@@ -1,7 +1,7 @@
 {
   "model": "sonnet",
-  "claudeVersion": "2.1.318",
-  "updated": "2026-11-05",
+  "claudeVersion": "2.1.325",
+  "updated": "2026-11-14",
   "cases": {
     "aphorism-closing": {
       "with": 0.571
@@ -10,7 +10,7 @@
       "with": 0.727
     },
     "audience-sentence-in-summary": {
-      "with": 0.571
+      "with": 1
     },
     "closing-advice-after-measure": {
       "with": 0.571
@@ -28,12 +28,15 @@
       "with": 0.571
     },
     "filename-in-title-summary": {
-      "with": 1
+      "with": 0.625
     },
     "fix-translationese": {
       "with": 1
     },
     "flattering-aside": {
+      "with": 1
+    },
+    "fronted-whether-clause": {
       "with": 1
     },
     "jar-swap-steps-and-worries": {
@@ -49,13 +52,13 @@
       "with": 1
     },
     "lede-rules-not-enough-compressed": {
-      "with": 1
+      "with": 0.909
     },
     "lede-shortest-path-spec-dump": {
-      "with": 0.625
+      "with": 0.5
     },
     "lede-starts-with-constraint": {
-      "with": 0.7
+      "with": 0.6
     },
     "limitation-scope-contrast": {
       "with": 1
@@ -64,13 +67,13 @@
       "with": 1
     },
     "rewrite-ai-paragraph": {
-      "with": 1
+      "with": 0.75
     },
     "telegraphic-article-sentences": {
       "with": 1
     },
     "title-dated-performance-claim": {
-      "with": 1
+      "with": 0.625
     },
     "translationese-sensitive-to": {
       "with": 1
@@ -84,8 +87,11 @@
     "ui-status-chip-terse-comparison": {
       "with": 1
     },
+    "unseen-source-comparison": {
+      "with": 1
+    },
     "untested-scenario-disclaimer": {
-      "with": 0.625
+      "with": 1
     },
     "untranslated-ui-option-in-parens": {
       "with": 1
@@ -94,7 +100,7 @@
       "with": 1
     },
     "wiki-claim-left-to-discover": {
-      "with": 1
+      "with": 0.7
     },
     "wiki-link-note-points-elsewhere": {
       "with": 1
