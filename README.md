@@ -75,7 +75,7 @@ Windows 用 `pwsh scripts/link.ps1`。腳本把 skill 連結到 `~/.claude/skill
 
 其他 skill 要產出正體中文文字時，在指示裡寫明使用這個 skill，例如「寫介面文字時，使用 zh-tw-prose skill」。想讓平常的對話回覆也照同樣原則寫，把 [snippets/claude-md.md](snippets/claude-md.md) 的片段貼進 `CLAUDE.md`。這段不含空白約 380 字，每個 session 都會載入。
 
-檢查腳本也可以單獨用，需要 Python 3.9 以上，不必安裝其他套件：
+檢查腳本也可以單獨用，需要 Python 3.11 以上，不必安裝其他套件：
 
 ```bash
 python skills/zh-tw-prose/scripts/check.py docs/*.md
