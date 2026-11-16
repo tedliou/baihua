@@ -9,7 +9,7 @@ eval 只測一件事：給 skill 一段明顯是 AI 寫的文字，它能不能�
 - 21 題取自過去的改稿案例，涵蓋技術文章、wiki、技術文件與遊戲介面字串。
 - 12 題取自作者部落格 vervecode.dev 的改稿紀錄：AI 寫的初稿，經作者要求大改後發佈。這 12 題的 `reference.md` 放作者發佈的版本，給人對照，不會送給模型，也不參與評分。
 
-之後隨規則加入的題目：0.4.1 加 2 題（`unseen-source-comparison`、`fronted-whether-clause`），0.4.2 加 3 題（`setup-sentence-before-result`、`conjunctions-dropped`、`conjunctions-overcorrected`，取自 vervecode.dev 並附作者發佈的版本），0.4.3 加 1 題（`nominalized-step-headings`），共 39 題。
+之後隨規則加入的題目：0.4.1 加 2 題（`unseen-source-comparison`、`fronted-whether-clause`），0.4.2 加 3 題（`setup-sentence-before-result`、`conjunctions-dropped`、`conjunctions-overcorrected`，取自 vervecode.dev 並附作者發佈的版本），0.5.0 加 1 題（`nominalized-step-headings`），共 39 題。
 
 每題的標籤：
 
