@@ -110,6 +110,15 @@ class HintTest(unittest.TestCase):
         self.assertEqual(rules("舊版把設定存在本機，而新版存在雲端。"), [])
         self.assertEqual(rules("由於檔案很長，因此要分段讀取。"), [])
 
+    def test_nominalized_heading_is_warning(self):
+        self.assertIn(("warning", "ai-T12"), rules("## 資料庫的建立"))
+        self.assertIn(("warning", "ai-T12"), rules("### 連線結果的確認 ###"))
+        self.assertEqual(rules("## 建立資料庫"), [])
+        self.assertEqual(rules("## 新版移除的設定"), [])
+        self.assertEqual(rules("## 處理方式"), [])
+        self.assertEqual(rules("資料庫的建立"), [])
+        self.assertEqual(rules("# 資料庫的建立", markdown=False), [])
+
     def test_hints_can_be_disabled(self):
         self.assertEqual(rules("綜上所述，這樣設定就好。", hints=False), [])
 

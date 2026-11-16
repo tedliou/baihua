@@ -85,6 +85,9 @@ PROFILE_ITEMS: list[tuple[str, str, str]] = [
     ("bei", "被字句", r"被(?![子單褥])"),
     ("light_verbs", "虛動詞", r"進行|作出|做出|加以|予以"),
 ]
+# 小標結尾是動作名詞化的「X 的 Y」（T12）。「設定、更新、判斷」常當名詞用，不放進來。
+NOMINAL_HEADING = (r"^\s{0,3}#{1,6}\s+\S.*的(選擇|複製|確認|處理|安裝|修改|建立|檢查|啟動|移除|下載|執行|切換|搬移|轉換|調整|還原|停用)"
+                   r"\s*#*\s*$")
 DE_PARTICLE = r"的(?!確|話|士|是)(?<!目的)(?<!標的)"
 CLAUSE_SPLIT = r"[，。！？；：,.!?;:\n「」『』（）()]"
 
@@ -260,6 +263,9 @@ def check_text(text: str, path: str, terms: list[Term], *, markdown: bool,
                 m = re.search(pattern, line)
                 if m:
                     add(line_no, "warning", f"ai-{ref}", f"「{m.group(0)}」：{message}")
+            m = re.search(NOMINAL_HEADING, line) if markdown else None
+            if m:
+                add(line_no, "warning", "ai-T12", f"小標「的{m.group(1)}」：讀者要動手的小節改成動詞加受詞，說明性的小節可以保留")
 
     return issues
 
