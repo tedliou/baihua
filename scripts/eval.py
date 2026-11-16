@@ -177,7 +177,7 @@ def save_outputs(full_json, target):
                         text = event.get("result") or ""
                     for block in (event.get("message") or {}).get("content") or []:
                         if isinstance(block, dict) and block.get("type") == "tool_use" and block.get("name") == "Read":
-                            path = str((block.get("input") or {}).get("file_path", ""))
+                            path = str((block.get("input") or {}).get("file_path", "")).replace("\\", "/")
                             reads.setdefault(case["name"], []).append(path.split("zh-tw-prose/")[-1])
             suffix = f"-{n}" if len(runs) > 1 else ""
             (target / f"{case['name']}{suffix}.txt").write_text(text.strip() + "\n", encoding="utf-8")
