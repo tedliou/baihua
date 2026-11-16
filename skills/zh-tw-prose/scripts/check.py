@@ -295,17 +295,34 @@ def extract_facts(markdown: str) -> dict:
     m = re.match(r"^---\n.*?\n---\n", text, re.S)
     if m:
         text = text[m.end():]
-    text = re.sub(r"<!--.*?-->", "", text, flags=re.S)
+    # 先切出程式碼區塊，區塊裡的 <!-- 與連結寫法不算正文。列表裡縮排的區塊也算，
+    # 關閉的圍欄要用同一種字元、長度不短於開頭。沒有關閉的區塊延伸到檔尾。
     fences: list[str] = []
-
-    def keep_fence(match: re.Match) -> str:
-        fences.append(match.group(0).strip())
-        return "\n"
-
-    body = re.sub(r"^(`{3,}|~{3,})[^\n]*\n.*?^\1[ \t]*$", keep_fence, text, flags=re.S | re.M)
+    kept: list[str] = []
+    block: list[str] | None = None
+    opener = ""
+    for line in text.split("\n"):
+        if block is None:
+            m = re.match(r"^\s*(`{3,}|~{3,})", line)
+            if m:
+                block, opener = [line.strip()], m.group(1)
+                kept.append("")
+            else:
+                kept.append(line)
+            continue
+        block.append(line.strip())
+        if re.fullmatch(rf"\s*{re.escape(opener[0])}{{{len(opener)},}}\s*", line):
+            fences.append("\n".join(block))
+            block = None
+    if block is not None:
+        fences.append("\n".join(block))
+    body = re.sub(r"<!--.*?-->", "", "\n".join(kept), flags=re.S)
     inline = re.findall(r"`([^`\n]+)`", body)
+    body = re.sub(r"`[^`\n]+`", " C ", body)
     images = re.findall(r"!\[[^\]]*\]\(([^)\s]+)", body)
-    links = [u for u in re.findall(r"(?<!!)\[[^\]]*\]\((\S+?)(?:\s+\"[^\"]*\")?\)", body)]
+    # 圖片換成替代文字後再找連結，包住圖片的連結（徽章）才抓得到外層網址。
+    unimaged = re.sub(r"!\[([^\]]*)\]\([^)]*\)", r"\1", body)
+    links = re.findall(r"\[[^\]]*\]\((\S+?)(?:\s+\"[^\"]*\")?\)", unimaged)
     lines = body.split("\n")
     headings = [ln.strip() for ln in lines if re.match(r"^#{1,6}\s+\S", ln)]
     tables = table_rows = 0
@@ -316,8 +333,7 @@ def extract_facts(markdown: str) -> dict:
             tables += 1
         if not re.fullmatch(r"\s*\|[\s:|-]+\|\s*", ln):
             table_rows += 1
-    prose = re.sub(r"`[^`\n]+`", " ", body)
-    prose = re.sub(r"!?\[([^\]]*)\]\([^)]*\)", r"\1", prose)
+    prose = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", unimaged)
     prose = re.sub(r"</?[A-Za-z][^>]*>", "", prose)
     prose = re.sub(r"https?://\S+", " ", prose)
     numbers = [n.replace(" ", "") for n in re.findall(NUMBER, prose)]

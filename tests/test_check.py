@@ -200,6 +200,23 @@ class CompareTest(unittest.TestCase):
         self.assertEqual(facts["numbers"], [])
         self.assertEqual(len(facts["fences"]), 1)
 
+    def test_fences_links_and_comments(self):
+        # 用較長的圍欄關閉、列表裡縮排的區塊、區塊裡的 <!--，都不能吃掉後面的正文。
+        text = ("```\nprint(1)\n````\n\n正文有 2026 年的內容。\n\n"
+                "1. 安裝\n\n   ```bash\n   npm install <!--\n   ```\n\n"
+                "結尾 --> 還有 5 個。\n")
+        facts = check.extract_facts(text)
+        self.assertEqual(len(facts["fences"]), 2)
+        self.assertIn("2026", facts["numbers"])
+        self.assertIn("5個", facts["numbers"])
+
+    def test_badge_link_and_inline_code_link(self):
+        text = ("[![build](https://img.example.com/b.svg)](https://ci.example.com/run)\n\n"
+                "說明 `[a](https://x.com)` 的寫法。\n")
+        facts = check.extract_facts(text)
+        self.assertEqual(facts["images"], ["https://img.example.com/b.svg"])
+        self.assertEqual(facts["links"], ["https://ci.example.com/run"])
+
     def test_cli(self):
         with tempfile.TemporaryDirectory() as tmp:
             a, b = Path(tmp) / "a.md", Path(tmp) / "b.md"

@@ -179,15 +179,17 @@ def compare_with_reference(cases, outputs):
     分數只看 grader，這份報告不計分。虛詞比作者版低很多代表輸出被壓短，高很多代表補過頭。
     """
     check = load_check()
+    names = {c.name for c in cases}
     rows = []
     for case in cases:
         ref = reference_text(case.path)
         if ref is None:
             continue
         for out in sorted(outputs.glob(f"{case.name}*.txt")):
-            if out.stem != case.name and not re.fullmatch(rf"{re.escape(case.name)}-\d+", out.stem):
+            # 多次執行的輸出是 <題目>-<n>.txt，但 <題目>-2 也可能是另一題的名稱。
+            if out.stem != case.name and (out.stem in names or not re.fullmatch(rf"{re.escape(case.name)}-\d+", out.stem)):
                 continue
-            r = check.compare_texts(ref, out.read_text(encoding="utf-8"))
+            r = check.compare_texts(ref, out.read_text(encoding="utf-8-sig"))
             flags = [f.split("：")[0] for f in r["flags"] if f.startswith("glue-")]
             rows.append({"case": out.stem, "han": r["han"], "glue": r["glue"], "flags": flags})
     if not rows:
