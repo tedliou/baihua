@@ -21,6 +21,8 @@
 - 假對比那一列補上「是 A，不是 B」的句型。`limitation-scope-contrast` 跑 3 次有 2 次留著「防的是 A，不是 B」，補上後 3 次都刪掉了。
 - 寫作流程第 4 步改成依 `review.md` 交給子代理做結構、句子與審稿。核心規則 2 與 9 的理由各刪掉後半句。SKILL.md 實測約 4,984 token。
 - 題庫：`telegraphic-article-sentences` 加上電報句的 grader，`limitation-scope-contrast` 加上假對比的 grader，共用評分表第 2 條補上電報句的例子。這三項會讓基準分數下降，要重建基準。
+- 對照官方的 Agent Skills 最佳實踐：寫作流程第 3 步寫明需要 Python 3.11 以上、只用標準函式庫，修正後重跑 check.py 直到沒有 error。`translationese.md` 與 `taiwan-usage.md` 超過 100 行，開頭加上目錄。`review.md` 與 `taiwan-usage.md` 拿掉會隨時間過時的說法。
+- 對照官方的提示詞最佳實踐：三個子代理都預先載入 zh-tw-prose（實測以 `baihua:zh-tw-prose` 委派時會載入 repo 的版本），互不相依的檔案一次平行讀取，回報格式附 `<example>`，寫明路徑不存在或 brief 缺欄位時怎麼處理，文風編輯的限制改成正面寫法，審稿者送出前逐項自我檢查。
 
 ### 修正
 
