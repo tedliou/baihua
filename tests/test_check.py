@@ -5,7 +5,7 @@ import io
 import sys
 import tempfile
 import unittest
-from contextlib import redirect_stdout
+from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -157,6 +157,62 @@ class CliTest(unittest.TestCase):
                 self.assertEqual(check.main([str(bad)]), 1)
                 self.assertEqual(check.main([str(hint)]), 0)
                 self.assertEqual(check.main([str(hint), "--strict"]), 1)
+
+
+class CompareTest(unittest.TestCase):
+    BEFORE = (
+        "## 安裝套件\n\n"
+        "如果設定檔有錯，服務就會啟動失敗，這時要先看日誌。改完後再重新啟動，也會一併清掉快取。\n\n"
+        "執行 `npm install`，大約需要 30 秒。說明見[官方文件](https://example.com/docs)。\n\n"
+        "| 設定 | 預設值 |\n| --- | --- |\n| port | 8080 |\n"
+    )
+    TERSE = "設定檔有錯，服務就啟動失敗，先看日誌。改完重啟，清掉快取。"
+    FULL = "如果設定檔有錯，服務就會啟動失敗，這時要先看日誌。改完後再重新啟動，也會一併清掉快取。"
+
+    def test_unchanged_text_has_no_flags(self):
+        self.assertEqual(check.compare_texts(self.BEFORE, self.BEFORE, "style")["flags"], [])
+
+    def test_removed_fact_is_flagged(self):
+        after = self.BEFORE.replace("`npm install`", "安裝指令").replace("30 秒", "一下子")
+        r = check.compare_texts(self.BEFORE, after, "structure")
+        self.assertEqual(r["removed"]["inline"], ["npm install"])
+        self.assertIn("30秒", r["removed"]["numbers"])
+        self.assertTrue(r["flags"][0].startswith("fact-removed"))
+
+    def test_style_stage_flags_structure_and_added_facts(self):
+        after = self.BEFORE.replace("## 安裝套件\n\n", "") + "\n約 5 分鐘。\n"
+        flags = " ".join(check.compare_texts(self.BEFORE, after, "style")["flags"])
+        self.assertIn("structure-changed", flags)
+        self.assertIn("fact-added", flags)
+        flags = " ".join(check.compare_texts(self.BEFORE, after, "structure")["flags"])
+        self.assertNotIn("structure-changed", flags)
+
+    def test_glue_drop_and_rise(self):
+        terse = self.BEFORE.replace(self.FULL, self.TERSE)
+        drop = check.compare_texts(self.BEFORE, terse)["flags"]
+        rise = check.compare_texts(terse, self.BEFORE)["flags"]
+        self.assertTrue(any(f.startswith("glue-drop") for f in drop))
+        self.assertTrue(any(f.startswith("glue-rise") for f in rise))
+
+    def test_code_and_front_matter_are_ignored(self):
+        text = "---\ntitle: 標題 2026\n---\n\n```\n會就才也再 123\n```\n\n系統會載入設定。\n"
+        facts = check.extract_facts(text)
+        self.assertEqual(facts["numbers"], [])
+        self.assertEqual(len(facts["fences"]), 1)
+
+    def test_cli(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            a, b = Path(tmp) / "a.md", Path(tmp) / "b.md"
+            a.write_text(self.BEFORE, encoding="utf-8")
+            b.write_text(self.BEFORE.replace("30 秒", "一下子"), encoding="utf-8")
+            out = io.StringIO()
+            with redirect_stdout(out):
+                self.assertEqual(check.main(["--compare", str(a), str(b)]), 0)
+                self.assertEqual(check.main(["--compare", str(a), str(b), "--strict"]), 1)
+                self.assertEqual(check.main(["--compare", str(a), str(a), "--stage", "style", "--strict"]), 0)
+            self.assertIn("消失的數字：30秒", out.getvalue())
+            with redirect_stdout(io.StringIO()), redirect_stderr(io.StringIO()):
+                self.assertEqual(check.main(["--compare", str(a)]), 2)
 
 
 if __name__ == "__main__":
