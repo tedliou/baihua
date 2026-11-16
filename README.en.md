@@ -12,7 +12,7 @@ The skill itself is written in Chinese, because it is read by Claude while writi
 - 3 registers: technical articles (including technical blogs), reference docs and UI text.
 - 27 AI-writing patterns and 12 translationese patterns. Each has a before/after example and a "keep it when" boundary, so good text is not over-edited.
 - A Taiwan usage table and `check.py`, a standard-library Python linter for terms, punctuation and CJK–Latin spacing.
-- `zh-tw-reviewer`, a read-only reviewer subagent with a clean context.
+- Three editing subagents that each work with a clean context: `zh-tw-structure-editor` fixes sections, repetition and scope, `zh-tw-style-editor` edits sentence by sentence, and `zh-tw-reviewer` reviews without editing. `check.py --compare` checks each handoff for dropped facts and over-shortened sentences.
 
 The skill only decides how sentences are written. Content, terminology and layout belong to you, your project files and other skills, so it composes with UI, game-writing or documentation skills.
 
