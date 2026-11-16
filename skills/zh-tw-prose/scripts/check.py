@@ -7,6 +7,7 @@
   python check.py 文章.md [其他檔案 ...]
   python check.py - < 草稿.txt
   python check.py 文章.md --glossary GLOSSARY.md --allow-semicolon
+  python check.py --compare 改前.md 改後.md [--stage structure|style]
 
 輸出每個問題一行：<檔案>:<行號>: <error|warning> [<規則>] <說明>
 有 error 時結束碼為 1。warning 是 AI 腔的提示，要依語境判斷，預設不影響結束碼，
@@ -85,6 +86,9 @@ PROFILE_ITEMS: list[tuple[str, str, str]] = [
     ("bei", "被字句", r"被(?![子單褥])"),
     ("light_verbs", "虛動詞", r"進行|作出|做出|加以|予以"),
 ]
+# 小標結尾是動作名詞化的「X 的 Y」（T12）。「設定、更新、判斷」常當名詞用，不放進來。
+NOMINAL_HEADING = (r"^\s{0,3}#{1,6}\s+\S.*的(選擇|複製|確認|處理|安裝|修改|建立|檢查|啟動|移除|下載|執行|切換|搬移|轉換|調整|還原|停用)"
+                   r"\s*#*\s*$")
 DE_PARTICLE = r"的(?!確|話|士|是)(?<!目的)(?<!標的)"
 CLAUSE_SPLIT = r"[，。！？；：,.!?;:\n「」『』（）()]"
 
@@ -260,6 +264,9 @@ def check_text(text: str, path: str, terms: list[Term], *, markdown: bool,
                 m = re.search(pattern, line)
                 if m:
                     add(line_no, "warning", f"ai-{ref}", f"「{m.group(0)}」：{message}")
+            m = re.search(NOMINAL_HEADING, line) if markdown else None
+            if m:
+                add(line_no, "warning", "ai-T12", f"小標「的{m.group(1)}」：讀者要動手的小節改成動詞加受詞，說明性的小節可以保留")
 
     return issues
 
@@ -270,6 +277,136 @@ def _covered(line: str, start: int, end: int, exception: str) -> bool:
         if m.start() <= start and end <= m.end():
             return True
     return False
+
+
+# 交接檢查（--compare）：比較同一份稿件改稿前後，抓出事實消失、文風階段動到結構，
+# 以及句子被壓短或連接詞補過頭。虛詞是交代分句關係的單字與短詞，精簡過頭時會一起下降。
+GLUE = r"會|就|才|也|再|而|如果|因此|這時|但|讓|並|時"
+NUMBER = (r"\d+(?:[.,]\d+)*(?:\s?(?:GB|MB|KB|TB|ms|fps|Hz|px|%|秒|分鐘|小時|天|次|個|字元|萬|倍|元|美元"
+          r"|埠|欄|行|筆|頁|張|篇|題|版))?")
+GLUE_DROP = 0.95  # 改後的虛詞密度低於改前的 95%
+GLUE_RISE = 1.2   # 改後的虛詞密度高於改前的 120%
+FACT_LABELS = {"fences": "程式碼區塊", "inline": "行內程式碼", "links": "連結", "images": "圖片", "numbers": "數字"}
+
+
+def extract_facts(markdown: str) -> dict:
+    """取出交接檢查要比對的事實元素、結構與虛詞密度。"""
+    text = markdown.replace("\r\n", "\n")
+    m = re.match(r"^---\n.*?\n---\n", text, re.S)
+    if m:
+        text = text[m.end():]
+    # 先切出程式碼區塊，區塊裡的 <!-- 與連結寫法不算正文。列表裡縮排的區塊也算，
+    # 關閉的圍欄要用同一種字元、長度不短於開頭。沒有關閉的區塊延伸到檔尾。
+    fences: list[str] = []
+    kept: list[str] = []
+    block: list[str] | None = None
+    opener = ""
+    for line in text.split("\n"):
+        if block is None:
+            m = re.match(r"^\s*(`{3,}|~{3,})", line)
+            if m:
+                block, opener = [line.strip()], m.group(1)
+                kept.append("")
+            else:
+                kept.append(line)
+            continue
+        block.append(line.strip())
+        if re.fullmatch(rf"\s*{re.escape(opener[0])}{{{len(opener)},}}\s*", line):
+            fences.append("\n".join(block))
+            block = None
+    if block is not None:
+        fences.append("\n".join(block))
+    body = re.sub(r"<!--.*?-->", "", "\n".join(kept), flags=re.S)
+    inline = re.findall(r"`([^`\n]+)`", body)
+    body = re.sub(r"`[^`\n]+`", " C ", body)
+    images = re.findall(r"!\[[^\]]*\]\(([^)\s]+)", body)
+    # 圖片換成替代文字後再找連結，包住圖片的連結（徽章）才抓得到外層網址。
+    unimaged = re.sub(r"!\[([^\]]*)\]\([^)]*\)", r"\1", body)
+    links = re.findall(r"\[[^\]]*\]\((\S+?)(?:\s+\"[^\"]*\")?\)", unimaged)
+    lines = body.split("\n")
+    headings = [ln.strip() for ln in lines if re.match(r"^#{1,6}\s+\S", ln)]
+    tables = table_rows = 0
+    for i, ln in enumerate(lines):
+        if not re.match(r"^\s*\|", ln):
+            continue
+        if i == 0 or not re.match(r"^\s*\|", lines[i - 1]):
+            tables += 1
+        if not re.fullmatch(r"\s*\|[\s:|-]+\|\s*", ln):
+            table_rows += 1
+    prose = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", unimaged)
+    prose = re.sub(r"</?[A-Za-z][^>]*>", "", prose)
+    prose = re.sub(r"https?://\S+", " ", prose)
+    numbers = [n.replace(" ", "") for n in re.findall(NUMBER, prose)]
+    numbers = [n for n in numbers if len(n) > 1 or not n.isdigit()]
+    # 虛詞只算段落與條列，表格與小標多是名詞片語，算進去會稀釋。
+    paragraphs = "\n".join(ln for ln in prose.split("\n") if not re.match(r"^\s*\||^#{1,6}\s", ln))
+    para_han = len(re.findall(f"[{HAN}]", paragraphs))
+    return {
+        "fences": fences, "inline": inline, "links": links, "images": images, "numbers": numbers,
+        "headings": headings, "tables": tables, "table_rows": table_rows,
+        "han": len(re.findall(f"[{HAN}]", prose)),
+        "glue": round(len(re.findall(GLUE, paragraphs)) * 1000 / para_han, 1) if para_han else 0.0,
+    }
+
+
+def _missing(a: list[str], b: list[str]) -> list[str]:
+    seen = set(b)
+    return [x for x in dict.fromkeys(a) if x not in seen]
+
+
+def compare_texts(before: str, after: str, stage: str = "any") -> dict:
+    """比較改稿前後。stage 是 structure（可以刪改結構）、style（只改句子）或 any。"""
+    b, a = extract_facts(before), extract_facts(after)
+    removed = {k: _missing(b[k], a[k]) for k in FACT_LABELS}
+    added = {k: _missing(a[k], b[k]) for k in ("links", "numbers")}
+    flags: list[str] = []
+    if any(removed.values()):
+        if stage == "style":
+            flags.append("fact-removed：只改句子時不應刪掉任何事實元素")
+        else:
+            flags.append("fact-removed：有事實元素消失，每一項都要能說出刪除的理由，例如重複或超出範圍")
+    if stage == "style" and any(added.values()):
+        flags.append("fact-added：只改句子時新增了數字或連結，確認不是補上素材沒有的事實")
+    if stage == "style" and (len(b["headings"]), b["tables"], b["table_rows"]) != (len(a["headings"]), a["tables"], a["table_rows"]):
+        flags.append("structure-changed：只改句子時動到小標或表格的數量，這屬於結構的範圍")
+    if b["glue"] and a["glue"] < b["glue"] * GLUE_DROP:
+        flags.append(f"glue-drop：虛詞每千字從 {b['glue']} 降到 {a['glue']}，句子可能被壓短。精簡只刪重複的資訊與整句，不刪「會、就、如果、這時」這類交代關係的詞")
+    if b["glue"] and a["glue"] > b["glue"] * GLUE_RISE:
+        flags.append(f"glue-rise：虛詞每千字從 {b['glue']} 升到 {a['glue']}，確認連接詞沒有補過頭")
+    return {
+        "stage": stage,
+        "han": (b["han"], a["han"]),
+        "glue": (b["glue"], a["glue"]),
+        "headings": (len(b["headings"]), len(a["headings"])),
+        "tables": (b["tables"], a["tables"]),
+        "table_rows": (b["table_rows"], a["table_rows"]),
+        "removed_headings": _missing(b["headings"], a["headings"]),
+        "added_headings": _missing(a["headings"], b["headings"]),
+        "removed": removed,
+        "added": added,
+        "flags": flags,
+    }
+
+
+def format_compare(r: dict) -> str:
+    before, after = r["han"]
+    change = round((after - before) * 100 / before) if before else 0
+    out = [f"交接檢查（{r['stage']}）",
+           f"漢字數：{before} → {after}（{change:+d}%）",
+           f"小標：{r['headings'][0]} → {r['headings'][1]}，表格：{r['tables'][0]} → {r['tables'][1]}，表格列：{r['table_rows'][0]} → {r['table_rows'][1]}",
+           f"虛詞每千字：{r['glue'][0]} → {r['glue'][1]}"]
+    for key, items in r["removed"].items():
+        if items:
+            out.append(f"消失的{FACT_LABELS[key]}：" + "、".join(x.split("\n")[0][:80] for x in items))
+    for key, items in r["added"].items():
+        if items:
+            out.append(f"新增的{FACT_LABELS[key]}：" + "、".join(items))
+    if r["removed_headings"]:
+        out.append("刪除或改名的小標：" + "、".join(r["removed_headings"]))
+    if r["added_headings"]:
+        out.append("新增或改名後的小標：" + "、".join(r["added_headings"]))
+    out.append("需要確認：\n- " + "\n- ".join(r["flags"]) if r["flags"] else "沒有需要確認的項目。")
+    return "\n".join(out)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -283,8 +420,23 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--no-hints", action="store_true", help="不列出 AI 腔片語的提示")
     parser.add_argument("--strict", action="store_true", help="warning 也讓結束碼為 1")
     parser.add_argument("--markdown", action="store_true", help="把標準輸入當成 Markdown 處理")
+    parser.add_argument("--compare", action="store_true", help="交接檢查：比較兩個檔案（改前、改後），回報消失的事實、結構變動與虛詞密度變化")
+    parser.add_argument("--stage", choices=["any", "structure", "style"], default="any", help="--compare 用：style 表示只改句子，結構與事實都不該變")
     parser.add_argument("--profile", action="store_true", help="另外印出文體輪廓：每千字的連接詞、代名詞、限定詞、被字句、虛動詞，「的」的密度與句長變化")
     args = parser.parse_args(argv)
+
+    if args.compare:
+        if len(args.paths) != 2 or "-" in args.paths:
+            print("--compare 需要兩個檔案：改前與改後", file=sys.stderr)
+            return 2
+        try:
+            before, after = (read_text(p) for p in args.paths)
+        except (OSError, UnicodeDecodeError) as error:
+            print(f"無法讀取：{error}", file=sys.stderr)
+            return 2
+        report = compare_texts(before, after, args.stage)
+        print(format_compare(report))
+        return 1 if args.strict and report["flags"] else 0
 
     terms = load_usage_terms(USAGE_TABLE)
     for glossary in args.glossary:

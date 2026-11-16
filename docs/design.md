@@ -15,18 +15,18 @@ SKILL.md            核心規則、語域要點、檢查清單，呼叫時載入
 references/         依需要讀取
   registers/*.md    三種語域的寫法
   patterns.md       AI 腔模式 P01–P27
-  translationese.md 翻譯腔 T01–T11
+  translationese.md 翻譯腔 T01–T12
   taiwan-usage.md   台灣用語對照，check.py 也讀這張表
   punctuation.md    標點與空格
   integrity.md      內容誠實
-  review.md         審稿交辦
+  review.md         編修流程與審稿交辦
   learning.md       把使用者的修改整理成偏好
 scripts/check.py    機械檢查
 ```
 
-上面是 `skills/zh-tw-prose/` 的內容，也就是上傳到 claude.ai 的部分。repo 根目錄另有審稿子代理 `agents/`、常駐片段 `snippets/` 與測試案例 `evals/`，它們不在 skill 資料夾裡。
+上面是 `skills/zh-tw-prose/` 的內容，也就是上傳到 claude.ai 的部分。repo 根目錄另有編修子代理 `agents/`、常駐片段 `snippets/` 與測試案例 `evals/`，它們不在 skill 資料夾裡。
 
-SKILL.md 控制在 5,000 token 以內（0.4.2 約 4,980），因為 Claude Code 在對話壓縮後只保留每個 skill 的前 5,000 token（token 是模型計算文字長度的單位，見 [Claude Code skills 文件](https://code.claude.com/docs/en/skills)）。量法：用 `claude -p --output-format json` 分別在附加與不附加 SKILL.md 的情況下送同一句話，兩次 input token 的差就是 SKILL.md 的長度。0.4.1 加了一列檢查清單後量到約 4,990，0.4.2 為了放進連接詞的新規則，合併檢查清單裡同一個原則的列，並刪掉和其他段落重複的句子。之後新增規則也先找能合併或改寫的既有條文，不直接加一列。
+SKILL.md 控制在 5,000 token 以內（0.5.0 約 4,980），因為 Claude Code 在對話壓縮後只保留每個 skill 的前 5,000 token（token 是模型計算文字長度的單位，見 [Claude Code skills 文件](https://code.claude.com/docs/en/skills)）。量法：用 `claude -p --output-format json` 分別在附加與不附加 SKILL.md 的情況下送同一句話，兩次 input token 的差就是 SKILL.md 的長度。0.4.1 加了一列檢查清單後量到約 4,990，0.4.2 為了放進連接詞的新規則，合併檢查清單裡同一個原則的列，並刪掉和其他段落重複的句子。0.5.0 加了小標與電報句兩列，同時把意思相近的列合併，檢查清單從 14 列收到 12 列，並刪掉和語域段落、檢查清單重複的半句，量到約 4,980。之後新增規則也先找能合併或改寫的既有條文，不直接加一列。
 
 ### 讓模型真的讀到語域檔案
 
@@ -81,7 +81,15 @@ SKILL.md 直接連到每一個 references 檔，Claude 從 SKILL.md 一步就能
 
 ## 機械檢查與審稿分工
 
-字串能判斷的事交給 check.py：對岸用語、半形標點、引號、刪節號、中英文空格、分號。句型與語氣需要讀懂上下文，交給模型自己檢查，長文再交給沒看過寫作過程的審稿子代理。check.py 只用 Python 標準函式庫，因為 skill 可能在 claude.ai 的沙盒裡執行，無法安裝套件。
+字串能判斷的事交給 check.py：對岸用語、半形標點、引號、刪節號、中英文空格、分號。句型與語氣需要讀懂上下文，交給模型自己檢查，長文再交給沒看過寫作過程的子代理。check.py 只用 Python 標準函式庫，因為 skill 可能在 claude.ai 的沙盒裡執行，無法安裝套件。
+
+長文拆成結構、文風與審稿三步，各由一個子代理在乾淨的上下文裡處理，流程見 [review.md](../skills/zh-tw-prose/references/review.md)。理由有三個：
+
+- 規則有寫卻沒被套用。指令越多，模型同時做到全部的比例越低（IFScale，NeurIPS 2025），每個子代理只帶自己那一層的檢查清單，每份最多 12 項，依作者退回的次數排序。
+- 寫作的人看不出自己的問題。沒有外部標準時，模型檢查自己的輸出並不可靠（Huang 等，2023），所以每一步都用沒看過寫作過程的上下文。
+- 先改結構、再改句子。反過來做，句子改好以後整段被刪掉，修改就白做了。精簡時也容易把句子壓短，所以交接時用 `check.py --compare` 比較虛詞密度。
+
+`--compare` 的虛詞門檻（下降 5%、上升 20%）取自 vervecode.dev 2026-11-12 的四篇稿件：作者要求精簡後虛詞密度全部下降，要求補回完整句後全部回升。門檻是用同一批稿件定的，累積更多稿件後要重新檢查。
 
 AI 腔片語在 check.py 裡只是 warning。同一個片語在不同語境可能是對的，硬性禁止會誤傷。
 

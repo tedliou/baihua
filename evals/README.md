@@ -9,7 +9,7 @@ eval 只測一件事：給 skill 一段明顯是 AI 寫的文字，它能不能�
 - 21 題取自過去的改稿案例，涵蓋技術文章、wiki、技術文件與遊戲介面字串。
 - 12 題取自作者部落格 vervecode.dev 的改稿紀錄：AI 寫的初稿，經作者要求大改後發佈。這 12 題的 `reference.md` 放作者發佈的版本，給人對照，不會送給模型，也不參與評分。
 
-之後隨規則加入的題目：0.4.1 加 2 題（`unseen-source-comparison`、`fronted-whether-clause`），0.4.2 加 3 題（`setup-sentence-before-result`、`conjunctions-dropped`、`conjunctions-overcorrected`，取自 vervecode.dev 並附作者發佈的版本），共 38 題。
+之後隨規則加入的題目：0.4.1 加 2 題（`unseen-source-comparison`、`fronted-whether-clause`），0.4.2 加 3 題（`setup-sentence-before-result`、`conjunctions-dropped`、`conjunctions-overcorrected`，取自 vervecode.dev 並附作者發佈的版本），0.5.0 加 1 題（`nominalized-step-headings`），共 39 題。
 
 每題的標籤：
 
@@ -39,6 +39,7 @@ python scripts/eval.py L2 --dry-run         # 只列出會跑哪些題目，不�
 
 - `outputs/<題目>.txt`：每題改寫後的文字，給人審閱。
 - `outputs/_reads.json`：每題讀了哪些 references，以及讀了語域檔案的題目比例。
+- `outputs/_reference.json`：有 `reference.md` 的題目，用 `check.py --compare` 比較輸出和作者版本的漢字數與虛詞密度，執行時也會印成一張表。虛詞比作者版低 5% 以上標 `glue-drop`，代表句子可能被壓短。高 20% 以上標 `glue-rise`，代表連接詞可能補過頭。這份報告不計分，用來看改寫往哪個方向偏。
 - `summary.json`：各題分數與費用。
 
 所有分數都用 Sonnet 產生與評審。Haiku 評審會數錯中文字數，不採用。
@@ -68,29 +69,19 @@ python scripts/eval.py L2 --dry-run         # 只列出會跑哪些題目，不�
 
 ## 基準分數
 
-2026-11-15 重建，版本 0.4.2，Claude Code 2.1.325，產生與評審都用 Sonnet，每題跑 1 次，費用約 3.26 美元。各題分數存在 `evals/baseline.json`。
+2026-11-16 重建，版本 0.5.0，Claude Code 2.1.309，產生與評審都用 Sonnet，每題跑 1 次，費用約 3.56 美元。各題分數存在 `evals/baseline.json`。這次重建前，共用評分表第 2 條補上電報句的例子，`telegraphic-article-sentences` 與 `limitation-scope-contrast` 各加一條 grader，所以分數不能直接和 0.4.2 的基準比較。
 
 | 組別 | 題數 | 平均分數 | 全部評分項通過 |
 | --- | --- | --- | --- |
-| AI 腔 | 22 | 0.83 | 12 |
-| 翻譯腔 | 3 | 1.00 | 3 |
-| 核心規則 | 13 | 0.83 | 7 |
-| 來源：過去的改稿案例 | 21 | 0.87 | 14 |
-| 來源：vervecode.dev | 12 | 0.80 | 5 |
-| 0.4.1 新增 | 2 | 0.85 | 1 |
-| 0.4.2 新增 | 3 | 0.89 | 2 |
-| 全部 | 38 | 0.85 | 22 |
+| AI 腔 | 22 | 0.92 | 18 |
+| 翻譯腔 | 4 | 1.00 | 4 |
+| 核心規則 | 13 | 0.84 | 7 |
+| 有作者發佈版本（vervecode.dev） | 16 | 0.88 | 11 |
+| 其他 | 23 | 0.91 | 18 |
+| 全部 | 39 | 0.90 | 29 |
 
-38 題都讀了語域檔案，沒有一題讀 `patterns.md` 或 `translationese.md`。和 0.4.1 的基準相比，35 題平均下降 0.032，略超過退化門檻，所以把單題下降較多的題目各跑 3 次，再用 0.4.1 跑同樣的題目對照：
+0.4.2 的基準是 38 題平均 0.85，22 題全部通過。39 題都讀了語域檔案。沒有全部通過的 10 題：`closing-advice-after-measure`、`denial-before-doc-quote`、`jar-swap-steps-and-worries`、`lede-rules-not-enough-compressed`、`lede-shortest-path-spec-dump`、`lede-starts-with-constraint`、`overpromising-title`、`telegraphic-article-sentences`、`untested-scenario-disclaimer`、`wiki-claim-left-to-discover`。
 
-| 題目 | 0.4.2，3 次平均 | 0.4.1，3 次平均 |
-| --- | --- | --- |
-| `overpromising-title` | 0.714 | 0.714 |
-| `untested-scenario-disclaimer` | 0.625 | 0.625 |
-| `lecturing-warning-dns` | 0.857 | 0.857 |
-| `lede-rules-not-enough-compressed` | 0.97 | 0.758 |
-| `unseen-source-comparison` | 1 | 1 |
+和作者發佈的版本比較時，16 題裡有 7 題標 `glue-drop`、3 題標 `glue-rise`。逐題讀過其中 4 題後發現，虛詞密度低不一定是句子被壓短，也可能是句子拆法、作者的語氣詞或內容方向不同。只有 `telegraphic-article-sentences` 是真的留下電報句，現在由 grader 抓。
 
-兩個版本的分數相同或 0.4.2 較高，下降來自單次執行時共用評分表的票數，基準仍照每題 1 次的做法寫入。這幾題的基準分數因此可能偏高或偏低，比較時要留意。
-
-共用評分表判不通過的題目，0.4.0 時看過輸出後大致分成兩類：一類是 skill 確實留下了作者退回過的寫法，例如 `denial-before-doc-quote` 的「這裡先不要把它想成……」，這類題目在不同次執行之間時好時壞。另一類是評分偏嚴，例如 `aphorism-closing` 的輸出已經沒有問題。之後的版本沒有逐題重看輸出。
+每題只跑 1 次，共用評分表的票數在不同次執行之間會變動。0.4.2 與 0.5.0 的單題重跑 3 次時，同一題的分數常在 0.57 到 1 之間，比較單題時要用 `--runs 3` 確認。

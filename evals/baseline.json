@@ -1,13 +1,13 @@
 {
   "model": "sonnet",
-  "claudeVersion": "2.1.325",
-  "updated": "2026-11-14",
+  "claudeVersion": "2.1.309",
+  "updated": "2026-11-16",
   "cases": {
     "aphorism-closing": {
-      "with": 0.571
+      "with": 1
     },
     "argumentative-section-flow": {
-      "with": 0.727
+      "with": 1
     },
     "audience-sentence-in-summary": {
       "with": 1
@@ -22,7 +22,7 @@
       "with": 1
     },
     "conjunctions-dropped": {
-      "with": 0.667
+      "with": 1
     },
     "conjunctions-overcorrected": {
       "with": 1
@@ -52,37 +52,40 @@
       "with": 1
     },
     "lecturing-warning-dns": {
-      "with": 0.571
+      "with": 1
     },
     "lede-absolute-claims": {
       "with": 1
     },
     "lede-rules-not-enough-compressed": {
-      "with": 0.727
+      "with": 0.636
     },
     "lede-shortest-path-spec-dump": {
       "with": 0.5
     },
     "lede-starts-with-constraint": {
-      "with": 0.6
+      "with": 0.7
     },
     "limitation-scope-contrast": {
+      "with": 1
+    },
+    "nominalized-step-headings": {
       "with": 1
     },
     "overpromising-title": {
       "with": 0.571
     },
     "rewrite-ai-paragraph": {
-      "with": 0.75
+      "with": 1
     },
     "setup-sentence-before-result": {
       "with": 1
     },
     "telegraphic-article-sentences": {
-      "with": 1
+      "with": 0.667
     },
     "title-dated-performance-claim": {
-      "with": 0.625
+      "with": 1
     },
     "translationese-sensitive-to": {
       "with": 1
@@ -97,7 +100,7 @@
       "with": 1
     },
     "unseen-source-comparison": {
-      "with": 0.7
+      "with": 1
     },
     "untested-scenario-disclaimer": {
       "with": 0.625
@@ -109,13 +112,13 @@
       "with": 1
     },
     "wiki-claim-left-to-discover": {
-      "with": 1
+      "with": 0.7
     },
     "wiki-link-note-points-elsewhere": {
       "with": 1
     },
     "wrong-result-before-steps": {
-      "with": 0.727
+      "with": 1
     }
   }
 }

@@ -27,10 +27,12 @@ import re
 import shutil
 import subprocess
 import sys
+import importlib.util
 import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+CHECK_PY = ROOT / "skills" / "zh-tw-prose" / "scripts" / "check.py"
 FIXED_DIR = ROOT / "evals"
 BANK_DIR = ROOT / "eval-bank"
 COMMON_GRADERS = BANK_DIR / "_common" / "graders"
@@ -150,8 +152,55 @@ def run_group(stamp, group, cases, args):
     subprocess.run(cmd, cwd=ROOT, check=False)
     if full.is_file():
         save_outputs(full, RUN_DIR / stamp / "outputs")
+        compare_with_reference(cases, RUN_DIR / stamp / "outputs")
     result = out_dir / "aggregate-result.json"
     return result if result.is_file() else None
+
+
+def load_check():
+    spec = importlib.util.spec_from_file_location("zh_tw_check", CHECK_PY)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def reference_text(case_dir):
+    """取出 reference.md 裡作者發佈的版本（````markdown 區塊）。沒有時回傳 None。"""
+    path = case_dir / "reference.md"
+    if not path.is_file():
+        return None
+    m = re.search(r"^````[^\n]*\n(.*?)^````", path.read_text(encoding="utf-8"), re.S | re.M)
+    return m.group(1) if m else None
+
+
+def compare_with_reference(cases, outputs):
+    """有作者版本的題目，用 check.py 的交接檢查比較輸出和作者版本的長度與虛詞密度。
+
+    分數只看 grader，這份報告不計分。虛詞比作者版低很多代表輸出被壓短，高很多代表補過頭。
+    """
+    check = load_check()
+    names = {c.name for c in cases}
+    rows = []
+    for case in cases:
+        ref = reference_text(case.path)
+        if ref is None:
+            continue
+        for out in sorted(outputs.glob(f"{case.name}*.txt")):
+            # 多次執行的輸出是 <題目>-<n>.txt，但 <題目>-2 也可能是另一題的名稱。
+            if out.stem != case.name and (out.stem in names or not re.fullmatch(rf"{re.escape(case.name)}-\d+", out.stem)):
+                continue
+            r = check.compare_texts(ref, out.read_text(encoding="utf-8-sig"))
+            flags = [f.split("：")[0] for f in r["flags"] if f.startswith("glue-")]
+            rows.append({"case": out.stem, "han": r["han"], "glue": r["glue"], "flags": flags})
+    if not rows:
+        return
+    (outputs / "_reference.json").write_text(json.dumps(rows, ensure_ascii=False, indent=1), encoding="utf-8")
+    print(f"\n和作者版本比較（{len(rows)} 題，不計分）")
+    print(f"{'題目':<40}{'漢字數':>14}{'虛詞每千字':>16}  旗標")
+    for row in rows:
+        han = f"{row['han'][0]}→{row['han'][1]}"
+        glue = f"{row['glue'][0]}→{row['glue'][1]}"
+        print(f"{row['case']:<40}{han:>14}{glue:>16}  {'、'.join(row['flags'])}")
 
 
 def save_outputs(full_json, target):
@@ -177,7 +226,7 @@ def save_outputs(full_json, target):
                         text = event.get("result") or ""
                     for block in (event.get("message") or {}).get("content") or []:
                         if isinstance(block, dict) and block.get("type") == "tool_use" and block.get("name") == "Read":
-                            path = str((block.get("input") or {}).get("file_path", ""))
+                            path = str((block.get("input") or {}).get("file_path", "")).replace("\\", "/")
                             reads.setdefault(case["name"], []).append(path.split("zh-tw-prose/")[-1])
             suffix = f"-{n}" if len(runs) > 1 else ""
             (target / f"{case['name']}{suffix}.txt").write_text(text.strip() + "\n", encoding="utf-8")
