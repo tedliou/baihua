@@ -39,7 +39,7 @@ python scripts/eval.py L2 --dry-run         # 只列出會跑哪些題目，不�
 
 - `outputs/<題目>.txt`：每題改寫後的文字，給人審閱。
 - `outputs/_reads.json`：每題讀了哪些 references，以及讀了語域檔案的題目比例。
-- `outputs/_reference.json`：有 `reference.md` 的題目，用 `check.py --compare` 比較輸出和作者版本的漢字數與虛詞密度，執行時也會印成一張表。虛詞比作者版低 5% 以上標 `glue-drop`，代表句子可能被壓短；高 20% 以上標 `glue-rise`，代表連接詞可能補過頭。這份報告不計分，用來看改寫往哪個方向偏。
+- `outputs/_reference.json`：有 `reference.md` 的題目，用 `check.py --compare` 比較輸出和作者版本的漢字數與虛詞密度，執行時也會印成一張表。虛詞比作者版低 5% 以上標 `glue-drop`，代表句子可能被壓短。高 20% 以上標 `glue-rise`，代表連接詞可能補過頭。這份報告不計分，用來看改寫往哪個方向偏。
 - `summary.json`：各題分數與費用。
 
 所有分數都用 Sonnet 產生與評審。Haiku 評審會數錯中文字數，不採用。
