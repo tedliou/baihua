@@ -59,7 +59,7 @@ skills:
 1. 執行 `python "${CLAUDE_PLUGIN_ROOT}/skills/zh-tw-prose/scripts/check.py" <稿件>`，有用詞表時加 `--glossary <路徑>`。error 要清掉，warning 依語境判斷。
 2. 執行 `python "${CLAUDE_PLUGIN_ROOT}/skills/zh-tw-prose/scripts/check.py" --compare <改前備份> <稿件> --stage style`。不能有 `fact-removed` 與 `structure-changed`。出現 `glue-drop` 代表你把句子改短了，出現 `glue-rise` 代表可能補過頭，兩種都回頭檢查。
 
-不能執行 Python 時，自己逐項比對改前改後的程式碼、網址、數字與小標。
+Windows 沒有 `python` 指令時改用 `py`。不能執行 Python 時，自己逐項比對改前改後的程式碼、網址、數字與小標。
 
 ## 回報
 

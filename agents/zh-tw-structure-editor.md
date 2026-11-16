@@ -63,7 +63,7 @@ python "${CLAUDE_PLUGIN_ROOT}/skills/zh-tw-prose/scripts/check.py" --compare <�
 - 「消失的」每一項都能對到改動紀錄裡的刪除理由。
 - 出現 `glue-drop` 代表有句子被壓短了，找出那些句子補回完整，再跑一次。
 
-不能執行 Python 時，自己逐項比對改前改後的程式碼、網址與數字。
+Windows 沒有 `python` 指令時改用 `py`。不能執行 Python 時，自己逐項比對改前改後的程式碼、網址與數字。
 
 ## 回報
 
